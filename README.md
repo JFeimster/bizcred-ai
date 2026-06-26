@@ -1,4 +1,4 @@
-# BizCredit Builder GPT — Neobrutalist Landing Page
+# BizCredit Builder AI
 
 A static, launch-ready landing page for **BizCredit Builder GPT**.
 
