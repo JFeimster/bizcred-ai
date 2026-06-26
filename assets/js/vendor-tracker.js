@@ -1,5 +1,4 @@
 import { loadFromStorage, saveToStorage } from './storage.js';
-import { explainVendorPath } from './ai-client.js';
 
 let vendorData = [];
 const statusOptions = [
@@ -13,17 +12,15 @@ const statusOptions = [
 ];
 
 async function initVendorTracker() {
-  injectVendorAiPanel();
-  setupAiVendorPath();
-
   try {
     const response = await fetch('data/credit-vendors.registry.json');
     if (!response.ok) throw new Error('Failed to load vendors');
     vendorData = await response.json();
 
     if (vendorData.length === 0) {
+       // Optional: Render a fallback message in the table if empty
        const tbody = document.getElementById('vendor-table-body');
-       if (tbody) {
+       if(tbody) {
           tbody.innerHTML = '<tr><td colspan="10" style="text-align:center;">No vendor data found. Please see README to add vendor registry.</td></tr>';
        }
        return;
@@ -102,12 +99,14 @@ function renderTable() {
 
   filteredData.forEach(v => {
     const tr = document.createElement('tr');
+
+    // Status Dropdown
     const currentStatus = savedStatuses[v.id] || 'not_started';
     let statusSelect = `<select class="status-select" data-id="${v.id}">`;
     statusOptions.forEach(opt => {
       statusSelect += `<option value="${opt.value}" ${currentStatus === opt.value ? 'selected' : ''}>${opt.label}</option>`;
     });
-    statusSelect += '</select>';
+    statusSelect += `</select>`;
 
     tr.innerHTML = `
       <td><strong>${v.name || 'N/A'}</strong></td>
@@ -124,6 +123,7 @@ function renderTable() {
     tbody.appendChild(tr);
   });
 
+  // Bind events to new select elements
   document.querySelectorAll('.status-select').forEach(select => {
     select.addEventListener('change', (e) => {
       const id = e.target.getAttribute('data-id');
@@ -142,83 +142,16 @@ function setupEventListeners() {
   ];
   filters.forEach(id => {
     const el = document.getElementById(id);
-    if (el) el.addEventListener('input', renderTable);
+    if(el) el.addEventListener('input', renderTable);
   });
 
   ['filter-requires-pg', 'filter-ein-only'].forEach(id => {
     const el = document.getElementById(id);
-    if (el) el.addEventListener('change', renderTable);
+    if(el) el.addEventListener('change', renderTable);
   });
 }
 
-function injectVendorAiPanel() {
-  if (document.getElementById('ai-vendor-path-panel')) return;
-
-  const panel = document.querySelector('.vendors-panel');
-  if (!panel) return;
-
-  const aiPanel = document.createElement('div');
-  aiPanel.id = 'ai-vendor-path-panel';
-  aiPanel.className = 'panel bento-card yellow';
-  aiPanel.style.marginTop = '24px';
-  aiPanel.innerHTML = `
-    <h3>AI Vendor Path Explanation</h3>
-    <p>Generate a safe vendor-path explanation from your local tracker. If AI is unavailable, this creates a copy/paste prompt.</p>
-    <p class="microcopy">Educational planning only. Verify vendor requirements and reporting directly.</p>
-    <div class="hero-actions" style="margin-top: 15px;">
-      <button type="button" class="button button-ink" id="ai-vendor-path-btn">Explain Vendor Path</button>
-    </div>
-    <div class="prompt-output-area" style="margin-top: 15px;">
-      <textarea id="ai-vendor-path-output" rows="9" readonly placeholder="Vendor path explanation or fallback prompt appears here..."></textarea>
-    </div>
-  `;
-
-  panel.appendChild(aiPanel);
-}
-
-function getVendorPathContext() {
-  const statuses = loadFromStorage('VENDORS', {});
-  const trackedVendors = Object.keys(statuses).map((id) => {
-    const vendor = vendorData.find(v => v.id === id);
-    return {
-      id,
-      status: statuses[id],
-      name: vendor?.name || id,
-      tier: vendor?.tier,
-      category: vendor?.category,
-      terms: vendor?.terms,
-      reports_to: vendor?.reports_to,
-      requires_pg: vendor?.requires_pg,
-      ein_only: vendor?.ein_only
-    };
-  });
-
-  return {
-    trackedVendors,
-    availableVendorCount: vendorData.length,
-    sampleVendors: vendorData.slice(0, 20)
-  };
-}
-
-function setupAiVendorPath() {
-  document.getElementById('ai-vendor-path-btn')?.addEventListener('click', async (e) => {
-    const output = document.getElementById('ai-vendor-path-output');
-    const btn = e.target;
-    const oldText = btn.innerText;
-    btn.innerText = 'Generating...';
-    btn.disabled = true;
-
-    const result = await explainVendorPath(getVendorPathContext());
-    output.value = result.text;
-
-    btn.innerText = result.fallback ? 'Fallback Ready' : 'Path Ready';
-    setTimeout(() => {
-      btn.innerText = oldText;
-      btn.disabled = false;
-    }, 1500);
-  });
-}
-
+// Run init if on vendors page
 if (document.getElementById('vendor-table')) {
   initVendorTracker();
 }

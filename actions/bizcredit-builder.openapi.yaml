@@ -2,9 +2,9 @@ openapi: 3.1.0
 info:
   title: BizCredit Builder API
   description: |
-    A lightweight API for vendor, readiness, and optional server-side AI generation data for educational purposes.
-    Disclaimer: Readiness scoring and generated outputs are educational and do not guarantee approvals, funding, bureau reporting, tradelines, score changes, or lender outcomes. Vendor requirements and reporting behavior may change. Verify directly before applying or relying on reporting.
-  version: 1.1.0
+    A lightweight, read-only API to access vendor and readiness planning data for educational purposes.
+    Disclaimer: Readiness scoring is educational and does not guarantee approvals, funding, bureau reporting, tradelines, score changes, or lender outcomes. Vendor requirements and reporting behavior may change. Verify directly before applying or relying on reporting.
+  version: 1.0.0
 servers:
   - url: https://your-production-url.vercel.app
     description: Production server
@@ -29,19 +29,6 @@ paths:
                   version:
                     type: string
 
-  /api/ai-health:
-    get:
-      operationId: getBizCreditAiHealth
-      summary: Check optional AI generation configuration
-      description: Returns whether optional server-side AI generation is configured. This does not expose API keys. For educational planning only and not a guarantee of approvals, funding, reporting, tradelines, score changes, or lender outcomes.
-      responses:
-        '200':
-          description: AI configuration status
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/AiHealthResponse'
-
   /api/vendors:
     get:
       operationId: listBizCreditVendors
@@ -52,7 +39,7 @@ paths:
           in: query
           schema:
             type: integer
-          description: Filter by vendor tier, for example 1, 2, or 3
+          description: Filter by vendor tier (e.g., 1, 2, 3)
         - name: category
           in: query
           schema:
@@ -62,7 +49,7 @@ paths:
           in: query
           schema:
             type: string
-          description: Filter by credit terms, for example Net 30
+          description: Filter by credit terms (e.g., Net 30)
         - name: reports_to
           in: query
           schema:
@@ -87,7 +74,7 @@ paths:
           in: query
           schema:
             type: integer
-          description: Filter vendors by maximum required time in business in months
+          description: Filter vendors by maximum required time in business (months)
         - name: search
           in: query
           schema:
@@ -162,81 +149,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ReadinessRulesResponse'
-
-  /api/generate-readiness-plan:
-    post:
-      operationId: generateBizCreditReadinessPlan
-      summary: Generate an educational readiness plan
-      description: Optional server-side AI endpoint that generates an educational readiness plan from dashboard state. It must not guarantee approvals, funding, bureau reporting, tradelines, score changes, or lender outcomes. Users must verify vendor and lender terms directly.
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/AiGenerationRequest'
-      responses:
-        '200':
-          description: AI readiness plan response
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/AiReadinessPlanResponse'
-        '503':
-          description: AI is unavailable or not configured; fallback prompt returned
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/AiFallbackResponse'
-
-  /api/explain-vendor-path:
-    post:
-      operationId: explainBizCreditVendorPath
-      summary: Explain an educational vendor path
-      description: Optional server-side AI endpoint that explains vendor sequence and tracker status for educational planning. It must not guarantee approvals, bureau reporting, tradelines, funding, score changes, or lender outcomes.
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/AiGenerationRequest'
-      responses:
-        '200':
-          description: AI vendor path explanation response
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/AiVendorPathResponse'
-        '503':
-          description: AI is unavailable or not configured; fallback prompt returned
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/AiFallbackResponse'
-
-  /api/generate-gpt-prompt:
-    post:
-      operationId: generateBizCreditGptPrompt
-      summary: Generate a BizCredit Builder GPT prompt
-      description: Optional server-side AI endpoint that generates a copy/paste prompt for BizCredit Builder GPT from dashboard state. It must remain educational and avoid guarantees or credit repair framing.
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/AiGenerationRequest'
-      responses:
-        '200':
-          description: AI generated GPT prompt response
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/AiGptPromptResponse'
-        '503':
-          description: AI is unavailable or not configured; fallback prompt returned
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/AiFallbackResponse'
 
 components:
   schemas:
@@ -339,104 +251,6 @@ components:
       required:
         - setup_tasks
         - readiness_rules
-        - disclaimer
-
-    AiHealthResponse:
-      type: object
-      properties:
-        ok:
-          type: boolean
-        service:
-          type: string
-        aiConfigured:
-          type: boolean
-        model:
-          type:
-            - string
-            - 'null'
-        disclaimer:
-          type: string
-      required:
-        - ok
-        - aiConfigured
-        - disclaimer
-
-    AiGenerationRequest:
-      type: object
-      description: Dashboard, vendor, profile, or tracker state used for educational generation.
-      additionalProperties: true
-
-    AiReadinessPlanResponse:
-      type: object
-      properties:
-        ok:
-          type: boolean
-        source:
-          type: string
-        model:
-          type: string
-        plan:
-          type: string
-        disclaimer:
-          type: string
-      required:
-        - ok
-        - plan
-        - disclaimer
-
-    AiVendorPathResponse:
-      type: object
-      properties:
-        ok:
-          type: boolean
-        source:
-          type: string
-        model:
-          type: string
-        explanation:
-          type: string
-        disclaimer:
-          type: string
-      required:
-        - ok
-        - explanation
-        - disclaimer
-
-    AiGptPromptResponse:
-      type: object
-      properties:
-        ok:
-          type: boolean
-        source:
-          type: string
-        model:
-          type: string
-        prompt:
-          type: string
-        disclaimer:
-          type: string
-      required:
-        - ok
-        - prompt
-        - disclaimer
-
-    AiFallbackResponse:
-      type: object
-      properties:
-        ok:
-          type: boolean
-        fallback:
-          type: boolean
-        error:
-          type: string
-        fallbackPrompt:
-          type: string
-        disclaimer:
-          type: string
-      required:
-        - ok
-        - fallback
-        - fallbackPrompt
         - disclaimer
 
     ErrorResponse:

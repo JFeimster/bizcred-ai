@@ -2,24 +2,16 @@
 
 ## Current Default
 
-Automatic Git deployments are disabled for this repository to avoid burning preview deployments on every branch commit.
-
-The root `vercel.json` uses Vercel's documented full deployment kill switch:
-
-```json
-{
-  "$schema": "https://openapi.vercel.sh/vercel.json",
-  "git": {
-    "deploymentEnabled": false
-  }
-}
-```
-
-This blocks automatic Git-triggered deployments for both production and preview branches.
+By default, automatic Git deployments are disabled for this repository to avoid burning through Vercel's free preview deploy limits when merging various branches. Both `main` and all preview branches (`*`) have their deployments set to `false` in the root `vercel.json` file.
 
 ## How to Temporarily Enable Production Deploys
 
-If you need to deploy the `main` branch to production, temporarily replace the kill switch with this branch map:
+If you need to deploy the `main` branch to production:
+
+1. Open `vercel.json` in the repository root.
+2. Change `"main": false` to `"main": true`.
+3. Commit and push the change to `main`. This will trigger the production deploy.
+4. **Crucial:** After the production deploy successfully completes, change `"main": true` back to `"main": false`, and commit/push again.
 
 ```json
 {
@@ -33,27 +25,8 @@ If you need to deploy the `main` branch to production, temporarily replace the k
 }
 ```
 
-Then:
-
-1. Commit and push that temporary change to `main`.
-2. Confirm the production deploy completes.
-3. Immediately restore the full kill switch:
-
-```json
-{
-  "$schema": "https://openapi.vercel.sh/vercel.json",
-  "git": {
-    "deploymentEnabled": false
-  }
-}
-```
-
-4. Commit and push the lockout restore.
-
-## Preview Deployments
-
-Preview branches should remain disabled. Do not change `"*": false` unless you are intentionally opening a controlled preview window.
+Preview branches (`*`) should remain disabled unless deliberately changed for testing.
 
 ## Manual Deployments
 
-Disabling Git-triggered deployments does not remove your ability to manually trigger a deployment from the Vercel dashboard or Vercel CLI. Manual deployments should be used only during controlled deployment windows.
+Disabling Git-triggered deployments does not remove your ability to manually trigger a deployment. You can still go into the Vercel dashboard and manually deploy any branch if needed.
