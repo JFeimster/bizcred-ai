@@ -1,0 +1,11 @@
+label { display: grid; gap: 7px; font-weight: 800; }
+input, select { width: 100%; border: 2px solid var(--ink); background: white; padding: 11px 12px; border-radius: 10px; }
+.form-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; }
+.form-row { display: flex; gap: 12px; align-items: end; }
+.wide-field { grid-column: 1 / -1; }
+.checkbox-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px; }
+.checkbox-line { display: flex; align-items: center; gap: 10px; border: 2px solid var(--ink); padding: 12px; background: white; }
+.checkbox-line input { width: auto; }
+.neo-button { border: var(--border); background: var(--acid); box-shadow: 5px 5px 0 var(--ink); border-radius: 999px; padding: 12px 18px; font-weight: 900; text-transform: uppercase; }
+.neo-button:hover { transform: translate(-2px, -2px); box-shadow: 7px 7px 0 var(--ink); }
+@media (max-width: 720px) { .form-grid, .form-row { grid-template-columns: 1fr; display: grid; } }

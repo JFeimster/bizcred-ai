@@ -1,0 +1,14 @@
+[
+  {
+    "id": "phase_1_foundation",
+    "phase": 1,
+    "title": "Foundation",
+    "description": "Establish legal, banking, and business identity basics before vendor research.",
+    "recommendedActions": [
+      "Confirm entity details.",
+      "Confirm EIN and business bank account.",
+      "Document business contact and web presence."
+    ],
+    "cautionNote": "Educational planning only. Verify requirements directly."
+  }
+]

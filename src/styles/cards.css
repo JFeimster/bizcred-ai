@@ -1,0 +1,10 @@
+.card-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 20px; }
+.two-column-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px; }
+.brutal-card { border: var(--border); box-shadow: var(--shadow); border-radius: var(--radius); background: var(--paper); padding: 22px; }
+.accent-acid { background: var(--acid); }
+.accent-yellow { background: var(--yellow); }
+.accent-cyan { background: var(--cyan); }
+.metric-label { display: block; font-weight: 900; text-transform: uppercase; font-size: .78rem; }
+.metric-value { display: block; font-size: 3rem; line-height: 1; margin: 8px 0; }
+.card-topline { display: flex; justify-content: space-between; align-items: center; gap: 10px; margin-bottom: 10px; }
+@media (max-width: 860px) { .two-column-grid { grid-template-columns: 1fr; } }
