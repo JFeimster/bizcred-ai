@@ -13,7 +13,7 @@ paths:
     get:
       operationId: getBizCreditApiHealth
       summary: Health check endpoint
-      description: Returns the health status of the API service.
+      description: Returns the health status of the API service. For educational use only. No guarantees for approvals, funding, reporting, tradelines, or score changes. Users must verify vendor terms and reporting directly before applying.
       responses:
         '200':
           description: Successful health check response
@@ -33,7 +33,7 @@ paths:
     get:
       operationId: listBizCreditVendors
       summary: List and filter vendors
-      description: Returns a filtered list of vendors for educational planning. Vendor requirements and reporting behavior may change. Verify directly before applying or relying on reporting.
+      description: Returns a filtered list of vendors for educational planning. For educational use only. No guarantees for approvals, funding, reporting, tradelines, or score changes. Users must verify vendor terms and reporting directly before applying.
       parameters:
         - name: tier
           in: query
@@ -97,7 +97,7 @@ paths:
     get:
       operationId: getBizCreditVendorById
       summary: Get a specific vendor by ID
-      description: Returns detailed information for a single vendor by ID. Verify terms directly before applying.
+      description: Returns detailed information for a single vendor by ID. For educational use only. No guarantees for approvals, funding, reporting, tradelines, or score changes. Users must verify vendor terms and reporting directly before applying.
       parameters:
         - name: id
           in: query
@@ -128,7 +128,7 @@ paths:
     get:
       operationId: getBizCreditVendorSummary
       summary: Get summary statistics for vendors
-      description: Returns aggregated counts and statistics of available vendors for educational context.
+      description: Returns aggregated counts and statistics of available vendors for educational context. For educational use only. No guarantees for approvals, funding, reporting, tradelines, or score changes. Users must verify vendor terms and reporting directly before applying.
       responses:
         '200':
           description: Successful response with vendor summary data
@@ -141,7 +141,7 @@ paths:
     get:
       operationId: getBizCreditReadinessRules
       summary: Get readiness scoring rules and setup tasks
-      description: Returns the criteria used for educational readiness scoring and the list of setup tasks. This does not guarantee credit approvals or funding.
+      description: Returns the criteria used for educational readiness scoring and the list of setup tasks. For educational use only. No guarantees for approvals, funding, reporting, tradelines, or score changes. Users must verify vendor terms and reporting directly before applying.
       responses:
         '200':
           description: Successful response with readiness rules and setup tasks
