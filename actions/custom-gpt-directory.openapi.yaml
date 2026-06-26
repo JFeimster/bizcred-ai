@@ -1,0 +1,59 @@
+openapi: 3.1.0
+info:
+  title: BizCredit Custom GPT Directory API
+  version: 1.0.0
+  description: Read-only Custom GPT directory API for educational planning. No outcome guarantees. Verify access URLs and tool fit directly.
+servers:
+  - url: https://your-production-url.vercel.app
+    description: Production server
+paths:
+  /api/gpt-directory:
+    get:
+      operationId: listBizCreditCustomGpts
+      summary: List and filter Custom GPT directory records
+      description: Returns public Custom GPT records for educational planning only. This endpoint is read-only.
+      parameters:
+        - name: search
+          in: query
+          schema:
+            type: string
+        - name: recommended_stage
+          in: query
+          schema:
+            type: string
+        - name: keyword
+          in: query
+          schema:
+            type: string
+        - name: category
+          in: query
+          schema:
+            type: string
+        - name: has_access_url
+          in: query
+          schema:
+            type: boolean
+        - name: limit
+          in: query
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Custom GPT directory response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      type: object
+                  meta:
+                    type: object
+                  disclaimer:
+                    type: string
+        '405':
+          description: Method not allowed
+        '500':
+          description: Internal server error
