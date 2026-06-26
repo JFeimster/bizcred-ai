@@ -1,0 +1,67 @@
+openapi: 3.1.0
+info:
+  title: BizCredit Funding Tools API
+  version: 1.0.0
+  description: Read-only funding tools directory API for educational planning. No outcome guarantees. Verify details directly.
+servers:
+  - url: https://your-production-url.vercel.app
+    description: Production server
+paths:
+  /api/funding-tools:
+    get:
+      operationId: listBizCreditFundingTools
+      summary: List and filter funding tools
+      description: Returns public funding tool records for educational planning only. This endpoint is read-only.
+      parameters:
+        - name: search
+          in: query
+          schema:
+            type: string
+        - name: persona
+          in: query
+          schema:
+            type: string
+        - name: problem_keyword
+          in: query
+          schema:
+            type: string
+        - name: asset_type
+          in: query
+          schema:
+            type: string
+        - name: build_state
+          in: query
+          schema:
+            type: string
+        - name: status
+          in: query
+          schema:
+            type: string
+        - name: partner_channel
+          in: query
+          schema:
+            type: string
+        - name: limit
+          in: query
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Funding tools response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      type: object
+                  meta:
+                    type: object
+                  disclaimer:
+                    type: string
+        '405':
+          description: Method not allowed
+        '500':
+          description: Internal server error
