@@ -1,0 +1,24 @@
+[
+  {
+    "id": "credit-score-vs-cash-flow-analyzer",
+    "name": "Credit Score vs Cash Flow Analyzer",
+    "slug": "credit-score-vs-cash-flow-analyzer",
+    "category": "Funding Readiness",
+    "description": "Educational tool concept for comparing credit-profile and cash-flow readiness signals.",
+    "inputFields": ["creditScoreRange", "monthlyRevenueRange", "timeInBusiness", "primaryGoal"],
+    "outputTypes": ["readinessSummary", "gapList", "nextSteps"],
+    "authMode": "none",
+    "status": "planned"
+  },
+  {
+    "id": "vendor-readiness-checklist",
+    "name": "Vendor Readiness Checklist",
+    "slug": "vendor-readiness-checklist",
+    "category": "Business Credit Setup",
+    "description": "Checklist for reviewing business setup before researching vendor accounts.",
+    "inputFields": ["entityType", "formationDate", "hasEin", "hasBankAccount", "hasDuns"],
+    "outputTypes": ["checklist", "missingSignals", "cautionNotes"],
+    "authMode": "none",
+    "status": "planned"
+  }
+]
