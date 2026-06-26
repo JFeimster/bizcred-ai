@@ -1,63 +1,72 @@
-import { STORAGE_KEYS, type StorageKey } from './storageKeys';
+import { STORAGE_KEYS, StorageKey } from './storageKeys';
+import { STORAGE_DEFAULTS } from './storageDefaults';
 
-export function readLocal<T>(key: string, fallback: T): T {
+export function readLocal<T>(key: StorageKey, fallback?: T): T {
   try {
-    const raw = window.localStorage.getItem(key);
-    return raw ? (JSON.parse(raw) as T) : fallback;
-  } catch {
-    return fallback;
+    const item = window.localStorage.getItem(key);
+    if (item === null) {
+      return fallback !== undefined ? fallback : STORAGE_DEFAULTS[key] as T;
+    }
+    return JSON.parse(item) as T;
+  } catch (error) {
+    console.warn(`Error reading localStorage key "${key}":`, error);
+    return fallback !== undefined ? fallback : STORAGE_DEFAULTS[key] as T;
   }
 }
 
-export function writeLocal<T>(key: string, value: T): void {
+export function writeLocal<T>(key: StorageKey, value: T): void {
   try {
     window.localStorage.setItem(key, JSON.stringify(value));
-  } catch {
-    // Keep UI safe if storage is unavailable.
+  } catch (error) {
+    console.warn(`Error writing to localStorage key "${key}":`, error);
   }
 }
 
-export function removeLocal(key: string): void {
+export function removeLocal(key: StorageKey): void {
   try {
     window.localStorage.removeItem(key);
-  } catch {
-    // Keep UI safe if storage is unavailable.
+  } catch (error) {
+    console.warn(`Error removing localStorage key "${key}":`, error);
   }
 }
 
 export function exportLocalState(): string {
-  const state: Record<string, unknown> = {};
-
   try {
+    const state: Record<string, any> = {};
     for (const key of Object.values(STORAGE_KEYS)) {
-      const raw = window.localStorage.getItem(key);
-      if (raw !== null) {
-        state[key] = JSON.parse(raw);
+      const item = window.localStorage.getItem(key);
+      if (item !== null) {
+        state[key] = JSON.parse(item);
       }
     }
-  } catch {
+    return JSON.stringify(state, null, 2);
+  } catch (error) {
+    console.error('Failed to export local state', error);
     return '{}';
   }
-
-  return JSON.stringify(state, null, 2);
 }
 
 export function importLocalState(payload: string): boolean {
   try {
-    const parsed = JSON.parse(payload) as Partial<Record<StorageKey, unknown>>;
+    const state = JSON.parse(payload);
     for (const key of Object.values(STORAGE_KEYS)) {
-      if (Object.prototype.hasOwnProperty.call(parsed, key)) {
-        writeLocal(key, parsed[key]);
+      if (state[key] !== undefined) {
+        writeLocal(key, state[key]);
       }
     }
     return true;
-  } catch {
+  } catch (error) {
+    console.error('Failed to import local state', error);
     return false;
   }
 }
 
 export function resetLocalState(): void {
-  for (const key of Object.values(STORAGE_KEYS)) {
-    removeLocal(key);
+  try {
+    for (const key of Object.values(STORAGE_KEYS)) {
+      removeLocal(key);
+    }
+  } catch (error) {
+    console.error('Failed to reset local state', error);
   }
 }

@@ -1,5 +1,0 @@
-.alert { border: 2px solid var(--ink); padding: 12px; margin: 10px 0; background: white; }
-.alert.info { background: var(--cyan); }
-.alert.warning { background: var(--yellow); }
-.alert.danger { background: var(--red); color: white; }
-.alert p { margin: 6px 0 0; }

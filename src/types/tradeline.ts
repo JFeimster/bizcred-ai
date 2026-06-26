@@ -1,17 +1,12 @@
-export type TradelineStatus = 'researching' | 'ready_to_apply' | 'planned' | 'applied' | 'approved' | 'denied' | 'first_purchase' | 'paid' | 'reporting' | 'reporting_confirmed' | 'closed';
+export type TradelineStatus = 'planned' | 'applied' | 'approved' | 'denied' | 'reporting' | 'closed';
 
 export interface Tradeline {
   id: string;
-  vendorName: string;
-  accountType: string;
-  tier: number;
+  vendor_id: string;
   status: TradelineStatus;
-  limitAmount: number;
-  balanceAmount: number;
-  reportsTo: string[];
-  notes: string;
-
-  vendorId?: string;
-  dateOpened?: string;
-  lastReported?: string;
+  credit_limit?: number;
+  current_balance?: number;
+  date_opened?: string;
+  last_reported?: string;
+  notes?: string;
 }

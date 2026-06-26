@@ -1,19 +1,19 @@
 {
-  "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://bizcred-ai.local/schemas/tradeline.schema.json",
+  "$schema": "http://json-schema.org/draft-07/schema#",
   "title": "Tradeline",
   "type": "object",
-  "required": ["id", "vendorName", "accountType", "tier", "status", "reportsTo", "notes"],
   "properties": {
     "id": { "type": "string" },
-    "vendorName": { "type": "string" },
-    "accountType": { "type": "string" },
-    "tier": { "type": "integer", "minimum": 1 },
-    "status": { "type": "string" },
-    "limitAmount": { "type": "number" },
-    "balanceAmount": { "type": "number" },
-    "reportsTo": { "type": "array", "items": { "type": "string" } },
+    "vendor_id": { "type": "string" },
+    "status": {
+      "type": "string",
+      "enum": ["planned", "applied", "approved", "denied", "reporting", "closed"]
+    },
+    "credit_limit": { "type": "number" },
+    "current_balance": { "type": "number" },
+    "date_opened": { "type": "string" },
+    "last_reported": { "type": "string" },
     "notes": { "type": "string" }
   },
-  "additionalProperties": true
+  "required": ["id", "vendor_id", "status"]
 }

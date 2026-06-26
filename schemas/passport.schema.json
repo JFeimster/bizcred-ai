@@ -1,17 +1,31 @@
 {
-  "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://bizcred-ai.local/schemas/passport.schema.json",
+  "$schema": "http://json-schema.org/draft-07/schema#",
   "title": "Passport",
   "type": "object",
-  "required": ["id", "foundationScore", "vendorReadinessScore", "fundingReadinessScore", "milestones", "updatedAt"],
   "properties": {
     "id": { "type": "string" },
-    "businessProfileId": { "type": "string" },
-    "foundationScore": { "type": "number" },
-    "vendorReadinessScore": { "type": "number" },
-    "fundingReadinessScore": { "type": "number" },
-    "milestones": { "type": "array", "items": { "type": "object" } },
-    "updatedAt": { "type": "string" }
+    "profile_id": { "type": "string" },
+    "scores": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "score": { "type": "number" },
+          "provider": {
+            "type": "string",
+            "enum": ["DNB", "Experian", "Equifax", "FICO_SBSS", "Other"]
+          },
+          "date_pulled": { "type": "string" }
+        },
+        "required": ["score", "provider", "date_pulled"]
+      }
+    },
+    "data_completeness_percentage": { "type": "number" },
+    "fundability_status": {
+      "type": "string",
+      "enum": ["poor", "fair", "good", "excellent"]
+    },
+    "last_updated": { "type": "string" }
   },
-  "additionalProperties": true
+  "required": ["id", "profile_id", "scores", "data_completeness_percentage", "fundability_status", "last_updated"]
 }

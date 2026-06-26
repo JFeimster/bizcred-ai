@@ -1,25 +1,35 @@
 {
-  "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://bizcred-ai.local/schemas/roadmap.schema.json",
+  "$schema": "http://json-schema.org/draft-07/schema#",
   "title": "Roadmap",
   "type": "object",
-  "required": ["id", "items"],
   "properties": {
     "id": { "type": "string" },
     "items": {
       "type": "array",
       "items": {
         "type": "object",
-        "required": ["id", "phase", "title", "description", "isComplete"],
         "properties": {
           "id": { "type": "string" },
-          "phase": { "type": "string" },
           "title": { "type": "string" },
           "description": { "type": "string" },
-          "isComplete": { "type": "boolean" }
-        }
+          "status": {
+            "type": "string",
+            "enum": ["todo", "in_progress", "done", "skipped"]
+          },
+          "due_date": { "type": "string" },
+          "completed_date": { "type": "string" },
+          "priority": {
+            "type": "string",
+            "enum": ["low", "medium", "high"]
+          },
+          "category": {
+            "type": "string",
+            "enum": ["setup", "credit_building", "funding", "compliance", "other"]
+          }
+        },
+        "required": ["id", "title", "description", "status", "priority", "category"]
       }
     }
   },
-  "additionalProperties": true
+  "required": ["id", "items"]
 }

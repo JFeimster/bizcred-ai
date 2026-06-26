@@ -1,10 +1,10 @@
-[
-  {
-    "id": "bizcredit-builder-gpt-page",
-    "name": "BizCredit Builder GPT",
-    "url": "https://feimster.notion.site/bizcredit-builder-gpt",
-    "objectType": "page",
-    "mappedRegistry": "custom-gpts",
-    "notes": "Source reference for page, file, action, and tool planning."
-  }
-]
+{
+  "templates": [
+    {
+      "id": "bizcredit-os-v1",
+      "name": "BizCredit OS Starter",
+      "url": "https://notion.so/template-bizcredit-os-v1",
+      "description": "The base template for tracking tradelines and business profile."
+    }
+  ]
+}

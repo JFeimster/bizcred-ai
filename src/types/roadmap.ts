@@ -1,14 +1,17 @@
-export interface RoadmapStep {
+export type RoadmapItemStatus = 'todo' | 'in_progress' | 'done' | 'skipped';
+
+export interface RoadmapItem {
   id: string;
-  phase: string;
   title: string;
   description: string;
-  isComplete: boolean;
+  status: RoadmapItemStatus;
+  due_date?: string;
+  completed_date?: string;
+  priority: 'low' | 'medium' | 'high';
+  category: 'setup' | 'credit_building' | 'funding' | 'compliance' | 'other';
 }
 
 export interface Roadmap {
   id: string;
-  items: RoadmapStep[];
-  createdAt?: string;
-  updatedAt?: string;
+  items: RoadmapItem[];
 }

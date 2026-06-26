@@ -1,19 +1,25 @@
 {
-  "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://bizcred-ai.local/schemas/funding-tools.schema.json",
-  "title": "FundingToolRegistryEntry",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "FundingTool",
   "type": "object",
-  "required": ["id", "name", "slug", "category", "description", "inputFields", "outputTypes", "authMode", "status"],
   "properties": {
     "id": { "type": "string" },
     "name": { "type": "string" },
-    "slug": { "type": "string" },
-    "category": { "type": "string" },
+    "type": {
+      "type": "string",
+      "enum": ["loan", "line_of_credit", "credit_card", "grant", "other"]
+    },
+    "provider": { "type": "string" },
+    "max_amount": { "type": "number" },
+    "min_credit_score": { "type": "number" },
+    "min_months_in_business": { "type": "number" },
+    "min_monthly_revenue": { "type": "number" },
+    "requires_pg": { "type": "boolean" },
     "description": { "type": "string" },
-    "inputFields": { "type": "array", "items": { "type": "string" } },
-    "outputTypes": { "type": "array", "items": { "type": "string" } },
-    "authMode": { "enum": ["none", "api_key", "oauth"] },
-    "status": { "enum": ["planned", "active", "archived"] }
+    "verification_status": {
+      "type": "string",
+      "enum": ["unverified", "needs_review", "verified", "deprecated"]
+    }
   },
-  "additionalProperties": false
+  "required": ["id", "name", "type", "provider", "requires_pg", "description", "verification_status"]
 }

@@ -1,19 +1,19 @@
 {
-  "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://bizcred-ai.local/schemas/import-job.schema.json",
+  "$schema": "http://json-schema.org/draft-07/schema#",
   "title": "ImportJob",
   "type": "object",
-  "required": ["id", "sourceType", "targetRegistry", "status", "createdAt"],
   "properties": {
     "id": { "type": "string" },
-    "sourceType": { "enum": ["csv", "json", "xlsx", "markdown", "pdf", "manual"] },
-    "targetRegistry": { "type": "string" },
-    "status": { "enum": ["queued", "processing", "complete", "failed"] },
-    "createdAt": { "type": "string" },
-    "completedAt": { "type": "string" },
-    "recordsTotal": { "type": "integer" },
-    "recordsImported": { "type": "integer" },
-    "errors": { "type": "array", "items": { "type": "string" } }
+    "source": { "type": "string" },
+    "status": {
+      "type": "string",
+      "enum": ["pending", "processing", "completed", "failed"]
+    },
+    "started_at": { "type": "string" },
+    "completed_at": { "type": "string" },
+    "records_processed": { "type": "number" },
+    "records_failed": { "type": "number" },
+    "error_message": { "type": "string" }
   },
-  "additionalProperties": false
+  "required": ["id", "source", "status", "started_at", "records_processed", "records_failed"]
 }

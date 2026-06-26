@@ -1,39 +1,38 @@
-# Data Model
+# BizCredit OS Template Bridge - Data Model
 
-This repository now has two related data layers:
+This document outlines the core domain models powering the BizCredit OS local-first template bridge.
+All data models exist exclusively within the browser (`localStorage`) and sync to the user's Notion workspace or are exported as JSON.
 
-1. **UI state contracts** used by the local-first React app.
-2. **Normalized registry contracts** used for vendors, GPTs, tools, Notion sources, schemas, and future imports.
+## Core Models
 
-## UI State Contracts
+### `BusinessProfile`
+The canonical representation of the user's business entity.
+- **Fields:** `legal_name`, `ein`, `entity_type`, `address`, `naics_code`, etc.
+- **Purpose:** Acts as the root data required to match against vendor and funding requirements.
 
-Primary UI state lives in `src/types/` and browser localStorage.
+### `Passport`
+A summarized "health score" of the business profile.
+- **Fields:** `scores` (DNB, Experian, etc.), `data_completeness_percentage`, `fundability_status`.
+- **Purpose:** Tracks the progression of the business toward prime funding readiness.
 
-- `BusinessProfile` — local business setup/readiness profile.
-- `Tradeline` — local vendor/tradeline planner row.
-- `ReadinessAlert` — local dashboard alert.
-- `Roadmap` / `RoadmapStep` — local roadmap state.
-- `ImportJob` — local import attempt metadata.
-- `Passport` — reserved summary object for future BizCredit Passport views.
+### `Vendor`
+An institutional creditor, supplier, or service that extends business credit.
+- **Fields:** `tier`, `reports_to`, `terms`, `requires_pg`, `verification_status`.
+- **Purpose:** A read-only directory item sourced from `data/vendors/net30-vendors.normalized.json`. *Verification status defaults to `needs_review`.*
 
-## Normalized Registry Data
+### `Tradeline`
+A user-specific instance of a credit relationship with a `Vendor`.
+- **Fields:** `vendor_id`, `status` (planned, applied, approved, etc.), `credit_limit`.
+- **Purpose:** Tracks the active credit building journey.
 
-Normalized data lives in `data/`:
+### `FundingTool` & `CustomGpt`
+Directories for actionable next steps once the profile is built.
 
-- `data/vendors/net30-vendors.normalized.json`
-- `data/gpts/custom-gpts.normalized.json`
-- `data/tools/funding-tools.normalized.json`
-- `data/notion/notion-template-sources.json`
+### `Roadmap` & `RoadmapItem`
+Actionable steps generated from the AI analysis of the user's profile and passport.
 
-JSON schemas live in `schemas/` and should be used as the target contract for imports and future registry expansion.
+### `ImportJob`
+Tracks the status and history of pulling data from legacy systems or external APIs.
 
-## Safety Rules
-
-- Educational planning only.
-- No approval guarantees.
-- No funding guarantees.
-- No bureau reporting guarantees.
-- No tradeline guarantees.
-- No score-change guarantees.
-- No credit repair framing.
-- Vendor requirements, fees, terms, and reporting must be verified directly.
+## Verification Status
+To protect users and maintain data integrity, all external directory entities (Vendors, Funding Tools, Custom GPTs) include a mandatory `verification_status` field (`unverified` | `needs_review` | `verified` | `deprecated`).

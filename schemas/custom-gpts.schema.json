@@ -1,18 +1,20 @@
 {
-  "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://bizcred-ai.local/schemas/custom-gpts.schema.json",
-  "title": "CustomGptRegistryEntry",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "CustomGpt",
   "type": "object",
-  "required": ["id", "name", "category", "audience", "description", "useCases", "status"],
   "properties": {
     "id": { "type": "string" },
     "name": { "type": "string" },
-    "url": { "type": "string" },
-    "category": { "type": "string" },
-    "audience": { "type": "array", "items": { "type": "string" } },
     "description": { "type": "string" },
-    "useCases": { "type": "array", "items": { "type": "string" } },
-    "status": { "enum": ["draft", "published", "archived"] }
+    "url": { "type": "string" },
+    "category": {
+      "type": "string",
+      "enum": ["planning", "analysis", "funding", "legal", "other"]
+    },
+    "verification_status": {
+      "type": "string",
+      "enum": ["unverified", "needs_review", "verified", "deprecated"]
+    }
   },
-  "additionalProperties": false
+  "required": ["id", "name", "description", "url", "category", "verification_status"]
 }

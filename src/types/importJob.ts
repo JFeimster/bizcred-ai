@@ -1,13 +1,12 @@
-export type ImportJobStatus = 'queued' | 'processing' | 'complete' | 'failed';
+export type ImportJobStatus = 'pending' | 'processing' | 'completed' | 'failed';
 
 export interface ImportJob {
   id: string;
-  sourceType: 'csv' | 'json' | 'xlsx' | 'markdown' | 'pdf' | 'manual';
-  targetRegistry: string;
+  source: string;
   status: ImportJobStatus;
-  createdAt: string;
-  completedAt?: string;
-  recordsTotal?: number;
-  recordsImported?: number;
-  errors?: string[];
+  started_at: string;
+  completed_at?: string;
+  records_processed: number;
+  records_failed: number;
+  error_message?: string;
 }

@@ -1,34 +1,26 @@
-# LocalStorage Spec
+# LocalStorage Specification
 
-The React app layer is local-first. It stores user-entered planning data in the browser only.
+The BizCredit OS relies strictly on browser `localStorage` for state persistence. There is no backend database.
 
-## Keys
+## Key Namespace
+All keys operate under the `bizcredit.v1.*` namespace to allow for future migrations.
 
-- `bizcredit.v1.profile` — business setup/readiness profile.
-- `bizcredit.v1.passport` — reserved BizCredit Passport summary object.
-- `bizcredit.v1.tradelines` — saved vendor/tradeline planner items.
-- `bizcredit.v1.roadmap` — roadmap snapshot or generated roadmap state.
-- `bizcredit.v1.alerts` — local readiness alerts.
-- `bizcredit.v1.importJobs` — local import job history.
-- `bizcredit.v1.settings` — reserved for future local UI settings.
+| Key | TypeScript Type | Description |
+| :--- | :--- | :--- |
+| `bizcredit.v1.profile` | `BusinessProfile` | The core entity data (EIN, address, etc). |
+| `bizcredit.v1.passport` | `Passport` | The summarized fundability and score tracking. |
+| `bizcredit.v1.tradelines` | `Tradeline[]` | The user's specific vendor credit lines. |
+| `bizcredit.v1.roadmap` | `Roadmap` | Step-by-step tasks for the user. |
+| `bizcredit.v1.alerts` | `Alert[]` | System or AI-driven notifications. |
+| `bizcredit.v1.importJobs` | `ImportJob[]` | History of data imports. |
+| `bizcredit.v1.settings` | `Record<string, any>` | App settings, Notion integrations, etc. |
 
-## Helpers
+## Storage Client API
+The `localStorageClient.ts` provides a safe wrapper around the native browser API. It **never throws errors into the UI**, catching serialization and quota errors gracefully.
 
-`src/storage/localStorageClient.ts` exposes:
-
-- `readLocal(key, fallback)`
-- `writeLocal(key, value)`
-- `removeLocal(key)`
-- `exportLocalState()`
-- `importLocalState(payload)`
-- `resetLocalState()`
-
-Storage helpers must never throw into the UI.
-
-## Privacy posture
-
-No backend writes, auth, analytics, or user tracking are required for this local-first layer.
-
-## Safety posture
-
-Stored data is used for educational readiness planning only. It does not imply approvals, funding, bureau reporting, tradelines, score changes, or lender outcomes. Vendor requirements and reporting should be verified directly.
+- `readLocal<T>(key, fallback?)`: Reads and parses a key, falling back to safe defaults defined in `storageDefaults.ts`.
+- `writeLocal<T>(key, value)`: Safely stringifies and writes to local storage.
+- `removeLocal(key)`: Deletes a specific key.
+- `exportLocalState()`: Dumps all `bizcredit.v1.*` keys into a single formatted JSON string for backup.
+- `importLocalState(payload)`: Safely parses a JSON backup and restores keys.
+- `resetLocalState()`: Wipes all `bizcredit.v1.*` keys (Factory Reset).

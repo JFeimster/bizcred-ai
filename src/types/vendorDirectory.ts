@@ -1,15 +1,16 @@
-export interface VendorDirectoryEntry {
+export type VerificationStatus = 'unverified' | 'needs_review' | 'verified' | 'deprecated';
+
+export interface Vendor {
   id: string;
-  slug: string;
   name: string;
-  category: string;
   tier: number;
-  terms?: string;
-  reportsTo: string[];
-  startupFriendly: boolean;
-  requiresDuns?: boolean;
-  requiresBankAccount?: boolean;
-  hasFees?: boolean;
-  verificationStatus: 'needs_review' | 'verified' | 'unverified';
-  cautionNote: string;
+  category: string;
+  reports_to: string[];
+  dnb_reporter: boolean;
+  terms: string;
+  requires_pg: boolean;
+  ein_only: boolean;
+  min_time_in_business_months: number;
+  approval_notes: string;
+  verification_status: VerificationStatus;
 }

@@ -1,32 +1,731 @@
 [
   {
     "id": "uline",
-    "slug": "uline",
     "name": "Uline",
-    "category": "Office / Supplies",
     "tier": 1,
-    "terms": "Net 30",
-    "reportsTo": ["D&B"],
-    "startupFriendly": true,
-    "requiresDuns": false,
-    "requiresBankAccount": true,
-    "hasFees": false,
-    "verificationStatus": "needs_review",
-    "cautionNote": "Verify requirements, fees, terms, and reporting directly before relying on this vendor."
+    "category": "Office & Business Supplies",
+    "reports_to": [
+      "DNB",
+      "Experian"
+    ],
+    "dnb_reporter": true,
+    "terms": "net-30",
+    "requires_pg": false,
+    "ein_only": true,
+    "min_time_in_business_months": 0,
+    "approval_notes": "Often approves new businesses with prepaid orders; apply for Net 30 after 1-2 months.",
+    "verification_status": "needs_review"
   },
   {
     "id": "quill",
-    "slug": "quill",
     "name": "Quill",
-    "category": "Office / Supplies",
     "tier": 1,
-    "terms": "Net 30",
-    "reportsTo": ["D&B"],
-    "startupFriendly": true,
-    "requiresDuns": false,
-    "requiresBankAccount": true,
-    "hasFees": false,
-    "verificationStatus": "needs_review",
-    "cautionNote": "Verify requirements, fees, terms, and reporting directly before relying on this vendor."
+    "category": "Office & Business Supplies",
+    "reports_to": [
+      "DNB"
+    ],
+    "dnb_reporter": true,
+    "terms": "net-30",
+    "requires_pg": false,
+    "ein_only": true,
+    "min_time_in_business_months": 0,
+    "approval_notes": "Net 30 usually granted after 2-3 prepaid orders ($50-$100).",
+    "verification_status": "needs_review"
+  },
+  {
+    "id": "grainger",
+    "name": "Grainger",
+    "tier": 1,
+    "category": "Industrial & Maintenance",
+    "reports_to": [
+      "DNB"
+    ],
+    "dnb_reporter": true,
+    "terms": "net-30",
+    "requires_pg": false,
+    "ein_only": true,
+    "min_time_in_business_months": 0,
+    "approval_notes": "Requires business license and EIN; often grants Net 30 after verification. Add after 2-3 accounts reporting.",
+    "verification_status": "needs_review"
+  },
+  {
+    "id": "summa-office-supplies",
+    "name": "Summa Office Supplies",
+    "tier": 1,
+    "category": "Office & Business Supplies",
+    "reports_to": [
+      "DNB",
+      "Equifax"
+    ],
+    "dnb_reporter": true,
+    "terms": "net-30",
+    "requires_pg": false,
+    "ein_only": true,
+    "min_time_in_business_months": 0,
+    "approval_notes": "Easy online application; digital downloads and physical office items.",
+    "verification_status": "needs_review"
+  },
+  {
+    "id": "office-depot-business",
+    "name": "Office Depot Business (Office Garner)",
+    "tier": 1,
+    "category": "Office & Business Supplies",
+    "reports_to": [
+      "DNB",
+      "Experian"
+    ],
+    "dnb_reporter": true,
+    "terms": "net-30",
+    "requires_pg": false,
+    "ein_only": true,
+    "min_time_in_business_months": 0,
+    "approval_notes": "Sometimes reports via business account division.",
+    "verification_status": "needs_review"
+  },
+  {
+    "id": "wex-fleet",
+    "name": "WEX Fleet Card",
+    "tier": 1,
+    "category": "Fleet & Fuel",
+    "reports_to": [
+      "DNB",
+      "Experian",
+      "Equifax"
+    ],
+    "dnb_reporter": true,
+    "terms": "fleet-fuel",
+    "requires_pg": false,
+    "ein_only": true,
+    "min_time_in_business_months": 6,
+    "approval_notes": "ExxonMobil, Shell, Phillips 66. Often requires 6+ months; newer entities possible with strong fundability.",
+    "verification_status": "needs_review"
+  },
+  {
+    "id": "fleetcor-bp",
+    "name": "FleetCor / BP Business Solutions",
+    "tier": 1,
+    "category": "Fleet & Fuel",
+    "reports_to": [
+      "DNB",
+      "Experian",
+      "Equifax"
+    ],
+    "dnb_reporter": true,
+    "terms": "fleet-fuel",
+    "requires_pg": false,
+    "ein_only": true,
+    "min_time_in_business_months": 6,
+    "approval_notes": "Broad fleet reporting option.",
+    "verification_status": "needs_review"
+  },
+  {
+    "id": "fuelman",
+    "name": "Fuelman",
+    "tier": 1,
+    "category": "Fleet & Fuel",
+    "reports_to": [
+      "DNB",
+      "Experian",
+      "Equifax"
+    ],
+    "dnb_reporter": true,
+    "terms": "fleet-fuel",
+    "requires_pg": false,
+    "ein_only": true,
+    "min_time_in_business_months": 6,
+    "approval_notes": "Reports to all three major business bureaus; generous limit increases.",
+    "verification_status": "needs_review"
+  },
+  {
+    "id": "nav-business-credit-builder",
+    "name": "NAV Business Credit Builder",
+    "tier": 1,
+    "category": "Business Services",
+    "reports_to": [
+      "DNB",
+      "Experian",
+      "Equifax"
+    ],
+    "dnb_reporter": true,
+    "terms": "service",
+    "requires_pg": false,
+    "ein_only": true,
+    "min_time_in_business_months": 0,
+    "approval_notes": "Paid subscription that directly reports payment history; may report payment history; verify current bureau coverage before relying on it as a tradeline.",
+    "verification_status": "needs_review"
+  },
+  {
+    "id": "wise-business-plans",
+    "name": "Wise Business Plans",
+    "tier": 1,
+    "category": "Business Services",
+    "reports_to": [
+      "DNB"
+    ],
+    "dnb_reporter": true,
+    "terms": "service",
+    "requires_pg": false,
+    "ein_only": true,
+    "min_time_in_business_months": 0,
+    "approval_notes": "Payment plans for business plan writing often report.",
+    "verification_status": "needs_review"
+  },
+  {
+    "id": "crown-office",
+    "name": "Crown Office Supplies",
+    "tier": 1,
+    "category": "Office & Business Supplies",
+    "reports_to": [
+      "DNB",
+      "Experian",
+      "Equifax"
+    ],
+    "dnb_reporter": true,
+    "terms": "net-30",
+    "requires_pg": false,
+    "ein_only": true,
+    "min_time_in_business_months": 0,
+    "approval_notes": "Easy approval; simple online setup; good early account.",
+    "verification_status": "needs_review"
+  },
+  {
+    "id": "shirtsy",
+    "name": "Shirtsy",
+    "tier": 1,
+    "category": "Apparel & Promo",
+    "reports_to": [
+      "DNB",
+      "Experian",
+      "Equifax"
+    ],
+    "dnb_reporter": true,
+    "terms": "net-30",
+    "requires_pg": false,
+    "ein_only": true,
+    "min_time_in_business_months": 0,
+    "approval_notes": "Custom apparel printing; beginner-friendly.",
+    "verification_status": "needs_review"
+  },
+  {
+    "id": "creative-analytics",
+    "name": "Creative Analytics",
+    "tier": 1,
+    "category": "Marketing & Web",
+    "reports_to": [
+      "DNB",
+      "Experian",
+      "Equifax"
+    ],
+    "dnb_reporter": true,
+    "terms": "net-30",
+    "requires_pg": false,
+    "ein_only": true,
+    "min_time_in_business_months": 0,
+    "approval_notes": "Marketing and web services.",
+    "verification_status": "needs_review"
+  },
+  {
+    "id": "tshirt-club",
+    "name": "T-Shirt Club",
+    "tier": 1,
+    "category": "Apparel & Promo",
+    "reports_to": [
+      "DNB"
+    ],
+    "dnb_reporter": true,
+    "terms": "net-30",
+    "requires_pg": false,
+    "ein_only": true,
+    "min_time_in_business_months": 0,
+    "approval_notes": "Promotional gear and branded apparel.",
+    "verification_status": "needs_review"
+  },
+  {
+    "id": "strategic-network-solutions",
+    "name": "Strategic Network Solutions (SNS)",
+    "tier": 1,
+    "category": "Business Essentials",
+    "reports_to": [
+      "DNB",
+      "Experian",
+      "Equifax"
+    ],
+    "dnb_reporter": true,
+    "terms": "net-30",
+    "requires_pg": false,
+    "ein_only": true,
+    "min_time_in_business_months": 0,
+    "approval_notes": "Downloadable business tools.",
+    "verification_status": "needs_review"
+  },
+  {
+    "id": "the-ceo-creative",
+    "name": "The CEO Creative",
+    "tier": 1,
+    "category": "Business Essentials",
+    "reports_to": [
+      "DNB",
+      "Experian",
+      "Equifax"
+    ],
+    "dnb_reporter": true,
+    "terms": "net-30",
+    "requires_pg": false,
+    "ein_only": true,
+    "min_time_in_business_months": 0,
+    "approval_notes": "Supplies, electronics, branded products; verify current approval criteria and reporting before applying.",
+    "verification_status": "needs_review"
+  },
+  {
+    "id": "jj-gold-international",
+    "name": "JJ Gold International",
+    "tier": 1,
+    "category": "General Merchandise",
+    "reports_to": [
+      "DNB"
+    ],
+    "dnb_reporter": true,
+    "terms": "net-30",
+    "requires_pg": false,
+    "ein_only": true,
+    "min_time_in_business_months": 0,
+    "approval_notes": "Wholesale jewelry/accessories; often approves EIN-only accounts.",
+    "verification_status": "needs_review"
+  },
+  {
+    "id": "ups-supply-chain",
+    "name": "UPS Supply Chain Solutions",
+    "tier": 1,
+    "category": "Shipping & Logistics",
+    "reports_to": [
+      "DNB"
+    ],
+    "dnb_reporter": true,
+    "terms": "net-30",
+    "requires_pg": false,
+    "ein_only": true,
+    "min_time_in_business_months": 0,
+    "approval_notes": "Net 30 billing possible after verification.",
+    "verification_status": "needs_review"
+  },
+  {
+    "id": "fedex-business",
+    "name": "FedEx Business Account",
+    "tier": 1,
+    "category": "Shipping & Logistics",
+    "reports_to": [
+      "DNB"
+    ],
+    "dnb_reporter": true,
+    "terms": "net-30",
+    "requires_pg": false,
+    "ein_only": true,
+    "min_time_in_business_months": 0,
+    "approval_notes": "Sometimes reports, depends on credit partner.",
+    "verification_status": "needs_review"
+  },
+  {
+    "id": "ecredable-business-lift",
+    "name": "eCredable Business Lift",
+    "tier": 1,
+    "category": "Business Services",
+    "reports_to": [
+      "DNB",
+      "Experian",
+      "Equifax"
+    ],
+    "dnb_reporter": true,
+    "terms": "service",
+    "requires_pg": false,
+    "ein_only": true,
+    "min_time_in_business_months": 0,
+    "approval_notes": "Converts recurring utility bills into business tradelines.",
+    "verification_status": "needs_review"
+  },
+  {
+    "id": "creditstrong-business",
+    "name": "CreditStrong Business (Austin Capital Bank)",
+    "tier": 1,
+    "category": "Credit Builder",
+    "reports_to": [
+      "DNB",
+      "Equifax"
+    ],
+    "dnb_reporter": true,
+    "terms": "installment",
+    "requires_pg": false,
+    "ein_only": true,
+    "min_time_in_business_months": 0,
+    "approval_notes": "Installment loan that builds credit without borrowing cash.",
+    "verification_status": "needs_review"
+  },
+  {
+    "id": "tillful-credit-builder",
+    "name": "Tillful Credit Builder",
+    "tier": 1,
+    "category": "Credit Builder",
+    "reports_to": [
+      "Experian",
+      "Equifax"
+    ],
+    "dnb_reporter": false,
+    "terms": "service",
+    "requires_pg": false,
+    "ein_only": true,
+    "min_time_in_business_months": 0,
+    "approval_notes": "Establishes credit with linked business bank data.",
+    "verification_status": "needs_review"
+  },
+  {
+    "id": "seton",
+    "name": "Seton",
+    "tier": 1,
+    "category": "Supplies, Tools & Equipment",
+    "reports_to": [
+      "DNB"
+    ],
+    "dnb_reporter": true,
+    "terms": "net-30",
+    "requires_pg": false,
+    "ein_only": true,
+    "min_time_in_business_months": 0,
+    "approval_notes": "Safety signs and workplace supplies.",
+    "verification_status": "needs_review"
+  },
+  {
+    "id": "hd-supply",
+    "name": "HD Supply",
+    "tier": 1,
+    "category": "Supplies, Tools & Equipment",
+    "reports_to": [
+      "DNB",
+      "Experian"
+    ],
+    "dnb_reporter": true,
+    "terms": "net-30",
+    "requires_pg": false,
+    "ein_only": true,
+    "min_time_in_business_months": 0,
+    "approval_notes": "Industrial and maintenance products.",
+    "verification_status": "needs_review"
+  },
+  {
+    "id": "zoro-tools",
+    "name": "Zoro Tools",
+    "tier": 1,
+    "category": "Supplies, Tools & Equipment",
+    "reports_to": [
+      "DNB"
+    ],
+    "dnb_reporter": true,
+    "terms": "net-30",
+    "requires_pg": false,
+    "ein_only": true,
+    "min_time_in_business_months": 0,
+    "approval_notes": "Often reports via net 30 commercial line.",
+    "verification_status": "needs_review"
+  },
+  {
+    "id": "amazon-business",
+    "name": "Amazon Business",
+    "tier": 2,
+    "category": "Store Account",
+    "reports_to": [
+      "DNB",
+      "Experian"
+    ],
+    "dnb_reporter": true,
+    "terms": "store-revolving",
+    "requires_pg": false,
+    "ein_only": true,
+    "min_time_in_business_months": 6,
+    "approval_notes": "Net 55 or revolving. Easier once 5-6 tradelines report.",
+    "verification_status": "needs_review"
+  },
+  {
+    "id": "staples-business-advantage",
+    "name": "Staples Business Advantage",
+    "tier": 2,
+    "category": "Store Account",
+    "reports_to": [
+      "DNB",
+      "Experian"
+    ],
+    "dnb_reporter": true,
+    "terms": "store-revolving",
+    "requires_pg": false,
+    "ein_only": true,
+    "min_time_in_business_months": 6,
+    "approval_notes": "Office and breakroom supplies.",
+    "verification_status": "needs_review"
+  },
+  {
+    "id": "office-depot-officemax",
+    "name": "Office Depot / OfficeMax Business Account",
+    "tier": 2,
+    "category": "Store Account",
+    "reports_to": [
+      "DNB",
+      "Experian"
+    ],
+    "dnb_reporter": true,
+    "terms": "store-revolving",
+    "requires_pg": false,
+    "ein_only": true,
+    "min_time_in_business_months": 6,
+    "approval_notes": "Often issued via Citi Commercial Cards.",
+    "verification_status": "needs_review"
+  },
+  {
+    "id": "dell-business-credit",
+    "name": "Dell Business Credit",
+    "tier": 2,
+    "category": "Store Account",
+    "reports_to": [
+      "DNB"
+    ],
+    "dnb_reporter": true,
+    "terms": "store-revolving",
+    "requires_pg": false,
+    "ein_only": true,
+    "min_time_in_business_months": 12,
+    "approval_notes": "Prefers 1+ year established and clean credit.",
+    "verification_status": "needs_review"
+  },
+  {
+    "id": "home-depot-commercial",
+    "name": "Home Depot Commercial Account",
+    "tier": 2,
+    "category": "Store Account",
+    "reports_to": [
+      "DNB",
+      "Experian"
+    ],
+    "dnb_reporter": true,
+    "terms": "store-revolving",
+    "requires_pg": false,
+    "ein_only": true,
+    "min_time_in_business_months": 6,
+    "approval_notes": "Great for contractors and service businesses.",
+    "verification_status": "needs_review"
+  },
+  {
+    "id": "lowes-business-advantage",
+    "name": "Lowe's Business Advantage",
+    "tier": 2,
+    "category": "Store Account",
+    "reports_to": [
+      "DNB",
+      "Equifax"
+    ],
+    "dnb_reporter": true,
+    "terms": "store-revolving",
+    "requires_pg": false,
+    "ein_only": true,
+    "min_time_in_business_months": 6,
+    "approval_notes": "Often grants high limits once approved.",
+    "verification_status": "needs_review"
+  },
+  {
+    "id": "sams-club-business-mc",
+    "name": "Sam's Club Business Mastercard",
+    "tier": 2,
+    "category": "Store Account",
+    "reports_to": [
+      "DNB",
+      "Equifax"
+    ],
+    "dnb_reporter": true,
+    "terms": "business-credit-card",
+    "requires_pg": true,
+    "ein_only": false,
+    "min_time_in_business_months": 6,
+    "approval_notes": "Requires 6-8 tradelines and strong fundability.",
+    "verification_status": "needs_review"
+  },
+  {
+    "id": "pilot-flying-j-fleet",
+    "name": "Pilot Flying J Business Fleet Card",
+    "tier": 2,
+    "category": "Fleet & Fuel",
+    "reports_to": [
+      "DNB"
+    ],
+    "dnb_reporter": true,
+    "terms": "fleet-fuel",
+    "requires_pg": false,
+    "ein_only": true,
+    "min_time_in_business_months": 6,
+    "approval_notes": "Designed for trucking and delivery operations.",
+    "verification_status": "needs_review"
+  },
+  {
+    "id": "apple-business-financing",
+    "name": "Apple Business Financing (via CIT)",
+    "tier": 3,
+    "category": "Store Account",
+    "reports_to": [
+      "DNB",
+      "Experian"
+    ],
+    "dnb_reporter": true,
+    "terms": "store-revolving",
+    "requires_pg": false,
+    "ein_only": true,
+    "min_time_in_business_months": 12,
+    "approval_notes": "Requires established trade references and strong Paydex.",
+    "verification_status": "needs_review"
+  },
+  {
+    "id": "best-buy-business-advantage",
+    "name": "Best Buy Business Advantage",
+    "tier": 3,
+    "category": "Store Account",
+    "reports_to": [
+      "DNB"
+    ],
+    "dnb_reporter": true,
+    "terms": "store-revolving",
+    "requires_pg": false,
+    "ein_only": true,
+    "min_time_in_business_months": 12,
+    "approval_notes": "Verify current requirements and reporting behavior before applying.",
+    "verification_status": "needs_review"
+  },
+  {
+    "id": "costco-anywhere-visa-business",
+    "name": "Costco Anywhere Visa Business Card (Citi)",
+    "tier": 3,
+    "category": "Business Card",
+    "reports_to": [
+      "Experian"
+    ],
+    "dnb_reporter": false,
+    "terms": "business-credit-card",
+    "requires_pg": true,
+    "ein_only": false,
+    "min_time_in_business_months": 12,
+    "approval_notes": "Prefers at least one year in business.",
+    "verification_status": "needs_review"
+  },
+  {
+    "id": "menards-commercial",
+    "name": "Menards Commercial Account",
+    "tier": 3,
+    "category": "Store Account",
+    "reports_to": [
+      "DNB",
+      "Experian"
+    ],
+    "dnb_reporter": true,
+    "terms": "store-revolving",
+    "requires_pg": false,
+    "ein_only": true,
+    "min_time_in_business_months": 12,
+    "approval_notes": "Verify current requirements and reporting behavior before applying.",
+    "verification_status": "needs_review"
+  },
+  {
+    "id": "divvy",
+    "name": "Divvy (BILL Spend & Expense)",
+    "tier": 3,
+    "category": "Revolving Cash Credit",
+    "reports_to": [
+      "DNB",
+      "SBFE"
+    ],
+    "dnb_reporter": true,
+    "terms": "business-credit-card",
+    "requires_pg": false,
+    "ein_only": true,
+    "min_time_in_business_months": 6,
+    "approval_notes": "Revolving lines based on cash flow.",
+    "verification_status": "needs_review"
+  },
+  {
+    "id": "brex",
+    "name": "Brex Business Card",
+    "tier": 3,
+    "category": "Revolving Cash Credit",
+    "reports_to": [
+      "DNB",
+      "Experian"
+    ],
+    "dnb_reporter": true,
+    "terms": "business-credit-card",
+    "requires_pg": false,
+    "ein_only": true,
+    "min_time_in_business_months": 0,
+    "approval_notes": "Startup-friendly underwriting based on cash balances.",
+    "verification_status": "needs_review"
+  },
+  {
+    "id": "ramp",
+    "name": "Ramp Business Card",
+    "tier": 3,
+    "category": "Revolving Cash Credit",
+    "reports_to": [
+      "DNB",
+      "Experian"
+    ],
+    "dnb_reporter": true,
+    "terms": "business-credit-card",
+    "requires_pg": false,
+    "ein_only": true,
+    "min_time_in_business_months": 0,
+    "approval_notes": "Expense management plus revolving line.",
+    "verification_status": "needs_review"
+  },
+  {
+    "id": "creditstrong-business-loan",
+    "name": "CreditStrong Business Loan",
+    "tier": 3,
+    "category": "Credit Builder",
+    "reports_to": [
+      "DNB",
+      "Equifax"
+    ],
+    "dnb_reporter": true,
+    "terms": "installment",
+    "requires_pg": false,
+    "ein_only": true,
+    "min_time_in_business_months": 0,
+    "approval_notes": "Installment credit that builds depth.",
+    "verification_status": "needs_review"
+  },
+  {
+    "id": "bluevine-loc",
+    "name": "BlueVine Business Line of Credit",
+    "tier": 3,
+    "category": "Revolving Cash Credit",
+    "reports_to": [
+      "Experian",
+      "Equifax"
+    ],
+    "dnb_reporter": false,
+    "terms": "bank-LOC",
+    "requires_pg": true,
+    "ein_only": false,
+    "min_time_in_business_months": 12,
+    "approval_notes": "Requires minimum time in business and monthly revenue threshold.",
+    "verification_status": "needs_review"
+  },
+  {
+    "id": "ondeck-fundbox",
+    "name": "OnDeck / Fundbox Lines of Credit",
+    "tier": 3,
+    "category": "Revolving Cash Credit",
+    "reports_to": [
+      "DNB",
+      "Experian",
+      "Equifax"
+    ],
+    "dnb_reporter": true,
+    "terms": "bank-LOC",
+    "requires_pg": true,
+    "ein_only": false,
+    "min_time_in_business_months": 12,
+    "approval_notes": "Reporting depends on product type.",
+    "verification_status": "needs_review"
   }
 ]

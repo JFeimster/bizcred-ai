@@ -1,23 +1,30 @@
 {
-  "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://bizcred-ai.local/schemas/vendor-directory.schema.json",
-  "title": "VendorDirectoryEntry",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Vendor",
   "type": "object",
-  "required": ["id", "slug", "name", "category", "tier", "reportsTo", "startupFriendly", "verificationStatus", "cautionNote"],
   "properties": {
     "id": { "type": "string" },
-    "slug": { "type": "string" },
     "name": { "type": "string" },
+    "tier": { "type": "number" },
     "category": { "type": "string" },
-    "tier": { "type": "integer" },
+    "reports_to": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "dnb_reporter": { "type": "boolean" },
     "terms": { "type": "string" },
-    "reportsTo": { "type": "array", "items": { "type": "string" } },
-    "startupFriendly": { "type": "boolean" },
-    "requiresDuns": { "type": "boolean" },
-    "requiresBankAccount": { "type": "boolean" },
-    "hasFees": { "type": "boolean" },
-    "verificationStatus": { "enum": ["needs_review", "verified", "unverified"] },
-    "cautionNote": { "type": "string" }
+    "requires_pg": { "type": "boolean" },
+    "ein_only": { "type": "boolean" },
+    "min_time_in_business_months": { "type": "number" },
+    "approval_notes": { "type": "string" },
+    "verification_status": {
+      "type": "string",
+      "enum": ["unverified", "needs_review", "verified", "deprecated"]
+    }
   },
-  "additionalProperties": false
+  "required": [
+    "id", "name", "tier", "category", "reports_to", "dnb_reporter",
+    "terms", "requires_pg", "ein_only", "min_time_in_business_months",
+    "approval_notes", "verification_status"
+  ]
 }

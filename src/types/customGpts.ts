@@ -1,10 +1,10 @@
-export interface CustomGptRegistryEntry {
+export type VerificationStatus = 'unverified' | 'needs_review' | 'verified' | 'deprecated';
+
+export interface CustomGpt {
   id: string;
   name: string;
-  url?: string;
-  category: string;
-  audience: string[];
   description: string;
-  useCases: string[];
-  status: 'draft' | 'published' | 'archived';
+  url: string;
+  category: 'planning' | 'analysis' | 'funding' | 'legal' | 'other';
+  verification_status: VerificationStatus;
 }

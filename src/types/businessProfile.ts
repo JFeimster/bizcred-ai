@@ -1,33 +1,19 @@
-export interface BusinessProfileAddress {
-  street: string;
-  city: string;
-  state: string;
-  zip: string;
-}
-
 export interface BusinessProfile {
-  businessName: string;
-  entityType: string;
-  formationDate: string;
-  businessLicense: boolean;
-  monthlyRevenueRange: string;
-  primaryGoal: string;
-  hasEin: boolean;
-  hasBusinessBankAccount: boolean;
-  hasBusinessAddress: boolean;
-  hasBusinessPhone: boolean;
-  hasWebsite: boolean;
-  hasDomainEmail: boolean;
-  hasDuns: boolean;
-
-  id?: string;
-  legalName?: string;
-  dbaName?: string;
+  id: string;
+  legal_name: string;
+  dba_name?: string;
   ein?: string;
-  stateOfIncorporation?: string;
-  address?: BusinessProfileAddress;
+  entity_type: string;
+  date_established?: string;
+  state_of_incorporation?: string;
+  address: {
+    street: string;
+    city: string;
+    state: string;
+    zip: string;
+  };
   phone?: string;
   website?: string;
   industry?: string;
-  naicsCode?: string;
+  naics_code?: string;
 }
