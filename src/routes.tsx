@@ -1,5 +1,6 @@
 export const routes = [
-  { path: '/', name: 'Dashboard' },
+  { path: '/', name: 'Business HQ' },
+  { path: '/passport', name: 'BizCredit Passport' },
   { path: '/profile', name: 'Profile' },
   { path: '/credit-architect', name: 'Credit Architect' },
   { path: '/directory', name: 'Directory' },
