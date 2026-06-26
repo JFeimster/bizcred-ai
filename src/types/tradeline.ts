@@ -12,6 +12,16 @@ export interface Tradeline {
   notes: string;
 
   vendorId?: string;
+  vendorWebsite?: string;
+  terms?: string;
+  reportingFrequency?: string;
+  utilizationPercent?: number;
   dateOpened?: string;
   lastReported?: string;
+  tradelineOpenedDate?: string;
+  reportingDate?: string;
+  paymentDueDate?: string;
+  renewalDate?: string;
+  paymentStatus?: string;
+  documentsRequired?: string[];
 }
