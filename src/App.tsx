@@ -18,6 +18,8 @@ import RoadmapPage from './pages/RoadmapPage';
 import ImportsPage from './pages/ImportsPage';
 import ExportsPage from './pages/ExportsPage';
 import SchemasPage from './pages/SchemasPage';
+import FundingToolsPage from './pages/FundingToolsPage';
+import GptDirectoryPage from './pages/GptDirectoryPage';
 
 function App() {
   const [currentPage, setCurrentPage] = useState('business-hq');
@@ -50,6 +52,10 @@ function App() {
         return <ExportsPage />;
       case 'schemas':
         return <SchemasPage />;
+      case 'funding-tools':
+        return <FundingToolsPage />;
+      case 'gpt-directory':
+        return <GptDirectoryPage />;
       default:
         return <BusinessHqPage />;
     }
@@ -66,6 +72,8 @@ function App() {
           <button className={`sidebar-link ${currentPage === 'directory' || currentPage === 'vendor-profile' ? 'active' : ''}`} onClick={() => setCurrentPage('directory')}>Directory</button>
           <button className={`sidebar-link ${currentPage === 'planner' ? 'active' : ''}`} onClick={() => setCurrentPage('planner')}>Tradeline Planner</button>
           <button className={`sidebar-link ${currentPage === 'roadmap' ? 'active' : ''}`} onClick={() => setCurrentPage('roadmap')}>Roadmap</button>
+          <button className={`sidebar-link ${currentPage === 'funding-tools' ? 'active' : ''}`} onClick={() => setCurrentPage('funding-tools')}>Funding Tools</button>
+          <button className={`sidebar-link ${currentPage === 'gpt-directory' ? 'active' : ''}`} onClick={() => setCurrentPage('gpt-directory')}>GPT Directory</button>
           <button className={`sidebar-link ${currentPage === 'imports' ? 'active' : ''}`} onClick={() => setCurrentPage('imports')}>Imports</button>
           <button className={`sidebar-link ${currentPage === 'exports' ? 'active' : ''}`} onClick={() => setCurrentPage('exports')}>Exports</button>
           <button className={`sidebar-link ${currentPage === 'schemas' ? 'active' : ''}`} onClick={() => setCurrentPage('schemas')}>Schemas</button>
