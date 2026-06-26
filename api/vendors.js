@@ -57,8 +57,14 @@ module.exports = async (req, res) => {
     }
     if (query.dnb_reporter !== undefined) {
       const isTrue = query.dnb_reporter === 'true' || query.dnb_reporter === '1' || query.dnb_reporter === true;
+
+      const isDnbBureau = (value) => {
+        const normalized = String(value || '').toLowerCase().replace(/[^a-z0-9]/g, '');
+        return normalized === 'db' || normalized.includes('dnb') || normalized.includes('dunbradstreet') || normalized.includes('dun');
+      };
+
       vendors = vendors.filter(v => {
-        const reportsToDnb = v.reports_to && v.reports_to.some(b => b.toLowerCase().includes('dnb') || b.toLowerCase().includes('dun'));
+        const reportsToDnb = Array.isArray(v.reports_to) && v.reports_to.some(isDnbBureau);
         return reportsToDnb === isTrue;
       });
     }

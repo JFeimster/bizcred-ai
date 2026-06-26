@@ -55,6 +55,11 @@ module.exports = async (req, res) => {
       count_reporting_to_dnb: 0
     };
 
+    const isDnbBureau = (value) => {
+      const normalized = String(value || '').toLowerCase().replace(/[^a-z0-9]/g, '');
+      return normalized === 'db' || normalized.includes('dnb') || normalized.includes('dunbradstreet') || normalized.includes('dun');
+    };
+
     vendors.forEach(v => {
       // Tier
       if (v.tier !== undefined) {
@@ -73,7 +78,7 @@ module.exports = async (req, res) => {
         let reportsToDnb = false;
         v.reports_to.forEach(bureau => {
           summary.count_by_bureau[bureau] = (summary.count_by_bureau[bureau] || 0) + 1;
-          if (bureau.toLowerCase().includes('dnb') || bureau.toLowerCase().includes('dun')) {
+          if (isDnbBureau(bureau)) {
             reportsToDnb = true;
           }
         });
