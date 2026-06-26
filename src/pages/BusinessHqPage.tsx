@@ -43,27 +43,27 @@ export default function BusinessHqPage() {
     const input = document.createElement('input');
     input.type = 'file';
     input.accept = '.json';
-    input.onchange = (event) => {
-      const file = (event.target as HTMLInputElement).files?.[0];
-      if (!file) return;
-
-      const reader = new FileReader();
-      reader.onload = (loadEvent) => {
-        try {
-          const data = JSON.parse(String(loadEvent.target?.result || '{}'));
-          if (data.profile) {
-            setProfile(data.profile);
-            writeLocal(STORAGE_KEYS.profile, data.profile);
+    input.onchange = (e) => {
+      const file = (e.target as HTMLInputElement).files?.[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = (e) => {
+          try {
+            const data = JSON.parse(e.target?.result as string);
+            if (data.profile) {
+              setProfile(data.profile);
+              writeLocal(STORAGE_KEYS.profile, data.profile);
+            }
+            if (data.tradelines) {
+              setTradelines(data.tradelines);
+              writeLocal(STORAGE_KEYS.tradelines, data.tradelines);
+            }
+          } catch (err) {
+            console.error('Import failed', err);
           }
-          if (data.tradelines) {
-            setTradelines(data.tradelines);
-            writeLocal(STORAGE_KEYS.tradelines, data.tradelines);
-          }
-        } catch (error) {
-          console.error('Import failed', error);
-        }
-      };
-      reader.readAsText(file);
+        };
+        reader.readAsText(file);
+      }
     };
     input.click();
   };
@@ -80,16 +80,16 @@ export default function BusinessHqPage() {
   return (
     <section className="page-stack">
       <div className="page-header">
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', gap: '18px', flexWrap: 'wrap' }}>
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
           <div>
             <p className="eyebrow">BizCredit Builder OS</p>
             <h1>Business HQ</h1>
             <p>Local-first readiness dashboard. No backend storage, no tracking, and no approval guarantees.</p>
           </div>
-          <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
-            <button onClick={handleExport} className="status-pill info" style={{ cursor: 'pointer' }}>Export Data</button>
-            <button onClick={handleImport} className="status-pill info" style={{ cursor: 'pointer' }}>Import Data</button>
-            <button onClick={handleReset} className="status-pill danger" style={{ cursor: 'pointer' }}>Reset</button>
+          <div style={{ display: 'flex', gap: '8px' }}>
+            <button onClick={handleExport} className="status-pill info" style={{ cursor: 'pointer', background: 'none' }}>Export Data</button>
+            <button onClick={handleImport} className="status-pill info" style={{ cursor: 'pointer', background: 'none' }}>Import Data</button>
+            <button onClick={handleReset} className="status-pill danger" style={{ cursor: 'pointer', background: 'none' }}>Reset</button>
           </div>
         </div>
         <div style={{ marginTop: '10px' }}>

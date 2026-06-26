@@ -1,18 +1,13 @@
 import type { Tradeline } from '../../types/tradeline';
 import { BureauBadge } from '../badges/BureauBadge';
 
-function normalizedBureauSet(tradelines: Tradeline[]) {
+export function BureauCoverageCard({ tradelines, hasDuns }: { tradelines: Tradeline[], hasDuns: boolean }) {
   const reportingBureaus = new Set<string>();
-  tradelines.forEach((tradeline) => {
-    if (tradeline.status === 'reporting_confirmed') {
-      tradeline.reportsTo?.forEach((bureau) => reportingBureaus.add(bureau.toLowerCase()));
+  tradelines.forEach(t => {
+    if (t.status === 'reporting_confirmed') {
+      t.reportsTo?.forEach(bureau => reportingBureaus.add(bureau));
     }
   });
-  return reportingBureaus;
-}
-
-export function BureauCoverageCard({ tradelines, hasDuns }: { tradelines: Tradeline[]; hasDuns: boolean }) {
-  const reportingBureaus = normalizedBureauSet(tradelines);
 
   return (
     <article className="brutal-card">
@@ -20,7 +15,7 @@ export function BureauCoverageCard({ tradelines, hasDuns }: { tradelines: Tradel
       <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
           <span>Dun & Bradstreet (DUNS)</span>
-          <BureauBadge verified={hasDuns || reportingBureaus.has('d&b') || reportingBureaus.has('dnb')} />
+          <BureauBadge verified={hasDuns} />
         </div>
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
           <span>Experian Business</span>

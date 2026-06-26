@@ -8,10 +8,6 @@ import { buildBizCreditPassport } from '../modules/passport/buildBizCreditPasspo
 import { BureauBadge } from '../components/badges/BureauBadge';
 import { ReadinessBadge } from '../components/badges/ReadinessBadge';
 
-function formatStatus(status: string): string {
-  return status.replace(/_/g, ' ');
-}
-
 export default function BizCreditPassportPage() {
   const [profile] = useState<BusinessProfile>(() => readLocal(STORAGE_KEYS.profile, defaultProfile));
   const [tradelines] = useState<Tradeline[]>(() => readLocal(STORAGE_KEYS.tradelines, defaultTradelines));
@@ -19,9 +15,9 @@ export default function BizCreditPassportPage() {
   const passport = useMemo(() => buildBizCreditPassport(profile, tradelines), [profile, tradelines]);
 
   const reportingBureaus = new Set<string>();
-  tradelines.forEach((tradeline) => {
-    if (tradeline.status === 'reporting_confirmed') {
-      tradeline.reportsTo?.forEach((bureau) => reportingBureaus.add(bureau.toLowerCase()));
+  tradelines.forEach(t => {
+    if (t.status === 'reporting_confirmed') {
+      t.reportsTo?.forEach(bureau => reportingBureaus.add(bureau));
     }
   });
 
@@ -40,30 +36,71 @@ export default function BizCreditPassportPage() {
         <article className="brutal-card">
           <h2>Business Foundation</h2>
           <div style={{ display: 'grid', gap: '8px' }}>
-            <div style={{ display: 'flex', justifyContent: 'space-between' }}><span>Business Name</span><strong>{passport.foundation.businessName}</strong></div>
-            <div style={{ display: 'flex', justifyContent: 'space-between' }}><span>Entity Type</span><strong>{passport.foundation.entityType}</strong></div>
-            <div style={{ display: 'flex', justifyContent: 'space-between' }}><span>Formation Date</span><strong>{passport.foundation.formationDate}</strong></div>
-            <div style={{ display: 'flex', justifyContent: 'space-between' }}><span>EIN</span><span className={passport.foundation.hasEin ? 'status-pill success' : 'status-pill warning'}>{passport.foundation.hasEin ? 'Yes' : 'No'}</span></div>
-            <div style={{ display: 'flex', justifyContent: 'space-between' }}><span>Bank Account</span><span className={passport.foundation.hasBank ? 'status-pill success' : 'status-pill warning'}>{passport.foundation.hasBank ? 'Yes' : 'No'}</span></div>
-            <div style={{ display: 'flex', justifyContent: 'space-between' }}><span>Address</span><span className={passport.foundation.hasAddress ? 'status-pill success' : 'status-pill warning'}>{passport.foundation.hasAddress ? 'Yes' : 'No'}</span></div>
-            <div style={{ display: 'flex', justifyContent: 'space-between' }}><span>Phone</span><span className={passport.foundation.hasPhone ? 'status-pill success' : 'status-pill warning'}>{passport.foundation.hasPhone ? 'Yes' : 'No'}</span></div>
-            <div style={{ display: 'flex', justifyContent: 'space-between' }}><span>Website</span><span className={passport.foundation.hasWebsite ? 'status-pill success' : 'status-pill warning'}>{passport.foundation.hasWebsite ? 'Yes' : 'No'}</span></div>
-            <div style={{ display: 'flex', justifyContent: 'space-between' }}><span>Domain Email</span><span className={passport.foundation.hasDomainEmail ? 'status-pill success' : 'status-pill warning'}>{passport.foundation.hasDomainEmail ? 'Yes' : 'No'}</span></div>
+            <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+              <span>Business Name</span>
+              <strong>{passport.foundation.businessName}</strong>
+            </div>
+            <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+              <span>Entity Type</span>
+              <strong>{passport.foundation.entityType}</strong>
+            </div>
+            <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+              <span>Formation Date</span>
+              <strong>{passport.foundation.formationDate}</strong>
+            </div>
+            <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+              <span>EIN</span>
+              <span className={passport.foundation.hasEin ? 'status-pill success' : 'status-pill warning'}>{passport.foundation.hasEin ? 'Yes' : 'No'}</span>
+            </div>
+            <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+              <span>Bank Account</span>
+              <span className={passport.foundation.hasBank ? 'status-pill success' : 'status-pill warning'}>{passport.foundation.hasBank ? 'Yes' : 'No'}</span>
+            </div>
+            <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+              <span>Address</span>
+              <span className={passport.foundation.hasAddress ? 'status-pill success' : 'status-pill warning'}>{passport.foundation.hasAddress ? 'Yes' : 'No'}</span>
+            </div>
+            <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+              <span>Phone</span>
+              <span className={passport.foundation.hasPhone ? 'status-pill success' : 'status-pill warning'}>{passport.foundation.hasPhone ? 'Yes' : 'No'}</span>
+            </div>
+            <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+              <span>Website</span>
+              <span className={passport.foundation.hasWebsite ? 'status-pill success' : 'status-pill warning'}>{passport.foundation.hasWebsite ? 'Yes' : 'No'}</span>
+            </div>
+            <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+              <span>Domain Email</span>
+              <span className={passport.foundation.hasDomainEmail ? 'status-pill success' : 'status-pill warning'}>{passport.foundation.hasDomainEmail ? 'Yes' : 'No'}</span>
+            </div>
           </div>
         </article>
 
         <article className="brutal-card">
           <h2>Bureau Setup</h2>
           <div style={{ display: 'grid', gap: '10px' }}>
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}><span>Dun & Bradstreet (DUNS)</span><BureauBadge verified={passport.bureauSetup.hasDuns || reportingBureaus.has('d&b') || reportingBureaus.has('dnb')} /></div>
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}><span>Experian Business</span><BureauBadge verified={reportingBureaus.has('experian')} /></div>
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}><span>Equifax Business</span><BureauBadge verified={reportingBureaus.has('equifax')} /></div>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+              <span>Dun & Bradstreet (DUNS)</span>
+              <BureauBadge verified={passport.bureauSetup.hasDuns} />
+            </div>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+              <span>Experian Business</span>
+              <BureauBadge verified={reportingBureaus.has('experian')} />
+            </div>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+              <span>Equifax Business</span>
+              <BureauBadge verified={reportingBureaus.has('equifax')} />
+            </div>
           </div>
 
           <h2 style={{ marginTop: '20px' }}>Score History Summary</h2>
           <div style={{ display: 'flex', gap: '20px', alignItems: 'center' }}>
-            <div><span className="metric-label">Credit Architect Score</span><strong className="metric-value">{passport.scoreHistorySummary.currentScore}</strong></div>
-            <div><p>{passport.scoreHistorySummary.signalsCompleted} / {passport.scoreHistorySummary.totalSignals} signals complete</p></div>
+            <div>
+              <span className="metric-label">Credit Architect Score</span>
+              <strong className="metric-value">{passport.scoreHistorySummary.currentScore}</strong>
+            </div>
+            <div>
+              <p>{passport.scoreHistorySummary.signalsCompleted} / {passport.scoreHistorySummary.totalSignals} signals complete</p>
+            </div>
           </div>
         </article>
       </div>
@@ -76,14 +113,23 @@ export default function BizCreditPassportPage() {
           ) : (
             <div className="table-responsive">
               <table className="brutal-table" style={{ width: '100%', textAlign: 'left', borderCollapse: 'collapse' }}>
-                <thead><tr><th>Vendor</th><th>Type</th><th>Status</th><th>Limit</th></tr></thead>
+                <thead>
+                  <tr>
+                    <th style={{ borderBottom: '2px solid var(--ink)', padding: '8px' }}>Vendor</th>
+                    <th style={{ borderBottom: '2px solid var(--ink)', padding: '8px' }}>Type</th>
+                    <th style={{ borderBottom: '2px solid var(--ink)', padding: '8px' }}>Status</th>
+                    <th style={{ borderBottom: '2px solid var(--ink)', padding: '8px' }}>Limit</th>
+                  </tr>
+                </thead>
                 <tbody>
-                  {passport.vendorCredit.map((tradeline) => (
-                    <tr key={tradeline.id}>
-                      <td>{tradeline.vendorName}</td>
-                      <td>{tradeline.accountType}</td>
-                      <td><span className="status-pill info" style={{ fontSize: '0.65rem' }}>{formatStatus(tradeline.status)}</span></td>
-                      <td>${tradeline.limitAmount}</td>
+                  {passport.vendorCredit.map(t => (
+                    <tr key={t.id}>
+                      <td style={{ borderBottom: '1px solid var(--ink)', padding: '8px' }}>{t.vendorName}</td>
+                      <td style={{ borderBottom: '1px solid var(--ink)', padding: '8px' }}>{t.accountType}</td>
+                      <td style={{ borderBottom: '1px solid var(--ink)', padding: '8px' }}>
+                        <span className="status-pill info" style={{ fontSize: '0.65rem' }}>{t.status.replace('_', ' ')}</span>
+                      </td>
+                      <td style={{ borderBottom: '1px solid var(--ink)', padding: '8px' }}>${t.limitAmount}</td>
                     </tr>
                   ))}
                 </tbody>
@@ -95,9 +141,11 @@ export default function BizCreditPassportPage() {
         <article className="brutal-card">
           <h2>Milestones</h2>
           <div className="timeline">
-            {passport.milestones.map((step) => (
+            {passport.milestones.map(step => (
               <div className="roadmap-row" key={step.id}>
-                <span className={step.isComplete ? 'status-pill success' : 'status-pill warning'}>{step.phase}</span>
+                <span className={step.isComplete ? 'status-pill success' : 'status-pill warning'}>
+                  {step.phase}
+                </span>
                 <span>{step.title}</span>
               </div>
             ))}

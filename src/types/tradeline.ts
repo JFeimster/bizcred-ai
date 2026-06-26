@@ -1,4 +1,4 @@
-export type TradelineStatus = 'researching' | 'ready_to_apply' | 'planned' | 'applied' | 'approved' | 'denied' | 'first_purchase' | 'paid' | 'reporting' | 'reporting_confirmed' | 'closed';
+export type TradelineStatus = 'researching' | 'ready_to_apply' | 'applied' | 'approved' | 'denied' | 'first_purchase' | 'paid' | 'reporting_confirmed' | 'closed';
 
 export interface Tradeline {
   id: string;
@@ -10,8 +10,4 @@ export interface Tradeline {
   balanceAmount: number;
   reportsTo: string[];
   notes: string;
-
-  vendorId?: string;
-  dateOpened?: string;
-  lastReported?: string;
 }

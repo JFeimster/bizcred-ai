@@ -59,8 +59,8 @@ export function buildBizCreditPassport(profile: BusinessProfile, tradelines: Tra
       totalSignals: scoreResult.totalSignals
     },
     fundingReadiness: {
-      tier
+      tier: tier
     },
-    milestones
+    milestones: milestones
   };
 }

@@ -13,7 +13,10 @@ export function getReadinessTier(profile: BusinessProfile, tradelines: Tradeline
     profile.hasDomainEmail &&
     profile.hasDuns;
 
-  const hasReportingTradelines = tradelines.some((tradeline) => tradeline.status === 'reporting_confirmed');
+  const hasReportingTradelines = tradelines.some(
+    (t) => t.status === 'reporting_confirmed'
+  );
+
   const hasStarterTradelines = tradelines.length > 0;
 
   if (foundationComplete && identityComplete && hasReportingTradelines) {

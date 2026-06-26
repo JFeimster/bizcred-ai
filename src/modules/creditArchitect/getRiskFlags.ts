@@ -20,12 +20,12 @@ export function getRiskFlags(profile: BusinessProfile, tradelines: Tradeline[]):
     flags.push({ id: 'no-history', label: 'no vendor/tradeline history' });
   }
 
-  const hasPaid = tradelines.some((tradeline) => tradeline.status === 'paid' || tradeline.status === 'reporting_confirmed');
+  const hasPaid = tradelines.some(t => t.status === 'paid' || t.status === 'reporting_confirmed');
   if (tradelines.length > 0 && !hasPaid) {
     flags.push({ id: 'no-payment-history', label: 'missing payment history' });
   }
 
-  const unverified = tradelines.some((tradeline) => tradeline.status === 'researching' || tradeline.status === 'applied');
+  const unverified = tradelines.some(t => t.status === 'researching' || t.status === 'applied');
   if (unverified) {
     flags.push({ id: 'unverified-reporting', label: 'unverified reporting assumptions' });
   }

@@ -13,7 +13,7 @@ export function ProfileCompletenessCard({ profile }: { profile: BusinessProfile 
     { label: 'Domain Email', complete: profile.hasDomainEmail }
   ];
 
-  const completed = fields.filter((field) => field.complete).length;
+  const completed = fields.filter(f => f.complete).length;
   const percentage = Math.round((completed / fields.length) * 100);
 
   return (
@@ -23,11 +23,11 @@ export function ProfileCompletenessCard({ profile }: { profile: BusinessProfile 
         <strong>{percentage}%</strong> ({completed}/{fields.length})
       </div>
       <div style={{ display: 'grid', gap: '8px' }}>
-        {fields.map((field) => (
-          <div key={field.label} style={{ display: 'flex', justifyContent: 'space-between' }}>
-            <span>{field.label}</span>
-            <span className={field.complete ? 'status-pill success' : 'status-pill warning'}>
-              {field.complete ? 'Yes' : 'No'}
+        {fields.map(f => (
+          <div key={f.label} style={{ display: 'flex', justifyContent: 'space-between' }}>
+            <span>{f.label}</span>
+            <span className={f.complete ? 'status-pill success' : 'status-pill warning'}>
+              {f.complete ? 'Yes' : 'No'}
             </span>
           </div>
         ))}
