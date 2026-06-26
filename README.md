@@ -133,6 +133,8 @@ Replace the full prompt with your preferred starting prompt.
 3. No framework preset is needed.
 4. Deploy as a static site.
 
+> **Note:** Automatic Git deployments are disabled by default to preserve preview limits. See [`docs/VERCEL-DEPLOYMENT-CONTROL.md`](docs/VERCEL-DEPLOYMENT-CONTROL.md) for instructions on how to enable production deploys.
+
 ### GitHub Pages
 
 1. Create a new GitHub repository.
