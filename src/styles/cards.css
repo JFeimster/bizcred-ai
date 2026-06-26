@@ -1,0 +1,54 @@
+.brutal-card {
+  background-color: var(--surface);
+  border: var(--border-thick);
+  box-shadow: var(--shadow-offset);
+  padding: var(--space-lg);
+  margin-bottom: var(--space-md);
+  position: relative;
+}
+
+.brutal-card-header {
+  border-bottom: var(--border-thick);
+  margin-bottom: var(--space-md);
+  padding-bottom: var(--space-sm);
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+}
+
+.brutal-card-title {
+  margin: 0;
+  font-size: 1.25rem;
+}
+
+.metric-card {
+  background-color: var(--pink);
+  color: var(--ink);
+  text-align: center;
+}
+
+.metric-card .metric-value {
+  font-size: 4rem;
+  font-weight: 900;
+  line-height: 1;
+  margin: var(--space-sm) 0;
+}
+
+.action-card {
+  background-color: var(--cyan);
+  cursor: pointer;
+  transition: transform 0.1s ease;
+}
+
+.action-card:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: 6px 6px 0px 0px var(--ink);
+}
+
+.empty-state {
+  background-color: var(--gray-light);
+  border: var(--border-thick);
+  padding: var(--space-xl);
+  text-align: center;
+  border-style: dashed;
+}

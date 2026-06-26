@@ -1,0 +1,74 @@
+[
+  {
+    "id": "uline",
+    "name": "Uline",
+    "tier": 1,
+    "category": "Office / Shipping Supplies",
+    "reports_to": ["D&B", "Experian"],
+    "terms": "Net 30",
+    "requires_pg": false,
+    "ein_only": true,
+    "min_time_in_business_months": 0,
+    "approval_notes": "Verify current requirements and bureau reporting behavior directly before relying on this account for planning."
+  },
+  {
+    "id": "quill",
+    "name": "Quill",
+    "tier": 1,
+    "category": "Office Supplies",
+    "reports_to": ["D&B"],
+    "terms": "Net 30",
+    "requires_pg": false,
+    "ein_only": true,
+    "min_time_in_business_months": 0,
+    "approval_notes": "Often requires an initial purchase. Verify current requirements and bureau reporting behavior directly before relying on this account for planning."
+  },
+  {
+    "id": "grainger",
+    "name": "Grainger",
+    "tier": 1,
+    "category": "Industrial Supplies",
+    "reports_to": ["D&B"],
+    "terms": "Net 30",
+    "requires_pg": false,
+    "ein_only": true,
+    "min_time_in_business_months": 0,
+    "approval_notes": "Verify current requirements and bureau reporting behavior directly before relying on this account for planning."
+  },
+  {
+    "id": "crown_office_supplies",
+    "name": "Crown Office Supplies",
+    "tier": 1,
+    "category": "Office Supplies",
+    "reports_to": ["D&B", "Equifax", "Experian"],
+    "terms": "Net 30",
+    "requires_pg": false,
+    "ein_only": true,
+    "min_time_in_business_months": 0,
+    "approval_notes": "Usually requires a membership fee. Verify current requirements and bureau reporting behavior directly before relying on this account for planning."
+  },
+  {
+    "id": "summa_office_supplies",
+    "name": "Summa Office Supplies",
+    "tier": 1,
+    "category": "Office Supplies",
+    "reports_to": ["Equifax", "Experian"],
+    "terms": "Net 30",
+    "requires_pg": false,
+    "ein_only": true,
+    "min_time_in_business_months": 0,
+    "approval_notes": "Verify current requirements and bureau reporting behavior directly before relying on this account for planning."
+  },
+  {
+    "id": "nav",
+    "name": "Nav Business Boost",
+    "tier": 1,
+    "category": "Business Services",
+    "reports_to": ["D&B", "Equifax", "Experian"],
+    "terms": "Monthly Subscription",
+    "requires_pg": false,
+    "ein_only": true,
+    "min_time_in_business_months": 0,
+    "approval_notes": "Paid subscription that reports as a tradeline. Verify current requirements and bureau reporting behavior directly before relying on this account for planning."
+  }
+]

@@ -1,0 +1,90 @@
+@import './tokens.css';
+
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background-color: var(--cream);
+  color: var(--ink);
+  font-family: var(--font-sans);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  margin-top: 0;
+  margin-bottom: var(--space-sm);
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: -0.02em;
+}
+
+p {
+  margin-top: 0;
+  margin-bottom: var(--space-md);
+}
+
+a {
+  color: var(--ink);
+  text-decoration: underline;
+  font-weight: bold;
+}
+
+a:hover {
+  background-color: var(--acid);
+  text-decoration: none;
+}
+
+button {
+  cursor: pointer;
+  font-family: inherit;
+}
+
+.neo-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-sm) var(--space-md);
+  font-weight: 800;
+  text-transform: uppercase;
+  background-color: var(--cyan);
+  color: var(--ink);
+  border: var(--border-thick);
+  box-shadow: var(--shadow-offset);
+  transition: all 0.1s ease;
+  text-decoration: none;
+}
+
+.neo-button:hover {
+  transform: translate(2px, 2px);
+  box-shadow: var(--shadow-hover);
+}
+
+.neo-button:active {
+  transform: translate(4px, 4px);
+  box-shadow: none;
+}
+
+.neo-button--primary {
+  background-color: var(--acid);
+}
+
+.neo-button--secondary {
+  background-color: var(--surface);
+}
+
+.neo-button--danger {
+  background-color: var(--red);
+  color: white;
+}
+
+.text-sm {
+  font-size: 0.875rem;
+}
+
+.text-mono {
+  font-family: var(--font-mono);
+}

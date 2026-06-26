@@ -1,0 +1,163 @@
+[
+  {
+    "id": "phase_1_foundation",
+    "phase": 1,
+    "title": "Foundation",
+    "description": "Establish the legal and financial foundation of your business.",
+    "recommendedActions": [
+      "Consult with legal/tax professionals about forming an LLC or Corporation.",
+      "Apply for an EIN from the IRS.",
+      "Open a dedicated business bank account."
+    ],
+    "cautionNote": "Do not apply for credit until your entity is properly formed and you have an active EIN and business bank account.",
+    "steps": [
+      {
+        "id": "form_entity",
+        "title": "Form Business Entity",
+        "description": "Register your LLC or Corporation.",
+        "isComplete": false,
+        "priority": "high"
+      },
+      {
+        "id": "get_ein",
+        "title": "Get EIN",
+        "description": "Apply for an Employer Identification Number from the IRS.",
+        "isComplete": false,
+        "priority": "high"
+      },
+      {
+        "id": "open_bank_account",
+        "title": "Open Business Bank Account",
+        "description": "Set up a dedicated checking account for business expenses.",
+        "isComplete": false,
+        "priority": "high"
+      }
+    ]
+  },
+  {
+    "id": "phase_2_identity",
+    "phase": 2,
+    "title": "Business Identity",
+    "description": "Ensure your business appears credible and professional to lenders.",
+    "recommendedActions": [
+      "Set up a professional website and domain-based email.",
+      "Ensure your business address and phone number are consistent across all directories.",
+      "Register for a DUNS number."
+    ],
+    "cautionNote": "Inconsistencies in your business name, address, or phone number can lead to automatic credit denials.",
+    "steps": [
+      {
+        "id": "setup_contact_info",
+        "title": "Set Up Contact Info",
+        "description": "Get a dedicated business phone number and professional address.",
+        "isComplete": false,
+        "priority": "high"
+      },
+      {
+        "id": "setup_web_presence",
+        "title": "Establish Web Presence",
+        "description": "Create a website and domain email (e.g., info@yourdomain.com).",
+        "isComplete": false,
+        "priority": "medium"
+      },
+      {
+        "id": "get_duns",
+        "title": "Get DUNS Number",
+        "description": "Register with Dun & Bradstreet.",
+        "isComplete": false,
+        "priority": "high"
+      }
+    ]
+  },
+  {
+    "id": "phase_3_starter_vendors",
+    "phase": 3,
+    "title": "Starter Vendors",
+    "description": "Begin building your business credit profile with Net-30 accounts.",
+    "recommendedActions": [
+      "Research Tier 1 vendors that report to major business credit bureaus.",
+      "Open 3-5 Net-30 accounts.",
+      "Make small purchases and pay invoices early or on time."
+    ],
+    "cautionNote": "Always verify directly with the vendor that they currently report to the bureaus before relying on them for your credit building strategy.",
+    "steps": [
+      {
+        "id": "research_vendors",
+        "title": "Research Tier 1 Vendors",
+        "description": "Identify Net-30 accounts that match your business needs.",
+        "isComplete": false,
+        "priority": "medium"
+      },
+      {
+        "id": "add_tier1_vendors",
+        "title": "Open 3-5 Net-30 Accounts",
+        "description": "Apply for starter vendor accounts and make initial purchases.",
+        "isComplete": false,
+        "priority": "high"
+      },
+      {
+        "id": "pay_early",
+        "title": "Pay Invoices Early",
+        "description": "Pay all invoices well before the 30-day deadline.",
+        "isComplete": false,
+        "priority": "high"
+      }
+    ]
+  },
+  {
+    "id": "phase_4_verification",
+    "phase": 4,
+    "title": "Verification",
+    "description": "Confirm that your payment history is being accurately reported.",
+    "recommendedActions": [
+      "Monitor your business credit reports (D&B, Experian, Equifax).",
+      "Verify that your Net-30 accounts are showing up.",
+      "Dispute any inaccuracies."
+    ],
+    "cautionNote": "It can take 30-90 days for vendor payments to appear on your credit reports.",
+    "steps": [
+      {
+        "id": "monitor_reports",
+        "title": "Monitor Credit Reports",
+        "description": "Check your D&B, Experian, and Equifax business reports.",
+        "isComplete": false,
+        "priority": "high"
+      },
+      {
+        "id": "verify_tradelines",
+        "title": "Verify Tradelines",
+        "description": "Ensure your vendor accounts are reporting correctly.",
+        "isComplete": false,
+        "priority": "high"
+      }
+    ]
+  },
+  {
+    "id": "phase_5_funding_readiness",
+    "phase": 5,
+    "title": "Funding Readiness",
+    "description": "Prepare for higher-tier credit options.",
+    "recommendedActions": [
+      "Research Tier 2 and Tier 3 credit options (store cards, fleet cards, cash credit cards).",
+      "Ensure your financials and documentation are in order.",
+      "Understand the requirements for personal guarantees (PG)."
+    ],
+    "cautionNote": "This tool does not guarantee approval. Always review the specific underwriting requirements of any lender before applying.",
+    "steps": [
+      {
+        "id": "research_advanced_credit",
+        "title": "Research Advanced Credit",
+        "description": "Look into Tier 2/3 credit options suitable for your business.",
+        "isComplete": false,
+        "priority": "medium"
+      },
+      {
+        "id": "prepare_financials",
+        "title": "Prepare Financials",
+        "description": "Ensure your revenue documentation is accurate and organized.",
+        "isComplete": false,
+        "priority": "medium"
+      }
+    ]
+  }
+]

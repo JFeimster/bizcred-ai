@@ -1,0 +1,76 @@
+.form-group {
+  margin-bottom: var(--space-md);
+}
+
+.form-label {
+  display: block;
+  font-weight: bold;
+  margin-bottom: var(--space-xs);
+  text-transform: uppercase;
+  font-size: 0.875rem;
+}
+
+.neo-input,
+.neo-select,
+.neo-textarea {
+  width: 100%;
+  padding: var(--space-sm);
+  border: var(--border-thick);
+  background-color: var(--surface);
+  font-family: var(--font-sans);
+  font-size: 1rem;
+}
+
+.neo-input:focus,
+.neo-select:focus,
+.neo-textarea:focus {
+  outline: none;
+  background-color: var(--cream);
+}
+
+fieldset.neo-fieldset {
+  border: var(--border-thick);
+  padding: var(--space-md);
+  margin-bottom: var(--space-lg);
+  background-color: var(--surface);
+  box-shadow: var(--shadow-offset);
+}
+
+legend.neo-legend {
+  background-color: var(--ink);
+  color: var(--cream);
+  padding: var(--space-xs) var(--space-sm);
+  font-weight: bold;
+  text-transform: uppercase;
+  border: var(--border-thick);
+}
+
+.checkbox-group {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+}
+
+.neo-checkbox {
+  width: 1.5rem;
+  height: 1.5rem;
+  border: var(--border-thick);
+  appearance: none;
+  background-color: var(--surface);
+  cursor: pointer;
+  position: relative;
+}
+
+.neo-checkbox:checked {
+  background-color: var(--ink);
+}
+
+.neo-checkbox:checked::after {
+  content: "✔";
+  color: var(--cream);
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 1rem;
+}

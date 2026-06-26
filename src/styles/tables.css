@@ -1,0 +1,39 @@
+.table-container {
+  overflow-x: auto;
+  border: var(--border-thick);
+  box-shadow: var(--shadow-offset);
+  background-color: var(--surface);
+  margin-bottom: var(--space-lg);
+}
+
+.neo-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+}
+
+.neo-table th,
+.neo-table td {
+  padding: var(--space-sm) var(--space-md);
+  border-bottom: var(--border-thick);
+  border-right: var(--border-thick);
+}
+
+.neo-table th:last-child,
+.neo-table td:last-child {
+  border-right: none;
+}
+
+.neo-table tr:last-child td {
+  border-bottom: none;
+}
+
+.neo-table th {
+  background-color: var(--gray-light);
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+.neo-table tr:hover td {
+  background-color: var(--cream);
+}

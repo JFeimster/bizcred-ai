@@ -140,9 +140,29 @@ Replace the full prompt with your preferred starting prompt.
 3. Go to repository settings.
 4. Enable GitHub Pages from the main branch.
 
-### Local preview
+## App Scaffold (New in Phase 2)
 
-For an accurate local preview (and to ensure ES modules and fetch API work correctly), run:
+A typed React/TypeScript app scaffold has been added to the `src/` directory to build a more robust **Local-First BizCredit Builder OS**.
+
+**Phase Note:** This is entirely local-first and privacy-preserving. All data is stored in your browser's `localStorage`. See `docs/LOCALSTORAGE-SPEC.md` and `docs/PRIVACY-SAFETY.md` for more details.
+
+The new scaffold exists alongside the existing static HTML pages. The static pages remain unchanged and deployable as before.
+
+### Running the React Scaffold
+To run the new React app locally:
+```bash
+npm install
+npm run dev
+```
+This will start Vite on a local port (e.g., `http://localhost:5173`).
+
+### Difference Between Static Site and App Scaffold
+- **Static Pages (`index.html`, `dashboard.html`, etc.):** Use plain HTML/JS/CSS with no build step required. Perfect for simple, fast landing pages and basic dashboards.
+- **App Scaffold (`src/`):** Uses React, TypeScript, and Vite. Designed to support a more complex UI, state management, and strict type-safety while still preserving the local-first architecture.
+
+## Local preview (Static Pages)
+
+For an accurate local preview of the static pages (and to ensure ES modules and fetch API work correctly), run:
 
 ```bash
 python -m http.server 8000
