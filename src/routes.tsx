@@ -14,5 +14,7 @@ export const routes = [
   { path: '/imports', name: 'Imports' },
   { path: '/exports', name: 'Exports' },
   { path: '/schemas', name: 'Schemas' },
+  { path: '/funding-tools', name: 'Funding Tools' },
+  { path: '/gpt-directory', name: 'GPT Directory' },
   { path: '/settings', name: 'Settings' }
 ];
