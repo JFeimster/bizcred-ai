@@ -7,6 +7,11 @@
     "audience": ["Entrepreneurs", "LLC Owners", "Small Business Operators"],
     "description": "Educational assistant for organizing business-credit setup, readiness gaps, and next-step prompts.",
     "useCases": ["Readiness audit", "Vendor research prep", "Next-step checklist"],
-    "status": "published"
+    "status": "published",
+    "recommended_stage": "foundation",
+    "keyword": "business credit readiness vendor research funding prep",
+    "is_duplicate": false,
+    "has_access_url": true,
+    "verification_status": "needs_review"
   }
 ]
