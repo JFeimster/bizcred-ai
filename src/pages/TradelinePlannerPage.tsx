@@ -7,6 +7,10 @@ import type { Tradeline, TradelineStatus } from '../types/tradeline';
 
 const statuses: TradelineStatus[] = ['researching', 'ready_to_apply', 'applied', 'approved', 'denied', 'first_purchase', 'paid', 'reporting_confirmed', 'closed'];
 
+function statusLabel(status: TradelineStatus): string {
+  return status.replace(/_/g, ' ');
+}
+
 export default function TradelinePlannerPage() {
   const [tradelines, setTradelines] = useState<Tradeline[]>(() => readLocal(STORAGE_KEYS.tradelines, defaultTradelines));
   const [vendorName, setVendorName] = useState('');
@@ -57,7 +61,7 @@ export default function TradelinePlannerPage() {
                 <td>{item.vendorName}</td>
                 <td>
                   <select value={item.status} onChange={(event) => persist(changeTradelineStatus(tradelines, item.id, event.target.value as TradelineStatus))}>
-                    {statuses.map((status) => <option value={status} key={status}>{status.replaceAll('_', ' ')}</option>)}
+                    {statuses.map((status) => <option value={status} key={status}>{statusLabel(status)}</option>)}
                   </select>
                 </td>
                 <td>{item.reportsTo.length ? item.reportsTo.join(', ') : 'Verify directly'}</td>
