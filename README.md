@@ -14,6 +14,16 @@ bizcredit-builder-neobrutalist-redesign/
 ├── styles.css
 ├── script.js
 ├── README.md
+├── api/
+│   ├── health.js
+│   ├── vendors.js
+│   ├── vendor-by-id.js
+│   ├── vendor-summary.js
+│   ├── readiness-rules.js
+│   ├── ai-health.js
+│   ├── generate-readiness-plan.js
+│   ├── explain-vendor-path.js
+│   └── generate-gpt-prompt.js
 ├── data/
 │   ├── setup-tasks.json
 │   ├── prompt-templates.json
@@ -25,6 +35,7 @@ bizcredit-builder-neobrutalist-redesign/
     │   ├── readiness-engine.js
     │   ├── vendor-tracker.js
     │   ├── prompt-builder.js
+    │   ├── ai-client.js
     │   └── dashboard.js
     └── css/
         └── dashboard.css
@@ -33,6 +44,7 @@ bizcredit-builder-neobrutalist-redesign/
 ## LocalStorage Keys
 
 The dashboard persists your data directly in your browser using these keys:
+
 - `bizcred_profile_v1`
 - `bizcred_tasks_v1`
 - `bizcred_vendor_tracker_v1`
@@ -40,14 +52,14 @@ The dashboard persists your data directly in your browser using these keys:
 - `bizcred_score_history_v1`
 
 **Important**:
+
 - `data/credit-vendors.registry.json` currently contains an empty array. **TODO:** You must copy the vendor registry from `JFeimster/BizCredit` into this file to populate the vendor tracker.
 - No approval, funding, tradeline, reporting, score-change, or lender-outcome guarantees are made. Vendor reporting must always be verified directly before relying on it.
 
 ## What is included
 
 - Static HTML, CSS, and vanilla JavaScript
-- No frameworks
-- No build step
+- No frontend framework required for the static pages
 - Responsive mobile-first layout
 - Sticky brutalist header
 - Marquee strip
@@ -62,6 +74,7 @@ The dashboard persists your data directly in your browser using these keys:
 - SEO title and meta description
 - Open Graph basics
 - SoftwareApplication schema
+- Optional server-side AI generation endpoints with safe prompt fallback
 
 ## Main CTA
 
@@ -130,7 +143,7 @@ Replace the full prompt with your preferred starting prompt.
 
 1. Create a new Vercel project.
 2. Upload or connect the folder.
-3. No framework preset is needed.
+3. No framework preset is needed for the static pages.
 4. Deploy as a static site.
 
 > **Note:** Automatic Git deployments are disabled by default to preserve preview limits. See [`docs/VERCEL-DEPLOYMENT-CONTROL.md`](docs/VERCEL-DEPLOYMENT-CONTROL.md) for instructions on how to enable production deploys.
@@ -144,7 +157,7 @@ Replace the full prompt with your preferred starting prompt.
 
 ### Local preview
 
-For an accurate local preview (and to ensure ES modules and fetch API work correctly), run:
+For an accurate local preview of the static pages, run:
 
 ```bash
 python -m http.server 8000
@@ -156,39 +169,11 @@ Then open:
 http://localhost:8000
 ```
 
+Serverless functions do not run under `python -m http.server`. AI panels will fall back to copy/paste prompts in that mode.
+
 ### Data Management
 
 You can export, import, or completely reset your local data from the Data Management section at the bottom of the Dashboard page.
-
-## Embedding in builders
-
-### Webflow
-
-Use an Embed element for individual components, or host the full page externally and iframe it.
-
-### Framer
-
-Use the Embed component and paste an iframe pointing to your hosted URL.
-
-### Wix
-
-Use “Embed HTML” and paste either the full iframe or custom HTML block.
-
-### Carrd
-
-Use an Embed element. Carrd works best with a hosted iframe version.
-
-### Iframe example
-
-```html
-<iframe
-  src="https://your-domain.com"
-  title="BizCredit Builder GPT"
-  width="100%"
-  height="900"
-  style="border:0;"
-></iframe>
-```
 
 ## Phase 2: GPT Actions & API Endpoints
 
@@ -197,9 +182,20 @@ A set of read-only serverless API endpoints has been added to the `/api` directo
 - **Endpoints:** `/api/health`, `/api/vendors`, `/api/vendor-by-id`, `/api/vendor-summary`, and `/api/readiness-rules`.
 - **OpenAPI Schema:** Located at `actions/bizcredit-builder.openapi.yaml`.
 - **Usage:** The Custom GPT uses these endpoints through OpenAI Actions to answer user queries with up-to-date repository data.
-- **Architecture Rules:** The static browser frontend does **not** call the Custom GPT or expose OpenAI API keys. The communication flow is strictly: User -> ChatGPT -> Custom GPT Actions -> `/api` Endpoints.
+- **Architecture Rules:** The static browser frontend does **not** expose OpenAI API keys. API keys must stay server-side.
 
 See `docs/GPT-ACTIONS-SETUP.md` for deployment and integration instructions.
+
+## Phase 3: Optional Server-Side AI Generation
+
+Optional server-side AI endpoints can generate a readiness plan, vendor path explanation, or copy/paste GPT prompt from local dashboard state.
+
+- **Endpoints:** `/api/ai-health`, `/api/generate-readiness-plan`, `/api/explain-vendor-path`, and `/api/generate-gpt-prompt`.
+- **Frontend:** `assets/js/ai-client.js` calls these endpoints and falls back to prompt mode when AI is not configured.
+- **Environment:** Configure `OPENAI_API_KEY` and optional `OPENAI_MODEL` in Vercel or your local serverless environment.
+- **Docs:** See `docs/AI-API-SETUP.md`.
+
+Do not commit `.env` or real secrets. Only `.env.example` should be committed.
 
 ## Compliance note
 
@@ -207,8 +203,6 @@ This page intentionally avoids fake testimonials, approval guarantees, score-cha
 
 ## Recommended next upgrades
 
-- **Phase 2:** API endpoints for GPT Actions.
-- **Phase 3:** Server-side AI generation via backend functions.
 - Add a custom domain
 - Add analytics
 - Add a booking/contact form for Guided Review
