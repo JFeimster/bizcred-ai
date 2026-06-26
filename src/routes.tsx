@@ -1,6 +1,5 @@
 export const routes = [
-  { path: '/', name: 'Business HQ' },
-  { path: '/passport', name: 'BizCredit Passport' },
+  { path: '/', name: 'Dashboard' },
   { path: '/profile', name: 'Profile' },
   { path: '/credit-architect', name: 'Credit Architect' },
   { path: '/directory', name: 'Directory' },
@@ -11,10 +10,8 @@ export const routes = [
   { path: '/funding-readiness', name: 'Funding Readiness' },
   { path: '/document-index', name: 'Document Index' },
   { path: '/denial-recovery', name: 'Denial Recovery' },
-  { path: '/imports', name: 'Imports' },
   { path: '/exports', name: 'Exports' },
-  { path: '/schemas', name: 'Schemas' },
+  { path: '/settings', name: 'Settings' },
   { path: '/funding-tools', name: 'Funding Tools' },
-  { path: '/gpt-directory', name: 'GPT Directory' },
-  { path: '/settings', name: 'Settings' }
+  { path: '/gpt-directory', name: 'GPT Directory' }
 ];

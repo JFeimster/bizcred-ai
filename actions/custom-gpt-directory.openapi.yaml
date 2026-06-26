@@ -2,58 +2,41 @@ openapi: 3.1.0
 info:
   title: BizCredit Custom GPT Directory API
   version: 1.0.0
-  description: Read-only Custom GPT directory API for educational planning. No outcome guarantees. Verify access URLs and tool fit directly.
+  description: API for retrieving custom GPT directory for educational planning.
 servers:
-  - url: https://your-production-url.vercel.app
-    description: Production server
+  - url: https://your-app-url.vercel.app/api
 paths:
-  /api/gpt-directory:
+  /gpt-directory:
     get:
-      operationId: listBizCreditCustomGpts
-      summary: List and filter Custom GPT directory records
-      description: Returns public Custom GPT records for educational planning only. This endpoint is read-only.
-      parameters:
-        - name: search
-          in: query
-          schema:
-            type: string
-        - name: recommended_stage
-          in: query
-          schema:
-            type: string
-        - name: keyword
-          in: query
-          schema:
-            type: string
-        - name: category
-          in: query
-          schema:
-            type: string
-        - name: has_access_url
-          in: query
-          schema:
-            type: boolean
-        - name: limit
-          in: query
-          schema:
-            type: integer
+      operationId: getCustomGpts
+      summary: Retrieves a list of custom GPTs.
+      description: |
+        Retrieves a directory of custom GPTs.
+        **DISCLAIMER: This information is for educational planning only and provides no guarantees for approvals, funding, reporting, tradelines, or score changes. Users must verify vendor terms directly before applying.**
+        Note: This is an optional supporting action, not the canonical BizCredit vendor/readiness schema.
       responses:
         '200':
-          description: Custom GPT directory response
+          description: A JSON array of custom GPTs.
           content:
             application/json:
               schema:
-                type: object
-                properties:
-                  data:
-                    type: array
-                    items:
-                      type: object
-                  meta:
-                    type: object
-                  disclaimer:
-                    type: string
-        '405':
-          description: Method not allowed
-        '500':
-          description: Internal server error
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: string
+                    name:
+                      type: string
+                    recommended_stage:
+                      type: string
+                    keyword:
+                      type: string
+                    category:
+                      type: string
+                    is_duplicate:
+                      type: boolean
+                    has_access_url:
+                      type: boolean
+                    verification_status:
+                      type: string

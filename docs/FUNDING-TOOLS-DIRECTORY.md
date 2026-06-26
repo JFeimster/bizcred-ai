@@ -1,37 +1,12 @@
 # Funding Tools Directory
 
-The Funding Tools Directory is a local-first resource layer for BizCredit OS.
+This document outlines the usage of the Funding Tools Directory within BizCredit.
 
-## Scope
+## Overview
+The Funding Tools Directory lists various tools that assist users in building and managing their business credit profiles.
 
-- React page: `src/pages/FundingToolsPage.tsx`
-- Card component: `src/components/cards/FundingToolCard.tsx`
-- Filter form: `src/components/forms/FundingToolFilterForm.tsx`
-- Search helper: `src/modules/tools/searchFundingTools.ts`
-- Data source: `data/tools/funding-tools.normalized.json`
-- Read-only API: `api/funding-tools.js`
-- OpenAPI file: `actions/funding-tools.openapi.yaml`
+## Data Source
+The canonical source for this directory is expected to be maintained in `data/tools/funding-tools.normalized.json`. If the source registry is not present in the repository, a small placeholder is provided and the actual source data needs to be imported manually.
 
-## Data posture
-
-The directory uses approved local/system records. It does not store user-submitted data and does not perform matching against private business records.
-
-## Safety posture
-
-- Educational planning only.
-- Read-only public records only.
-- No approval, funding, bureau reporting, tradeline, score-change, or lender-outcome guarantees.
-- Users should verify all requirements and tool fit directly.
-
-## Filters
-
-- persona
-- problem keyword
-- asset type
-- build state / recommended stage
-- status
-- partner channel
-
-## Future considerations
-
-Do not turn this into a write endpoint or private matching workflow without the paid/auth rules in `docs/API-SAFETY-RULES.md`.
+## Disclaimer
+All listings are for educational planning only and do not guarantee approvals, funding, reporting, tradelines, score changes, or lender outcomes. Verify vendor requirements and reporting directly before applying.

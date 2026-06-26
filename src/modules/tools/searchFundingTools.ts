@@ -1,5 +1,5 @@
-import fundingToolsData from '../../../data/tools/funding-tools.normalized.json';
 import type { FundingTool } from '../../types/FundingTool';
+import fundingToolsData from '../../../data/tools/funding-tools.normalized.json';
 
 export interface FundingToolFilters {
   persona?: string;
@@ -10,30 +10,26 @@ export interface FundingToolFilters {
   partnerChannel?: string;
 }
 
-function includes(value: unknown, query: string): boolean {
-  return String(value || '').toLowerCase().includes(query.toLowerCase());
-}
-
 export function searchFundingTools(filters: FundingToolFilters): FundingTool[] {
   let tools = fundingToolsData as FundingTool[];
 
   if (filters.persona) {
-    tools = tools.filter((tool) => includes(tool.persona, filters.persona || ''));
+    tools = tools.filter(t => t.persona?.toLowerCase().includes(filters.persona!.toLowerCase()));
   }
   if (filters.problemKeyword) {
-    tools = tools.filter((tool) => includes(tool.problem_keyword, filters.problemKeyword || '') || includes(tool.description, filters.problemKeyword || ''));
+    tools = tools.filter(t => t.problem_keyword?.toLowerCase().includes(filters.problemKeyword!.toLowerCase()));
   }
   if (filters.assetType) {
-    tools = tools.filter((tool) => includes(tool.asset_type, filters.assetType || '') || includes(tool.category, filters.assetType || ''));
+    tools = tools.filter(t => t.asset_type?.toLowerCase().includes(filters.assetType!.toLowerCase()));
   }
   if (filters.buildState) {
-    tools = tools.filter((tool) => includes(tool.build_state, filters.buildState || '') || includes(tool.recommended_stage, filters.buildState || ''));
+    tools = tools.filter(t => t.build_state?.toLowerCase().includes(filters.buildState!.toLowerCase()));
   }
   if (filters.status) {
-    tools = tools.filter((tool) => includes(tool.status, filters.status || ''));
+    tools = tools.filter(t => t.status?.toLowerCase().includes(filters.status!.toLowerCase()));
   }
   if (filters.partnerChannel) {
-    tools = tools.filter((tool) => includes(tool.partner_channel, filters.partnerChannel || ''));
+    tools = tools.filter(t => t.partner_channel?.toLowerCase().includes(filters.partnerChannel!.toLowerCase()));
   }
 
   return tools;

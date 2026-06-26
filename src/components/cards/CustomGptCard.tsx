@@ -1,26 +1,37 @@
+import React from 'react';
 import type { CustomGpt } from '../../types/CustomGpt';
 
 interface CustomGptCardProps {
   gpt: CustomGpt;
 }
 
-export default function CustomGptCard({ gpt }: CustomGptCardProps) {
+const CustomGptCard: React.FC<CustomGptCardProps> = ({ gpt }) => {
   return (
-    <article className="brutal-card">
-      <div style={{ display: 'flex', justifyContent: 'space-between', gap: '12px', alignItems: 'flex-start' }}>
-        <div>
-          <h2>{gpt.name}</h2>
-          <p>{gpt.description || 'Educational GPT resource for business-credit readiness.'}</p>
+    <div className="card">
+      <div className="card-header">
+        <h3 className="card-title">{gpt.name}</h3>
+        {gpt.category && <span className="badge">{gpt.category}</span>}
+      </div>
+      <div className="card-body">
+        {gpt.recommended_stage && (
+          <div className="detail-row">
+            <span className="detail-label">Stage:</span>
+            <span className="detail-value">{gpt.recommended_stage}</span>
+          </div>
+        )}
+        <div className="detail-row">
+          <span className="detail-label">Access URL:</span>
+          <span className="detail-value">{gpt.has_access_url ? 'Available' : 'Not Available'}</span>
         </div>
-        <span className="status-pill info">{gpt.category || 'GPT'}</span>
+        <div className="detail-row">
+          <span className="detail-label">Verification:</span>
+          <span className={`badge ${gpt.verification_status === 'verified' ? 'success' : 'warning'}`}>
+            {gpt.verification_status || 'needs_review'}
+          </span>
+        </div>
       </div>
-
-      <div className="timeline">
-        {gpt.recommended_stage && <div className="roadmap-row"><strong>Stage</strong><span>{gpt.recommended_stage}</span></div>}
-        {gpt.audience?.length ? <div className="roadmap-row"><strong>Audience</strong><span>{gpt.audience.join(', ')}</span></div> : null}
-        <div className="roadmap-row"><strong>Access URL</strong><span>{gpt.has_access_url || gpt.url ? 'Available' : 'Not available'}</span></div>
-        <div className="roadmap-row"><strong>Verification</strong><span className="status-pill warning">{gpt.verification_status || 'needs_review'}</span></div>
-      </div>
-    </article>
+    </div>
   );
-}
+};
+
+export default CustomGptCard;

@@ -1,54 +1,60 @@
-import type { ChangeEvent } from 'react';
+import React, { useState } from 'react';
 import type { FundingToolFilters } from '../../modules/tools/searchFundingTools';
 
 interface FundingToolFilterFormProps {
-  filters: FundingToolFilters;
   onFilterChange: (filters: FundingToolFilters) => void;
 }
 
-export default function FundingToolFilterForm({ filters, onFilterChange }: FundingToolFilterFormProps) {
-  function handleChange(event: ChangeEvent<HTMLInputElement | HTMLSelectElement>) {
-    const { name, value } = event.target;
-    onFilterChange({ ...filters, [name]: value });
-  }
+const FundingToolFilterForm: React.FC<FundingToolFilterFormProps> = ({ onFilterChange }) => {
+  const [filters, setFilters] = useState<FundingToolFilters>({});
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+    const { name, value } = e.target;
+    const newFilters = { ...filters, [name]: value };
+    setFilters(newFilters);
+    onFilterChange(newFilters);
+  };
 
   return (
-    <div className="brutal-card form-grid">
-      <label>
-        Persona
-        <input name="persona" value={filters.persona || ''} onChange={handleChange} placeholder="broker, startup, operator" />
-      </label>
-      <label>
-        Problem Keyword
-        <input name="problemKeyword" value={filters.problemKeyword || ''} onChange={handleChange} placeholder="cash flow, readiness, vendor" />
-      </label>
-      <label>
-        Asset Type
-        <input name="assetType" value={filters.assetType || ''} onChange={handleChange} placeholder="calculator, checklist, GPT" />
-      </label>
-      <label>
-        Build State
-        <select name="buildState" value={filters.buildState || ''} onChange={handleChange}>
-          <option value="">Any</option>
-          <option value="foundation">Foundation</option>
-          <option value="mvp">MVP</option>
-          <option value="planned">Planned</option>
-          <option value="active">Active</option>
-        </select>
-      </label>
-      <label>
-        Status
-        <select name="status" value={filters.status || ''} onChange={handleChange}>
-          <option value="">Any</option>
-          <option value="planned">Planned</option>
-          <option value="active">Active</option>
-          <option value="archived">Archived</option>
-        </select>
-      </label>
-      <label>
-        Partner Channel
-        <input name="partnerChannel" value={filters.partnerChannel || ''} onChange={handleChange} placeholder="broker, affiliate, direct" />
-      </label>
-    </div>
+    <form className="filter-form" style={{ marginBottom: '2rem', padding: '1rem', border: '2px solid black', backgroundColor: '#f0f0f0' }}>
+      <h3 style={{ marginTop: 0 }}>Filter Tools</h3>
+      <div className="form-group" style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap' }}>
+        <div>
+          <label htmlFor="persona">Persona</label>
+          <input type="text" id="persona" name="persona" onChange={handleChange} className="form-control" />
+        </div>
+        <div>
+          <label htmlFor="problemKeyword">Problem Keyword</label>
+          <input type="text" id="problemKeyword" name="problemKeyword" onChange={handleChange} className="form-control" />
+        </div>
+        <div>
+          <label htmlFor="assetType">Asset Type</label>
+          <input type="text" id="assetType" name="assetType" onChange={handleChange} className="form-control" />
+        </div>
+        <div>
+          <label htmlFor="buildState">Build State</label>
+          <select id="buildState" name="buildState" onChange={handleChange} className="form-control">
+            <option value="">Any</option>
+            <option value="mvp">MVP</option>
+            <option value="scaling">Scaling</option>
+            <option value="established">Established</option>
+          </select>
+        </div>
+        <div>
+          <label htmlFor="status">Status</label>
+          <select id="status" name="status" onChange={handleChange} className="form-control">
+            <option value="">Any</option>
+            <option value="active">Active</option>
+            <option value="inactive">Inactive</option>
+          </select>
+        </div>
+        <div>
+          <label htmlFor="partnerChannel">Partner Channel</label>
+          <input type="text" id="partnerChannel" name="partnerChannel" onChange={handleChange} className="form-control" />
+        </div>
+      </div>
+    </form>
   );
-}
+};
+
+export default FundingToolFilterForm;

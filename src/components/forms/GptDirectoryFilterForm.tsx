@@ -1,54 +1,71 @@
-import type { ChangeEvent } from 'react';
+import React, { useState } from 'react';
 import type { CustomGptFilters } from '../../modules/gpts/searchCustomGpts';
 
 interface GptDirectoryFilterFormProps {
-  filters: CustomGptFilters;
   onFilterChange: (filters: CustomGptFilters) => void;
 }
 
-export default function GptDirectoryFilterForm({ filters, onFilterChange }: GptDirectoryFilterFormProps) {
-  function handleChange(event: ChangeEvent<HTMLInputElement | HTMLSelectElement>) {
-    const { name, value } = event.target;
-    onFilterChange({ ...filters, [name]: value });
-  }
+const GptDirectoryFilterForm: React.FC<GptDirectoryFilterFormProps> = ({ onFilterChange }) => {
+  const [filters, setFilters] = useState<CustomGptFilters>({});
 
-  function handleAccessUrlChange(event: ChangeEvent<HTMLInputElement>) {
-    const nextFilters = { ...filters };
-    if (event.target.checked) {
-      nextFilters.hasAccessUrl = true;
-    } else {
-      delete nextFilters.hasAccessUrl;
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+    const { name, value, type } = e.target;
+    let newValue: any = value;
+
+    // We update state for text and select fields
+    if (type !== 'checkbox') {
+        const newFilters = { ...filters, [name]: newValue };
+        setFilters(newFilters);
+        onFilterChange(newFilters);
     }
-    onFilterChange(nextFilters);
-  }
+  };
+
+  const handleCheckboxChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+     const { name, checked } = e.target;
+     // If checkbox is unchecked, we remove the filter so it shows all GPTs
+     const newFilters = { ...filters };
+     if (checked) {
+         newFilters[name as keyof CustomGptFilters] = true as never;
+     } else {
+         delete newFilters[name as keyof CustomGptFilters];
+     }
+
+     setFilters(newFilters);
+     onFilterChange(newFilters);
+  };
 
   return (
-    <div className="brutal-card form-grid">
-      <label>
-        Recommended Stage
-        <select name="recommendedStage" value={filters.recommendedStage || ''} onChange={handleChange}>
-          <option value="">Any</option>
-          <option value="foundation">Foundation</option>
-          <option value="vendor_credit">Vendor Credit</option>
-          <option value="funding_readiness">Funding Readiness</option>
-          <option value="cash_flow">Cash Flow</option>
-          <option value="automation">Automation</option>
-          <option value="marketing">Marketing</option>
-          <option value="operations">Operations</option>
-        </select>
-      </label>
-      <label>
-        Keyword
-        <input name="keyword" value={filters.keyword || ''} onChange={handleChange} placeholder="readiness, funding, vendor" />
-      </label>
-      <label>
-        Category
-        <input name="category" value={filters.category || ''} onChange={handleChange} placeholder="finance, funding, operations" />
-      </label>
-      <label className="checkbox-line">
-        <input type="checkbox" checked={Boolean(filters.hasAccessUrl)} onChange={handleAccessUrlChange} />
-        <span>Has access URL</span>
-      </label>
-    </div>
+    <form className="filter-form" style={{ marginBottom: '2rem', padding: '1rem', border: '2px solid black', backgroundColor: '#f0f0f0' }}>
+      <h3 style={{ marginTop: 0 }}>Filter GPTs</h3>
+      <div className="form-group" style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap', alignItems: 'flex-end' }}>
+        <div>
+          <label htmlFor="recommendedStage">Recommended Stage</label>
+          <select id="recommendedStage" name="recommendedStage" onChange={handleChange} className="form-control">
+            <option value="">Any</option>
+            <option value="foundation">Foundation</option>
+            <option value="vendor_credit">Vendor Credit</option>
+            <option value="funding_readiness">Funding Readiness</option>
+            <option value="cash_flow">Cash Flow</option>
+            <option value="automation">Automation</option>
+            <option value="marketing">Marketing</option>
+            <option value="operations">Operations</option>
+          </select>
+        </div>
+        <div>
+          <label htmlFor="keyword">Keyword</label>
+          <input type="text" id="keyword" name="keyword" onChange={handleChange} className="form-control" />
+        </div>
+        <div>
+          <label htmlFor="category">Category</label>
+          <input type="text" id="category" name="category" onChange={handleChange} className="form-control" />
+        </div>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.5rem' }}>
+          <input type="checkbox" id="hasAccessUrl" name="hasAccessUrl" onChange={handleCheckboxChange} />
+          <label htmlFor="hasAccessUrl" style={{ margin: 0 }}>Has Access URL</label>
+        </div>
+      </div>
+    </form>
   );
-}
+};
+
+export default GptDirectoryFilterForm;

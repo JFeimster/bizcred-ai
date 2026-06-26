@@ -1,27 +1,45 @@
+import React from 'react';
 import type { FundingTool } from '../../types/FundingTool';
 
 interface FundingToolCardProps {
   tool: FundingTool;
 }
 
-export default function FundingToolCard({ tool }: FundingToolCardProps) {
+const FundingToolCard: React.FC<FundingToolCardProps> = ({ tool }) => {
   return (
-    <article className="brutal-card">
-      <div style={{ display: 'flex', justifyContent: 'space-between', gap: '12px', alignItems: 'flex-start' }}>
-        <div>
-          <h2>{tool.name}</h2>
-          <p>{tool.description || 'Educational funding-readiness tool.'}</p>
+    <div className="card">
+      <div className="card-header">
+        <h3 className="card-title">{tool.name}</h3>
+        {tool.status && <span className="badge">{tool.status}</span>}
+      </div>
+      <div className="card-body">
+        {tool.persona && (
+          <div className="detail-row">
+            <span className="detail-label">Persona:</span>
+            <span className="detail-value">{tool.persona}</span>
+          </div>
+        )}
+        {tool.asset_type && (
+          <div className="detail-row">
+            <span className="detail-label">Asset Type:</span>
+            <span className="detail-value">{tool.asset_type}</span>
+          </div>
+        )}
+        {tool.problem_keyword && (
+          <div className="detail-row">
+            <span className="detail-label">Solves:</span>
+            <span className="detail-value">{tool.problem_keyword}</span>
+          </div>
+        )}
+        <div className="detail-row">
+          <span className="detail-label">Verification:</span>
+          <span className={`badge ${tool.verification_status === 'verified' ? 'success' : 'warning'}`}>
+            {tool.verification_status || 'needs_review'}
+          </span>
         </div>
-        <span className="status-pill info">{tool.status || 'planned'}</span>
       </div>
-
-      <div className="timeline">
-        {tool.persona && <div className="roadmap-row"><strong>Persona</strong><span>{tool.persona}</span></div>}
-        {tool.problem_keyword && <div className="roadmap-row"><strong>Solves</strong><span>{tool.problem_keyword}</span></div>}
-        {tool.asset_type && <div className="roadmap-row"><strong>Asset Type</strong><span>{tool.asset_type}</span></div>}
-        {tool.partner_channel && <div className="roadmap-row"><strong>Channel</strong><span>{tool.partner_channel}</span></div>}
-        <div className="roadmap-row"><strong>Verification</strong><span className="status-pill warning">{tool.verification_status || 'needs_review'}</span></div>
-      </div>
-    </article>
+    </div>
   );
-}
+};
+
+export default FundingToolCard;
