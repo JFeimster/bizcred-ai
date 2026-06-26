@@ -15,6 +15,9 @@ import CreditDirectoryPage from './pages/CreditDirectoryPage';
 import VendorProfilePage from './pages/VendorProfilePage';
 import TradelinePlannerPage from './pages/TradelinePlannerPage';
 import RoadmapPage from './pages/RoadmapPage';
+import ImportsPage from './pages/ImportsPage';
+import ExportsPage from './pages/ExportsPage';
+import SchemasPage from './pages/SchemasPage';
 
 function App() {
   const [currentPage, setCurrentPage] = useState('business-hq');
@@ -41,6 +44,12 @@ function App() {
         return <TradelinePlannerPage />;
       case 'roadmap':
         return <RoadmapPage />;
+      case 'imports':
+        return <ImportsPage />;
+      case 'exports':
+        return <ExportsPage />;
+      case 'schemas':
+        return <SchemasPage />;
       default:
         return <BusinessHqPage />;
     }
@@ -57,6 +66,9 @@ function App() {
           <button className={`sidebar-link ${currentPage === 'directory' || currentPage === 'vendor-profile' ? 'active' : ''}`} onClick={() => setCurrentPage('directory')}>Directory</button>
           <button className={`sidebar-link ${currentPage === 'planner' ? 'active' : ''}`} onClick={() => setCurrentPage('planner')}>Tradeline Planner</button>
           <button className={`sidebar-link ${currentPage === 'roadmap' ? 'active' : ''}`} onClick={() => setCurrentPage('roadmap')}>Roadmap</button>
+          <button className={`sidebar-link ${currentPage === 'imports' ? 'active' : ''}`} onClick={() => setCurrentPage('imports')}>Imports</button>
+          <button className={`sidebar-link ${currentPage === 'exports' ? 'active' : ''}`} onClick={() => setCurrentPage('exports')}>Exports</button>
+          <button className={`sidebar-link ${currentPage === 'schemas' ? 'active' : ''}`} onClick={() => setCurrentPage('schemas')}>Schemas</button>
         </nav>
       </aside>
 
@@ -69,9 +81,7 @@ function App() {
         <main className="app-main">{renderPage()}</main>
 
         <footer className="app-footer">
-          <p style={{ margin: 0 }}>
-            Educational planning only. This tool does not guarantee approvals, funding, bureau reporting, tradelines, score changes, or lender outcomes. Verify vendor requirements and reporting directly.
-          </p>
+          <p style={{ margin: 0 }}>Educational planning only. Verify vendor requirements and reporting directly.</p>
         </footer>
       </div>
     </div>
