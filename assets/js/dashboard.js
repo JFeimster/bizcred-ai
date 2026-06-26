@@ -1,6 +1,7 @@
 import { loadFromStorage, saveToStorage, exportAllData, importAllData, resetAllData } from './storage.js';
 import { calculateScore } from './readiness-engine.js';
 import { loadTemplates, generatePrompt, savePromptHistory } from './prompt-builder.js';
+import { generateReadinessPlan, generateGptPrompt } from './ai-client.js';
 
 let setupTasks = [];
 let vendorRegistry = [];
@@ -9,6 +10,7 @@ async function initDashboard() {
   await loadDataFiles();
   populateProfileForm();
   renderChecklist();
+  injectAiPanel();
   updateDashboard();
   setupEventListeners();
 }
@@ -71,7 +73,6 @@ function renderChecklist() {
   const savedTasks = loadFromStorage('TASKS', {});
   const filterVal = filterSelect ? filterSelect.value : 'all';
 
-  // Populate filter options if needed
   if (filterSelect && filterSelect.options.length === 1) {
     const categories = new Set(setupTasks.map(t => t.category));
     categories.forEach(cat => {
@@ -107,7 +108,6 @@ function renderChecklist() {
     container.appendChild(taskDiv);
   });
 
-  // Bind checkbox events
   document.querySelectorAll('.task-checkbox').forEach(cb => {
     cb.addEventListener('change', (e) => {
       const id = e.target.getAttribute('data-id');
@@ -116,7 +116,7 @@ function renderChecklist() {
       saveToStorage('TASKS', currentTasks);
 
       const item = e.target.closest('.task-item');
-      if(e.target.checked) item.classList.add('completed');
+      if (e.target.checked) item.classList.add('completed');
       else item.classList.remove('completed');
 
       updateDashboard();
@@ -155,7 +155,6 @@ async function updateDashboard() {
       html += `</ul>`;
     }
 
-    // Also include a few next steps from checklist
     const incompleteTasks = setupTasks.filter(t => !tasks[t.id]).slice(0, 3);
     if (incompleteTasks.length > 0) {
       html += `<h4>Next Moves:</h4><ul>`;
@@ -188,47 +187,22 @@ async function setupPromptBuilder() {
       return;
     }
 
-    const profile = loadFromStorage('PROFILE', {});
-    const tasks = loadFromStorage('TASKS', {});
-    const vendors = loadFromStorage('VENDORS', {});
-    const scoreData = await calculateScore(profile, tasks);
-
-    // Format incomplete tasks
-    const incompleteTitles = setupTasks.filter(t => !tasks[t.id]).map(t => `- ${t.title}`);
-
-    // Format vendor status
-    let vendorStatusArr = [];
-    Object.keys(vendors).forEach(vid => {
-        const vendor = vendorRegistry.find(v => v.id === vid);
-        const vName = vendor ? vendor.name : vid;
-        if(vendors[vid] !== 'not_started') {
-            vendorStatusArr.push(`- ${vName}: ${vendors[vid]}`);
-        }
-    });
-
-    const dataContext = {
-      ...profile,
-      overallScore: scoreData.overall,
-      scoreDetails: scoreData.categories.map(c => `- ${c.name}: ${c.score}%`).join('\n'),
-      incompleteTasks: incompleteTitles.length > 0 ? incompleteTitles.join('\n') : 'None',
-      vendorStatus: vendorStatusArr.length > 0 ? vendorStatusArr.join('\n') : 'No active vendors tracked.'
-    };
-
+    const dataContext = await getDashboardContext();
     const promptText = generatePrompt(id, dataContext);
     output.value = promptText;
   });
 
   document.getElementById('copy-prompt-btn')?.addEventListener('click', async (e) => {
      const output = document.getElementById('generated-prompt');
-     if(!output.value) return;
+     if (!output.value) return;
      try {
        await navigator.clipboard.writeText(output.value);
        const btn = e.target;
        const oldText = btn.innerText;
-       btn.innerText = "Copied!";
+       btn.innerText = 'Copied!';
        setTimeout(() => btn.innerText = oldText, 2000);
      } catch (err) {
-       console.error("Failed to copy", err);
+       console.error('Failed to copy', err);
      }
   });
 
@@ -236,13 +210,111 @@ async function setupPromptBuilder() {
     const output = document.getElementById('generated-prompt').value;
     const select = document.getElementById('prompt-template');
     const title = select.options[select.selectedIndex]?.text || 'Saved Prompt';
-    if(!output) return;
+    if (!output) return;
 
     savePromptHistory(output, title);
     const btn = e.target;
     const oldText = btn.innerText;
-    btn.innerText = "Saved!";
+    btn.innerText = 'Saved!';
     setTimeout(() => btn.innerText = oldText, 2000);
+  });
+}
+
+async function getDashboardContext() {
+  const profile = loadFromStorage('PROFILE', {});
+  const tasks = loadFromStorage('TASKS', {});
+  const vendors = loadFromStorage('VENDORS', {});
+  const scoreData = await calculateScore(profile, tasks);
+
+  const incompleteTitles = setupTasks.filter(t => !tasks[t.id]).map(t => `- ${t.title}`);
+  const vendorStatusArr = [];
+
+  Object.keys(vendors).forEach(vid => {
+    const vendor = vendorRegistry.find(v => v.id === vid);
+    const vName = vendor ? vendor.name : vid;
+    if (vendors[vid] !== 'not_started') vendorStatusArr.push(`- ${vName}: ${vendors[vid]}`);
+  });
+
+  return {
+    ...profile,
+    profile,
+    tasks,
+    vendors,
+    setupTasks,
+    vendorRegistry,
+    overallScore: scoreData.overall,
+    scoreData,
+    scoreDetails: scoreData.categories.map(c => `- ${c.name}: ${c.score}%`).join('\n'),
+    incompleteTasks: incompleteTitles.length > 0 ? incompleteTitles.join('\n') : 'None',
+    vendorStatus: vendorStatusArr.length > 0 ? vendorStatusArr.join('\n') : 'No active vendors tracked.'
+  };
+}
+
+// --- Optional AI Panel ---
+
+function injectAiPanel() {
+  if (document.getElementById('ai-readiness-plan-panel')) return;
+
+  const promptPanel = document.querySelector('.prompt-panel');
+  if (!promptPanel) return;
+
+  const panel = document.createElement('div');
+  panel.className = 'panel ai-panel bento-card cyan';
+  panel.id = 'ai-readiness-plan-panel';
+  panel.innerHTML = `
+    <h3>AI Readiness Plan</h3>
+    <p>Generate a server-side plan when AI is configured. If not, this returns a safe copy/paste prompt.</p>
+    <p class="microcopy">Educational planning only. Verify vendor requirements, lender terms, and bureau reporting directly.</p>
+    <div class="hero-actions" style="margin-top: 15px;">
+      <button type="button" class="button button-ink" id="ai-readiness-plan-btn">Generate AI Plan</button>
+      <button type="button" class="button button-primary" id="ai-gpt-prompt-btn">Generate GPT Prompt</button>
+    </div>
+    <div class="prompt-output-area" style="margin-top: 15px;">
+      <textarea id="ai-readiness-output" rows="10" readonly placeholder="AI plan or fallback prompt appears here..."></textarea>
+    </div>
+    <div class="prompt-output-area" style="margin-top: 15px;">
+      <textarea id="ai-gpt-prompt-output" rows="8" readonly placeholder="Dedicated GPT prompt appears here..."></textarea>
+    </div>
+  `;
+
+  promptPanel.insertAdjacentElement('afterend', panel);
+}
+
+function setupAiPanel() {
+  document.getElementById('ai-readiness-plan-btn')?.addEventListener('click', async (e) => {
+    const output = document.getElementById('ai-readiness-output');
+    const btn = e.target;
+    const oldText = btn.innerText;
+    btn.innerText = 'Generating...';
+    btn.disabled = true;
+
+    const context = await getDashboardContext();
+    const result = await generateReadinessPlan(context);
+    output.value = result.text;
+
+    btn.innerText = result.fallback ? 'Fallback Ready' : 'Plan Ready';
+    setTimeout(() => {
+      btn.innerText = oldText;
+      btn.disabled = false;
+    }, 1500);
+  });
+
+  document.getElementById('ai-gpt-prompt-btn')?.addEventListener('click', async (e) => {
+    const output = document.getElementById('ai-gpt-prompt-output');
+    const btn = e.target;
+    const oldText = btn.innerText;
+    btn.innerText = 'Generating...';
+    btn.disabled = true;
+
+    const context = await getDashboardContext();
+    const result = await generateGptPrompt(context);
+    output.value = result.text;
+
+    btn.innerText = result.fallback ? 'Fallback Ready' : 'Prompt Ready';
+    setTimeout(() => {
+      btn.innerText = oldText;
+      btn.disabled = false;
+    }, 1500);
   });
 }
 
@@ -251,10 +323,10 @@ async function setupPromptBuilder() {
 function setupDataManagement() {
   document.getElementById('export-data-btn')?.addEventListener('click', () => {
     const data = exportAllData();
-    const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(data, null, 2));
+    const dataStr = 'data:text/json;charset=utf-8,' + encodeURIComponent(JSON.stringify(data, null, 2));
     const downloadAnchorNode = document.createElement('a');
-    downloadAnchorNode.setAttribute("href", dataStr);
-    downloadAnchorNode.setAttribute("download", "bizcred-backup.json");
+    downloadAnchorNode.setAttribute('href', dataStr);
+    downloadAnchorNode.setAttribute('download', 'bizcred-backup.json');
     document.body.appendChild(downloadAnchorNode);
     downloadAnchorNode.click();
     downloadAnchorNode.remove();
@@ -282,7 +354,7 @@ function setupDataManagement() {
   });
 
   document.getElementById('reset-data-btn')?.addEventListener('click', () => {
-    if (confirm("Are you sure you want to reset all local data? This cannot be undone.")) {
+    if (confirm('Are you sure you want to reset all local data? This cannot be undone.')) {
       resetAllData();
       window.location.reload();
     }
@@ -296,10 +368,10 @@ function setupEventListeners() {
   document.getElementById('task-category-filter')?.addEventListener('change', renderChecklist);
 
   setupPromptBuilder();
+  setupAiPanel();
   setupDataManagement();
 }
 
-// Boot
 if (document.getElementById('profile-form')) {
   initDashboard();
 }
