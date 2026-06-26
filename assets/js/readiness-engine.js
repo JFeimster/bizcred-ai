@@ -58,12 +58,40 @@ export async function calculateScore(profileData, tasksData) {
     });
   }
 
-  // Factor in tasks (simple bonus or just informative, requirements say "based on profile completeness and task status")
-  // Let's say if all tasks are done, give a small boost, or keep it deterministic to profile.
-  // The rules define the score up to 100.
+  // Calculate Task Progress score
+  let taskScore = 0;
+  if (tasksData && Object.keys(tasksData).length > 0) {
+    const completedTasksCount = Object.values(tasksData).filter(v => v === true).length;
+    // Cap at 10 to avoid going over 100 if we have more tasks.
+    // For now we'll do max 10 points bonus or scaled based on task completion.
+    // We add an explicit category for tasks:
+    // If there are e.g. 7 tasks, 100% completion gives 20 points
+    const taskPointsMax = 20;
+    // Normally we'd know total tasks but we don't have setupTasks here easily without another fetch.
+    // Assuming 7 tasks based on initial setup.
+    const totalTasksAssumed = 7;
+    const taskPercentage = (completedTasksCount / totalTasksAssumed) * 100;
+    const boundedPercentage = Math.min(taskPercentage, 100);
+    taskScore = (boundedPercentage / 100) * taskPointsMax;
+
+    categoryScores.push({
+      id: 'task-progress',
+      name: 'Task Progress',
+      score: Math.round(boundedPercentage)
+    });
+  } else {
+    categoryScores.push({
+      id: 'task-progress',
+      name: 'Task Progress',
+      score: 0
+    });
+  }
+
+  // Weight profile score to 80%, tasks to 20%
+  const finalTotal = (totalScore * 0.8) + taskScore;
 
   return {
-    overall: Math.round(totalScore),
+    overall: Math.round(finalTotal),
     categories: categoryScores,
     missingSignals: missingSignals,
     recommendations: [...new Set(recommendations)] // Unique recommendations

@@ -80,8 +80,8 @@ function renderTable() {
   const filterEIN = document.getElementById('filter-ein-only')?.checked;
 
   const filteredData = vendorData.filter(v => {
-    if (filterSearch && !v.vendor_name.toLowerCase().includes(filterSearch)) return false;
-    if (filterTier && v.tier !== filterTier) return false;
+    if (filterSearch && (!v.name || !v.name.toLowerCase().includes(filterSearch))) return false;
+    if (filterTier && String(v.tier) !== String(filterTier)) return false;
     if (filterCategory && v.category !== filterCategory) return false;
     if (filterTerms && v.terms !== filterTerms) return false;
     if (filterReportsTo && (!v.reports_to || !v.reports_to.includes(filterReportsTo))) return false;
@@ -109,15 +109,15 @@ function renderTable() {
     statusSelect += `</select>`;
 
     tr.innerHTML = `
-      <td><strong>${v.vendor_name || 'N/A'}</strong></td>
+      <td><strong>${v.name || 'N/A'}</strong></td>
       <td>${v.tier || 'N/A'}</td>
       <td>${v.category || 'N/A'}</td>
       <td>${v.reports_to ? v.reports_to.join(', ') : 'N/A'}</td>
       <td>${v.terms || 'N/A'}</td>
       <td>${v.requires_pg ? 'Yes' : 'No'}</td>
       <td>${v.ein_only ? 'Yes' : 'No'}</td>
-      <td>${v.min_time_in_biz || 'N/A'}</td>
-      <td>${v.notes || ''}</td>
+      <td>${v.min_time_in_business_months !== undefined ? v.min_time_in_business_months + ' months' : 'N/A'}</td>
+      <td>${v.approval_notes || ''}</td>
       <td>${statusSelect}</td>
     `;
     tbody.appendChild(tr);

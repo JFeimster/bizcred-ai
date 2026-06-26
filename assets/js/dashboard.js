@@ -200,7 +200,7 @@ async function setupPromptBuilder() {
     let vendorStatusArr = [];
     Object.keys(vendors).forEach(vid => {
         const vendor = vendorRegistry.find(v => v.id === vid);
-        const vName = vendor ? vendor.vendor_name : vid;
+        const vName = vendor ? vendor.name : vid;
         if(vendors[vid] !== 'not_started') {
             vendorStatusArr.push(`- ${vName}: ${vendors[vid]}`);
         }
