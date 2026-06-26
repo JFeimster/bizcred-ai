@@ -8,19 +8,22 @@ import './styles/tables.css';
 import './styles/badges.css';
 import './styles/alerts.css';
 
-import DashboardPage from './pages/DashboardPage';
+import BusinessHqPage from './pages/BusinessHqPage';
+import BizCreditPassportPage from './pages/BizCreditPassportPage';
 import ProfilePage from './pages/ProfilePage';
 import DirectoryPage from './pages/DirectoryPage';
 import TradelinePlannerPage from './pages/TradelinePlannerPage';
 import RoadmapPage from './pages/RoadmapPage';
 
 function App() {
-  const [currentPage, setCurrentPage] = useState('dashboard');
+  const [currentPage, setCurrentPage] = useState('business-hq');
 
   const renderPage = () => {
     switch (currentPage) {
-      case 'dashboard':
-        return <DashboardPage />;
+      case 'business-hq':
+        return <BusinessHqPage />;
+      case 'passport':
+        return <BizCreditPassportPage />;
       case 'profile':
         return <ProfilePage />;
       case 'directory':
@@ -30,7 +33,7 @@ function App() {
       case 'roadmap':
         return <RoadmapPage />;
       default:
-        return <DashboardPage />;
+        return <BusinessHqPage />;
     }
   };
 
@@ -39,7 +42,8 @@ function App() {
       <aside className="app-sidebar">
         <h2>BizCred OS</h2>
         <nav className="sidebar-nav">
-          <button className={`sidebar-link ${currentPage === 'dashboard' ? 'active' : ''}`} onClick={() => setCurrentPage('dashboard')}>Dashboard</button>
+          <button className={`sidebar-link ${currentPage === 'business-hq' ? 'active' : ''}`} onClick={() => setCurrentPage('business-hq')}>Business HQ</button>
+          <button className={`sidebar-link ${currentPage === 'passport' ? 'active' : ''}`} onClick={() => setCurrentPage('passport')}>BizCredit Passport</button>
           <button className={`sidebar-link ${currentPage === 'profile' ? 'active' : ''}`} onClick={() => setCurrentPage('profile')}>Profile</button>
           <button className={`sidebar-link ${currentPage === 'directory' ? 'active' : ''}`} onClick={() => setCurrentPage('directory')}>Directory</button>
           <button className={`sidebar-link ${currentPage === 'planner' ? 'active' : ''}`} onClick={() => setCurrentPage('planner')}>Tradeline Planner</button>
