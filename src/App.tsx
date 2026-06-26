@@ -11,12 +11,19 @@ import './styles/alerts.css';
 import BusinessHqPage from './pages/BusinessHqPage';
 import BizCreditPassportPage from './pages/BizCreditPassportPage';
 import ProfilePage from './pages/ProfilePage';
-import DirectoryPage from './pages/DirectoryPage';
+import CreditDirectoryPage from './pages/CreditDirectoryPage';
+import VendorProfilePage from './pages/VendorProfilePage';
 import TradelinePlannerPage from './pages/TradelinePlannerPage';
 import RoadmapPage from './pages/RoadmapPage';
 
 function App() {
   const [currentPage, setCurrentPage] = useState('business-hq');
+  const [selectedVendorId, setSelectedVendorId] = useState<string | null>(null);
+
+  function navigateToVendorProfile(vendorId: string) {
+    setSelectedVendorId(vendorId);
+    setCurrentPage('vendor-profile');
+  }
 
   const renderPage = () => {
     switch (currentPage) {
@@ -27,7 +34,9 @@ function App() {
       case 'profile':
         return <ProfilePage />;
       case 'directory':
-        return <DirectoryPage />;
+        return <CreditDirectoryPage onViewProfile={navigateToVendorProfile} />;
+      case 'vendor-profile':
+        return <VendorProfilePage vendorId={selectedVendorId} onBack={() => setCurrentPage('directory')} />;
       case 'planner':
         return <TradelinePlannerPage />;
       case 'roadmap':
@@ -45,7 +54,7 @@ function App() {
           <button className={`sidebar-link ${currentPage === 'business-hq' ? 'active' : ''}`} onClick={() => setCurrentPage('business-hq')}>Business HQ</button>
           <button className={`sidebar-link ${currentPage === 'passport' ? 'active' : ''}`} onClick={() => setCurrentPage('passport')}>BizCredit Passport</button>
           <button className={`sidebar-link ${currentPage === 'profile' ? 'active' : ''}`} onClick={() => setCurrentPage('profile')}>Profile</button>
-          <button className={`sidebar-link ${currentPage === 'directory' ? 'active' : ''}`} onClick={() => setCurrentPage('directory')}>Directory</button>
+          <button className={`sidebar-link ${currentPage === 'directory' || currentPage === 'vendor-profile' ? 'active' : ''}`} onClick={() => setCurrentPage('directory')}>Directory</button>
           <button className={`sidebar-link ${currentPage === 'planner' ? 'active' : ''}`} onClick={() => setCurrentPage('planner')}>Tradeline Planner</button>
           <button className={`sidebar-link ${currentPage === 'roadmap' ? 'active' : ''}`} onClick={() => setCurrentPage('roadmap')}>Roadmap</button>
         </nav>
