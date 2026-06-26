@@ -1,2 +1,13 @@
 node_modules/
 dist/
+.vercel/
+.env
+.env.local
+.env.*.local
+*.log
+vite_output.log
+playwright-report/
+test-results/
+screenshots/
+*.tmp
+.DS_Store
