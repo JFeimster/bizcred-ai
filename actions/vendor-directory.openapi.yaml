@@ -1,0 +1,251 @@
+openapi: 3.1.0
+info:
+  title: Business Credit Vendor Directory Action
+  description: >
+    Educational business credit vendor planning directory.
+    Queries business credit vendors by tier, category, terms, bureau reporting, PG requirement, EIN-only status, DNB reporting, and minimum time in business.
+    Note: Vendor terms, bureau reporting, personal guarantee (PG) requirements, and eligibility rules can change. Users should verify details directly with the vendor before applying. This is not legal, tax, credit repair, lending, or financial advice.
+  version: 1.0.0
+
+paths:
+  /vendors:
+    get:
+      summary: List vendors
+      description: Returns the full educational vendor directory with optional filters to aid in readiness planning.
+      operationId: listVendors
+      parameters:
+        - name: tier
+          in: query
+          description: General level of difficulty or required business history.
+          required: false
+          schema:
+            type: integer
+            enum: [1, 2, 3]
+        - name: category
+          in: query
+          description: Type of products or services offered.
+          required: false
+          schema:
+            type: string
+        - name: terms
+          in: query
+          description: Payment structure.
+          required: false
+          schema:
+            type: string
+            enum:
+              - net-30
+              - fleet-fuel
+              - service
+              - installment
+              - store-revolving
+              - business-credit-card
+              - bank-LOC
+        - name: reports_to
+          in: query
+          description: Business credit bureau the vendor is known to report to.
+          required: false
+          schema:
+            type: string
+            enum:
+              - DNB
+              - Experian
+              - Equifax
+              - SBFE
+        - name: dnb_reporter
+          in: query
+          description: Whether the vendor specifically reports to Dun & Bradstreet (DNB).
+          required: false
+          schema:
+            type: boolean
+        - name: requires_pg
+          in: query
+          description: Whether a personal guarantee (PG) is generally required.
+          required: false
+          schema:
+            type: boolean
+        - name: ein_only
+          in: query
+          description: Whether the account can typically be opened with only an Employer Identification Number (EIN).
+          required: false
+          schema:
+            type: boolean
+        - name: min_time_in_business_months_lte
+          in: query
+          description: maximum minimum-time-in-business threshold the user wants to filter by
+          required: false
+          schema:
+            type: integer
+        - name: limit
+          in: query
+          description: Maximum number of vendors to return.
+          required: false
+          schema:
+            type: integer
+            minimum: 1
+            maximum: 100
+      responses:
+        '200':
+          description: A list of business credit vendors matching the criteria.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VendorListResponse'
+        '400':
+          description: Invalid filter parameters provided.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+  /vendors/summary:
+    get:
+      summary: Get vendor directory summary
+      description: Returns summary counts of the vendor directory by various readiness categories.
+      operationId: getVendorSummary
+      responses:
+        '200':
+          description: Vendor directory summary statistics.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VendorSummary'
+
+  /vendors/{id}:
+    get:
+      summary: Get vendor by ID
+      description: Returns a single educational business credit vendor by its unique ID.
+      operationId: getVendorById
+      parameters:
+        - name: id
+          in: path
+          description: The unique identifier of the vendor.
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Vendor details.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Vendor'
+        '404':
+          description: Vendor not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+components:
+  schemas:
+    Vendor:
+      type: object
+      required:
+        - id
+        - name
+        - tier
+        - category
+        - reports_to
+        - dnb_reporter
+        - terms
+        - requires_pg
+        - ein_only
+        - min_time_in_business_months
+        - approval_notes
+      properties:
+        id:
+          type: string
+          description: Unique identifier for the vendor.
+        name:
+          type: string
+          description: Name of the vendor.
+        tier:
+          type: integer
+          enum: [1, 2, 3]
+          description: General level of difficulty or required business history (1 = easiest, 3 = hardest).
+        category:
+          type: string
+          description: Type of products or services offered.
+        reports_to:
+          type: array
+          description: The business credit bureaus the vendor is known to report to.
+          items:
+            type: string
+            enum:
+              - DNB
+              - Experian
+              - Equifax
+              - SBFE
+        dnb_reporter:
+          type: boolean
+          description: Whether the vendor specifically reports to Dun & Bradstreet (DNB).
+        terms:
+          type: string
+          description: The payment structure.
+          enum:
+            - net-30
+            - fleet-fuel
+            - service
+            - installment
+            - store-revolving
+            - business-credit-card
+            - bank-LOC
+        requires_pg:
+          type: boolean
+          description: Whether a personal guarantee (PG) is generally required.
+        ein_only:
+          type: boolean
+          description: Whether the account can typically be opened with only an Employer Identification Number (EIN).
+        min_time_in_business_months:
+          type: integer
+          minimum: 0
+          description: The general minimum months in business required for approval.
+        approval_notes:
+          type: string
+          description: Important caveats, conditions, or verification tips.
+
+    VendorListResponse:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Vendor'
+
+    VendorSummary:
+      type: object
+      properties:
+        total_vendors:
+          type: integer
+        count_by_tier:
+          type: object
+          additionalProperties:
+            type: integer
+        count_by_category:
+          type: object
+          additionalProperties:
+            type: integer
+        count_by_terms:
+          type: object
+          additionalProperties:
+            type: integer
+        count_by_bureau:
+          type: object
+          additionalProperties:
+            type: integer
+        count_requiring_pg:
+          type: integer
+        count_ein_only:
+          type: integer
+        count_reporting_to_dnb:
+          type: integer
+
+    ErrorResponse:
+      type: object
+      required:
+        - message
+      properties:
+        message:
+          type: string
+          description: Description of the error.
