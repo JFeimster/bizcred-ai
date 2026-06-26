@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Dashboard | BizCredit Builder GPT</title>
+  <meta name="description" content="Local dashboard to track your business-credit readiness, setup tasks, vendor path progress, and generate prompts." />
+  <meta name="theme-color" content="#B6FF00" />
+
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="assets/css/dashboard.css" />
+</head>
+
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <header class="site-header is-scrolled" data-header>
+    <div class="nav-shell">
+      <a class="brand" href="index.html" aria-label="BizCredit Builder home">
+        <span class="brand-mark">BC</span>
+        <span class="brand-copy">
+          <strong>BizCredit Builder</strong>
+          <small>Local Dashboard</small>
+        </span>
+      </a>
+
+      <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="nav-menu">
+        <span class="sr-only">Toggle navigation</span>
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+
+      <nav class="nav-menu" id="nav-menu" aria-label="Main navigation">
+        <a href="index.html">Home</a>
+        <a href="dashboard.html" class="is-current">Dashboard</a>
+        <a href="vendors.html">Vendors</a>
+        <a class="nav-cta magnetic" href="https://chatgpt.com/g/g-6836dda9d7e881918dd6018226121e03-credit-builder-gpt" target="_blank" rel="noopener">Launch GPT</a>
+      </nav>
+    </div>
+
+    <div class="marquee" aria-label="Disclaimer">
+      <div class="marquee-track">
+        <span>EDUCATIONAL PLANNING ONLY • NO APPROVAL GUARANTEES • NO FUNDING GUARANTEES • NOT CREDIT REPAIR • VERIFY VENDOR REQUIREMENTS DIRECTLY •</span>
+        <span>EDUCATIONAL PLANNING ONLY • NO APPROVAL GUARANTEES • NO FUNDING GUARANTEES • NOT CREDIT REPAIR • VERIFY VENDOR REQUIREMENTS DIRECTLY •</span>
+      </div>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="section dashboard-main">
+      <div class="container dashboard-layout">
+
+        <!-- Sidebar / Top Panel: Business Profile -->
+        <aside class="panel profile-panel bento-card cyan">
+          <h3>Business Profile</h3>
+          <p class="microcopy">Saved locally in your browser.</p>
+          <form id="profile-form" class="profile-form">
+            <div class="form-group">
+              <label for="business-name">Business Name</label>
+              <input type="text" id="business-name" name="businessName" placeholder="Your LLC" />
+            </div>
+            <div class="form-group">
+              <label for="entity-type">Entity Type</label>
+              <select id="entity-type" name="entityType">
+                <option value="">Select...</option>
+                <option value="LLC">LLC</option>
+                <option value="S-Corp">S-Corp</option>
+                <option value="C-Corp">C-Corp</option>
+                <option value="Sole Prop">Sole Proprietorship</option>
+                <option value="Other">Other</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="formation-date">Formation Month/Year</label>
+              <input type="month" id="formation-date" name="formationDate" />
+            </div>
+            <div class="form-group checkbox-group">
+              <input type="checkbox" id="ein-status" name="einStatus" />
+              <label for="ein-status">EIN Acquired</label>
+            </div>
+            <div class="form-group checkbox-group">
+              <input type="checkbox" id="bank-status" name="bankStatus" />
+              <label for="bank-status">Business Bank Account</label>
+            </div>
+            <div class="form-group checkbox-group">
+              <input type="checkbox" id="address-status" name="addressStatus" />
+              <label for="address-status">Business Address</label>
+            </div>
+            <div class="form-group checkbox-group">
+              <input type="checkbox" id="phone-status" name="phoneStatus" />
+              <label for="phone-status">Business Phone</label>
+            </div>
+            <div class="form-group checkbox-group">
+              <input type="checkbox" id="website-status" name="websiteStatus" />
+              <label for="website-status">Website Active</label>
+            </div>
+            <div class="form-group checkbox-group">
+              <input type="checkbox" id="email-status" name="emailStatus" />
+              <label for="email-status">Domain Email</label>
+            </div>
+            <div class="form-group checkbox-group">
+              <input type="checkbox" id="duns-status" name="dunsStatus" />
+              <label for="duns-status">DUNS Number</label>
+            </div>
+            <div class="form-group checkbox-group">
+              <input type="checkbox" id="license-status" name="licenseStatus" />
+              <label for="license-status">Business License</label>
+            </div>
+            <div class="form-group">
+              <label for="revenue-range">Monthly Revenue Range</label>
+              <select id="revenue-range" name="revenueRange">
+                <option value="">Select...</option>
+                <option value="$0 - $1k">$0 - $1k</option>
+                <option value="$1k - $5k">$1k - $5k</option>
+                <option value="$5k - $10k">$5k - $10k</option>
+                <option value="$10k+">$10k+</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="primary-goal">Primary Goal</label>
+              <input type="text" id="primary-goal" name="primaryGoal" placeholder="E.g. Get a vehicle in business name" />
+            </div>
+            <button type="submit" class="button button-ink">Save Profile</button>
+          </form>
+        </aside>
+
+        <!-- Main Content Area -->
+        <div class="dashboard-content">
+
+          <!-- Readiness Score -->
+          <div class="panel score-panel bento-card acid">
+            <h3>Readiness Score</h3>
+            <div class="score-display">
+              <div class="score-circle">
+                <span id="overall-score">0</span>
+                <small>/ 100</small>
+              </div>
+              <div class="score-details" id="score-details">
+                <!-- Categories injected here -->
+              </div>
+            </div>
+            <div class="score-insights" id="score-insights">
+              <!-- Missing signals and recommendations injected here -->
+            </div>
+            <p class="microcopy" style="margin-top: 10px;">Score does not predict approvals or funding.</p>
+          </div>
+
+          <!-- Prompt Builder -->
+          <div class="panel prompt-panel bento-card yellow">
+            <h3>Prompt Builder</h3>
+            <p>Generate prompts for the BizCredit Builder GPT based on your local data.</p>
+            <div class="form-group">
+              <label for="prompt-template">Select Template</label>
+              <select id="prompt-template">
+                <option value="">Choose a prompt...</option>
+                <!-- Templates injected here -->
+              </select>
+            </div>
+            <div class="prompt-output-area">
+              <textarea id="generated-prompt" rows="8" readonly placeholder="Your generated prompt will appear here..."></textarea>
+            </div>
+            <div class="hero-actions" style="margin-top: 15px;">
+              <button type="button" class="button button-ink" id="copy-prompt-btn">Copy Prompt</button>
+              <button type="button" class="button button-secondary" id="save-prompt-btn">Save to History</button>
+              <a class="button button-primary" href="https://chatgpt.com/g/g-6836dda9d7e881918dd6018226121e03-credit-builder-gpt" target="_blank" rel="noopener">Launch GPT</a>
+            </div>
+          </div>
+
+          <!-- Setup Checklist -->
+          <div class="panel checklist-panel bento-card cream">
+            <h3>Setup Checklist</h3>
+            <div class="checklist-filters">
+              <label>Filter by category:</label>
+              <select id="task-category-filter">
+                <option value="all">All</option>
+              </select>
+            </div>
+            <div class="checklist-container" id="checklist-container">
+              <!-- Tasks injected here -->
+            </div>
+          </div>
+
+          <!-- Data Management -->
+          <div class="panel data-panel bento-card pink">
+            <h3>Data Management</h3>
+            <p>Export your local profile, tasks, and vendor tracker as JSON, or import a backup. You can also wipe your local data.</p>
+            <div class="hero-actions">
+              <button type="button" class="button button-ink" id="export-data-btn">Export Data</button>
+              <label class="button button-primary" style="cursor: pointer;">
+                Import Data
+                <input type="file" id="import-data-file" accept=".json" style="display: none;" />
+              </label>
+              <button type="button" class="button button-secondary" id="reset-data-btn">Reset All</button>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer" id="footer">
+    <div class="container footer-grid">
+      <div>
+        <a class="brand footer-brand" href="index.html" aria-label="BizCredit Builder home">
+          <span class="brand-mark">BC</span>
+          <span class="brand-copy">
+            <strong>BizCredit Builder</strong>
+            <small>Business Credit OS</small>
+          </span>
+        </a>
+        <p>Upload the chaos. Get the checklist. Run the next move.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="script.js" defer></script>
+  <script type="module" src="assets/js/dashboard.js" defer></script>
+</body>
+</html>

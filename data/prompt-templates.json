@@ -1,0 +1,37 @@
+[
+  {
+    "id": "readiness-audit",
+    "title": "Readiness Audit",
+    "template": "I am looking for a readiness audit for my business. Here are my current details:\n\nBusiness Name: {{businessName}}\nEntity Type: {{entityType}}\nFormation Date: {{formationDate}}\nEIN Status: {{einStatus}}\nBank Account Status: {{bankStatus}}\nAddress Status: {{addressStatus}}\nPhone Status: {{phoneStatus}}\nWebsite Status: {{websiteStatus}}\nDomain Email Status: {{emailStatus}}\nDUNS Status: {{dunsStatus}}\nLicense Status: {{licenseStatus}}\nRevenue Range: {{revenueRange}}\nPrimary Goal: {{primaryGoal}}\n\nCurrent Readiness Score: {{overallScore}}/100\n\nPlease evaluate my setup and tell me where my foundational gaps are."
+  },
+  {
+    "id": "vendor-sequence",
+    "title": "Vendor Sequence",
+    "template": "Based on my current profile ({{entityType}}, formed in {{formationDate}}), I want to plan my vendor sequence.\n\nMy primary goal is: {{primaryGoal}}.\n\nHere is my current vendor tracker status:\n{{vendorStatus}}\n\nPlease suggest an optimal sequence of vendors for me to apply to next, considering my current progress and readiness."
+  },
+  {
+    "id": "next-7-moves",
+    "title": "Next 7 Moves",
+    "template": "I am working on building business credit from scratch. My current readiness score is {{overallScore}}.\n\nHere are my incomplete setup tasks:\n{{incompleteTasks}}\n\nMy business is a {{entityType}} with a primary goal to {{primaryGoal}}.\n\nGive me a prioritized list of my next 7 moves."
+  },
+  {
+    "id": "fundability-gaps",
+    "title": "Fundability Gaps",
+    "template": "I need help identifying fundability gaps before I apply for funding. \n\nProfile details:\nEntity: {{entityType}}\nEIN: {{einStatus}}\nBank Account: {{bankStatus}}\nAddress: {{addressStatus}}\nPhone: {{phoneStatus}}\nWebsite: {{websiteStatus}}\nDomain Email: {{emailStatus}}\nDUNS: {{dunsStatus}}\n\nPlease review these signals and point out any red flags a lender or underwriter might see."
+  },
+  {
+    "id": "documentation-checklist",
+    "title": "Documentation Checklist",
+    "template": "I want to make sure I have all my documentation in order. My business is a {{entityType}} and my goal is {{primaryGoal}}.\n\nI currently have: EIN ({{einStatus}}), Bank Account ({{bankStatus}}), DUNS ({{dunsStatus}}), License ({{licenseStatus}}).\n\nWhat other specific documents do I need to prepare to be fully ready for credit applications?"
+  },
+  {
+    "id": "explain-score",
+    "title": "Explain My Score",
+    "template": "My local dashboard generated a readiness score of {{overallScore}}/100.\n\nHere are the details:\n{{scoreDetails}}\n\nCan you explain what this score means in practical terms and what the most impactful things I can do to improve it are?"
+  },
+  {
+    "id": "review-vendor-tracker",
+    "title": "Review My Vendor Tracker",
+    "template": "Please review my current vendor tracker.\n\n{{vendorStatus}}\n\nAm I on the right track? Are there any vendors I should add or remove based on my status as a {{entityType}} formed in {{formationDate}}?"
+  }
+]

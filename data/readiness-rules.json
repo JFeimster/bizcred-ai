@@ -1,0 +1,42 @@
+{
+  "categories": [
+    {
+      "id": "entity-setup",
+      "name": "Entity Setup",
+      "weight": 20,
+      "checks": [
+        { "field": "entityType", "type": "not-empty", "points": 10, "signal": "Missing Entity Type" },
+        { "field": "formationDate", "type": "not-empty", "points": 5, "signal": "Missing Formation Date" },
+        { "field": "einStatus", "type": "boolean", "points": 5, "signal": "Missing EIN" }
+      ]
+    },
+    {
+      "id": "banking",
+      "name": "Banking Readiness",
+      "weight": 20,
+      "checks": [
+        { "field": "bankStatus", "type": "boolean", "points": 20, "signal": "Missing Business Bank Account" }
+      ]
+    },
+    {
+      "id": "business-identity",
+      "name": "Business Identity",
+      "weight": 30,
+      "checks": [
+        { "field": "addressStatus", "type": "boolean", "points": 10, "signal": "Missing Professional Address" },
+        { "field": "phoneStatus", "type": "boolean", "points": 10, "signal": "Missing Business Phone" },
+        { "field": "websiteStatus", "type": "boolean", "points": 5, "signal": "Missing Website" },
+        { "field": "emailStatus", "type": "boolean", "points": 5, "signal": "Missing Domain Email" }
+      ]
+    },
+    {
+      "id": "documentation",
+      "name": "Documentation Readiness",
+      "weight": 30,
+      "checks": [
+        { "field": "dunsStatus", "type": "boolean", "points": 15, "signal": "Missing DUNS Number" },
+        { "field": "licenseStatus", "type": "boolean", "points": 15, "signal": "Missing Business License" }
+      ]
+    }
+  ]
+}
