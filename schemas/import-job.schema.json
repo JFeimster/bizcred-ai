@@ -1,0 +1,19 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://bizcred-ai.local/schemas/import-job.schema.json",
+  "title": "ImportJob",
+  "type": "object",
+  "required": ["id", "sourceType", "targetRegistry", "status", "createdAt"],
+  "properties": {
+    "id": { "type": "string" },
+    "sourceType": { "enum": ["csv", "json", "xlsx", "markdown", "pdf", "manual"] },
+    "targetRegistry": { "type": "string" },
+    "status": { "enum": ["queued", "processing", "complete", "failed"] },
+    "createdAt": { "type": "string" },
+    "completedAt": { "type": "string" },
+    "recordsTotal": { "type": "integer" },
+    "recordsImported": { "type": "integer" },
+    "errors": { "type": "array", "items": { "type": "string" } }
+  },
+  "additionalProperties": false
+}
