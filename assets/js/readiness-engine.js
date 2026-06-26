@@ -47,7 +47,7 @@ export async function calculateScore(profileData, tasksData) {
     }
 
     const catPercentage = catMax > 0 ? (catScore / catMax) * 100 : 0;
-    const weightedCatScore = (catScore / catMax) * category.weight;
+    const weightedCatScore = catMax > 0 ? (catScore / catMax) * category.weight : 0;
 
     totalScore += weightedCatScore;
 
@@ -68,8 +68,8 @@ export async function calculateScore(profileData, tasksData) {
     // If there are e.g. 7 tasks, 100% completion gives 20 points
     const taskPointsMax = 20;
     // Normally we'd know total tasks but we don't have setupTasks here easily without another fetch.
-    // Assuming 7 tasks based on initial setup.
-    const totalTasksAssumed = 7;
+    // Assuming 9 tasks based on setup-tasks.json.
+    const totalTasksAssumed = 9;
     const taskPercentage = (completedTasksCount / totalTasksAssumed) * 100;
     const boundedPercentage = Math.min(taskPercentage, 100);
     taskScore = (boundedPercentage / 100) * taskPointsMax;

@@ -21,6 +21,6 @@
     "requires_pg": false,
     "ein_only": true,
     "min_time_in_business_months": 0,
-    "approval_notes": "Order $100+ to guarantee reporting."
+    "approval_notes": "Verify current order requirements and bureau reporting behavior before relying on this account for planning."
   }
 ]
