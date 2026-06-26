@@ -9,10 +9,39 @@ This version was rebuilt from the ground up to avoid the generic dark SaaS look.
 ```txt
 bizcredit-builder-neobrutalist-redesign/
 ├── index.html
+├── dashboard.html
+├── vendors.html
 ├── styles.css
 ├── script.js
-└── README.md
+├── README.md
+├── data/
+│   ├── setup-tasks.json
+│   ├── prompt-templates.json
+│   ├── readiness-rules.json
+│   └── credit-vendors.registry.json
+└── assets/
+    ├── js/
+    │   ├── storage.js
+    │   ├── readiness-engine.js
+    │   ├── vendor-tracker.js
+    │   ├── prompt-builder.js
+    │   └── dashboard.js
+    └── css/
+        └── dashboard.css
 ```
+
+## LocalStorage Keys
+
+The dashboard persists your data directly in your browser using these keys:
+- `bizcred_profile_v1`
+- `bizcred_tasks_v1`
+- `bizcred_vendor_tracker_v1`
+- `bizcred_prompt_history_v1`
+- `bizcred_score_history_v1`
+
+**Important**:
+- `data/credit-vendors.registry.json` currently contains an empty array. **TODO:** You must copy the vendor registry from `JFeimster/BizCredit` into this file to populate the vendor tracker.
+- No approval, funding, tradeline, reporting, score-change, or lender-outcome guarantees are made. Vendor reporting must always be verified directly before relying on it.
 
 ## What is included
 
@@ -113,9 +142,7 @@ Replace the full prompt with your preferred starting prompt.
 
 ### Local preview
 
-Open `index.html` in your browser.
-
-For a more accurate local preview, run:
+For an accurate local preview (and to ensure ES modules and fetch API work correctly), run:
 
 ```bash
 python -m http.server 8000
@@ -126,6 +153,10 @@ Then open:
 ```txt
 http://localhost:8000
 ```
+
+### Data Management
+
+You can export, import, or completely reset your local data from the Data Management section at the bottom of the Dashboard page.
 
 ## Embedding in builders
 
@@ -163,6 +194,8 @@ This page intentionally avoids fake testimonials, approval guarantees, score-cha
 
 ## Recommended next upgrades
 
+- **Phase 2:** API endpoints for GPT Actions.
+- **Phase 3:** Server-side AI generation via backend functions.
 - Add a custom domain
 - Add analytics
 - Add a booking/contact form for Guided Review

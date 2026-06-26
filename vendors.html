@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Vendor Tracker | BizCredit Builder GPT</title>
+  <meta name="description" content="Local dashboard to track your business credit vendor path." />
+  <meta name="theme-color" content="#B6FF00" />
+
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="assets/css/dashboard.css" />
+</head>
+
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <header class="site-header is-scrolled" data-header>
+    <div class="nav-shell">
+      <a class="brand" href="index.html" aria-label="BizCredit Builder home">
+        <span class="brand-mark">BC</span>
+        <span class="brand-copy">
+          <strong>BizCredit Builder</strong>
+          <small>Vendor Tracker</small>
+        </span>
+      </a>
+
+      <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="nav-menu">
+        <span class="sr-only">Toggle navigation</span>
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+
+      <nav class="nav-menu" id="nav-menu" aria-label="Main navigation">
+        <a href="index.html">Home</a>
+        <a href="dashboard.html">Dashboard</a>
+        <a href="vendors.html" class="is-current">Vendors</a>
+        <a class="nav-cta magnetic" href="https://chatgpt.com/g/g-6836dda9d7e881918dd6018226121e03-credit-builder-gpt" target="_blank" rel="noopener">Launch GPT</a>
+      </nav>
+    </div>
+
+    <div class="marquee" aria-label="Disclaimer">
+      <div class="marquee-track">
+        <span>EDUCATIONAL PLANNING ONLY • NO APPROVAL GUARANTEES • NO FUNDING GUARANTEES • NOT CREDIT REPAIR • VERIFY VENDOR REQUIREMENTS DIRECTLY •</span>
+        <span>EDUCATIONAL PLANNING ONLY • NO APPROVAL GUARANTEES • NO FUNDING GUARANTEES • NOT CREDIT REPAIR • VERIFY VENDOR REQUIREMENTS DIRECTLY •</span>
+      </div>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="section dashboard-main">
+      <div class="container">
+
+        <div class="panel vendors-panel bento-card cyan">
+          <div class="panel-header">
+            <h3>Vendor Tracker</h3>
+            <p>Filter and search vendors. Update statuses to track your sequence locally.</p>
+          </div>
+
+          <div class="vendor-filters">
+            <div class="form-group">
+              <label for="search-vendor">Search</label>
+              <input type="text" id="search-vendor" placeholder="Vendor name..." />
+            </div>
+            <div class="form-group">
+              <label for="filter-tier">Tier</label>
+              <select id="filter-tier">
+                <option value="">All Tiers</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="filter-category">Category</label>
+              <select id="filter-category">
+                <option value="">All Categories</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="filter-terms">Terms</label>
+              <select id="filter-terms">
+                <option value="">All Terms</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="filter-reports-to">Reports To</label>
+              <select id="filter-reports-to">
+                <option value="">All Bureaus</option>
+              </select>
+            </div>
+            <div class="form-group checkbox-group">
+              <input type="checkbox" id="filter-requires-pg" />
+              <label for="filter-requires-pg">PG Required</label>
+            </div>
+            <div class="form-group checkbox-group">
+              <input type="checkbox" id="filter-ein-only" />
+              <label for="filter-ein-only">EIN Only</label>
+            </div>
+          </div>
+
+          <div class="table-responsive">
+            <table class="vendor-table" id="vendor-table">
+              <thead>
+                <tr>
+                  <th>Vendor</th>
+                  <th>Tier</th>
+                  <th>Category</th>
+                  <th>Reports To</th>
+                  <th>Terms</th>
+                  <th>PG Required</th>
+                  <th>EIN Only</th>
+                  <th>Min Time in Biz</th>
+                  <th>Notes</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody id="vendor-table-body">
+                <!-- Vendor rows injected here -->
+              </tbody>
+            </table>
+          </div>
+
+          <div id="vendor-error" class="error-message" style="display: none; margin-top: 20px;">
+            <p><strong>Error loading vendor data.</strong> Please ensure the data file exists or try again later.</p>
+          </div>
+        </div>
+
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer" id="footer">
+    <div class="container footer-grid">
+      <div>
+        <a class="brand footer-brand" href="index.html" aria-label="BizCredit Builder home">
+          <span class="brand-mark">BC</span>
+          <span class="brand-copy">
+            <strong>BizCredit Builder</strong>
+            <small>Business Credit OS</small>
+          </span>
+        </a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="script.js" defer></script>
+  <script type="module" src="assets/js/vendor-tracker.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,83 @@
+[
+  {
+    "id": "task_1",
+    "title": "Register Entity (LLC/Corp)",
+    "category": "Entity setup",
+    "priority": "High",
+    "description": "Register your business entity with your state.",
+    "whyItMatters": "Establishes a distinct legal entity separate from yourself.",
+    "suggestedNextStep": "Visit your Secretary of State website to file articles of organization."
+  },
+  {
+    "id": "task_2",
+    "title": "Obtain EIN",
+    "category": "Entity setup",
+    "priority": "High",
+    "description": "Get an Employer Identification Number from the IRS.",
+    "whyItMatters": "Required to open a business bank account and build business credit.",
+    "suggestedNextStep": "Apply for an EIN for free on the IRS website."
+  },
+  {
+    "id": "task_3",
+    "title": "Open Business Bank Account",
+    "category": "Banking readiness",
+    "priority": "High",
+    "description": "Open a dedicated checking account for your business.",
+    "whyItMatters": "Separates business and personal finances; required by many vendors and lenders.",
+    "suggestedNextStep": "Gather your EIN and articles of organization and visit a bank."
+  },
+  {
+    "id": "task_4",
+    "title": "Get a Professional Business Address",
+    "category": "Business identity",
+    "priority": "Medium",
+    "description": "Set up a physical or virtual business address (not a PO Box).",
+    "whyItMatters": "Lenders look for a credible business location.",
+    "suggestedNextStep": "Research virtual office spaces or use your commercial lease address."
+  },
+  {
+    "id": "task_5",
+    "title": "Set Up a Business Phone Number",
+    "category": "Business identity",
+    "priority": "Medium",
+    "description": "Get a dedicated business phone number (toll-free or local) and list it in the 411 directory.",
+    "whyItMatters": "Helps verify your business existence during credit checks.",
+    "suggestedNextStep": "Sign up for a VoIP service and register with 411."
+  },
+  {
+    "id": "task_6",
+    "title": "Create a Business Website & Domain Email",
+    "category": "Business identity",
+    "priority": "Medium",
+    "description": "Register a domain name, create a simple website, and set up an email address like name@yourcompany.com.",
+    "whyItMatters": "Shows lenders and vendors you are a legitimate, established business.",
+    "suggestedNextStep": "Buy a domain name and set up a basic landing page."
+  },
+  {
+    "id": "task_7",
+    "title": "Obtain DUNS Number",
+    "category": "Documentation readiness",
+    "priority": "High",
+    "description": "Register for a free Data Universal Numbering System (DUNS) number from Dun & Bradstreet.",
+    "whyItMatters": "It's the primary identifier for your business credit profile with D&B.",
+    "suggestedNextStep": "Apply for a DUNS number on the Dun & Bradstreet website."
+  },
+  {
+    "id": "task_8",
+    "title": "Apply for Business Licenses",
+    "category": "Documentation readiness",
+    "priority": "Low",
+    "description": "Acquire necessary local, state, or federal licenses for your industry.",
+    "whyItMatters": "Ensures you operate legally and can be verified by underwriters.",
+    "suggestedNextStep": "Check with your local city hall or county clerk."
+  },
+  {
+    "id": "task_9",
+    "title": "Apply for Tier 1 Vendors",
+    "category": "Vendor readiness",
+    "priority": "Medium",
+    "description": "Start building your credit file by applying for introductory net-30 accounts.",
+    "whyItMatters": "Establishes your initial payment history with credit bureaus.",
+    "suggestedNextStep": "Review the Vendor Tracker to find starter net-30 accounts."
+  }
+]

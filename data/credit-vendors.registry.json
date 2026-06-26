@@ -1,0 +1,26 @@
+[
+  {
+    "id": "v1",
+    "name": "Uline",
+    "tier": 1,
+    "category": "Retail",
+    "reports_to": ["Experian", "D&B"],
+    "terms": "Net 30",
+    "requires_pg": false,
+    "ein_only": true,
+    "min_time_in_business_months": 0,
+    "approval_notes": "Starter account, highly recommended."
+  },
+  {
+    "id": "v2",
+    "name": "Quill",
+    "tier": 1,
+    "category": "Retail",
+    "reports_to": ["D&B"],
+    "terms": "Net 30",
+    "requires_pg": false,
+    "ein_only": true,
+    "min_time_in_business_months": 0,
+    "approval_notes": "Verify current order requirements and bureau reporting behavior before relying on this account for planning."
+  }
+]
