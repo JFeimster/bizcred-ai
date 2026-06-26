@@ -8,7 +8,14 @@
     "inputFields": ["creditScoreRange", "monthlyRevenueRange", "timeInBusiness", "primaryGoal"],
     "outputTypes": ["readinessSummary", "gapList", "nextSteps"],
     "authMode": "none",
-    "status": "planned"
+    "status": "planned",
+    "persona": "SMB owner / funding broker",
+    "problem_keyword": "credit score vs cash flow",
+    "asset_type": "calculator",
+    "build_state": "planned",
+    "partner_channel": "direct / broker",
+    "recommended_stage": "funding_readiness",
+    "verification_status": "needs_review"
   },
   {
     "id": "vendor-readiness-checklist",
@@ -19,6 +26,13 @@
     "inputFields": ["entityType", "formationDate", "hasEin", "hasBankAccount", "hasDuns"],
     "outputTypes": ["checklist", "missingSignals", "cautionNotes"],
     "authMode": "none",
-    "status": "planned"
+    "status": "planned",
+    "persona": "startup / LLC owner",
+    "problem_keyword": "vendor credit readiness",
+    "asset_type": "checklist",
+    "build_state": "planned",
+    "partner_channel": "direct / affiliate",
+    "recommended_stage": "foundation",
+    "verification_status": "needs_review"
   }
 ]
