@@ -11,6 +11,8 @@ export const routes = [
   { path: '/funding-readiness', name: 'Funding Readiness' },
   { path: '/document-index', name: 'Document Index' },
   { path: '/denial-recovery', name: 'Denial Recovery' },
+  { path: '/imports', name: 'Imports' },
   { path: '/exports', name: 'Exports' },
+  { path: '/schemas', name: 'Schemas' },
   { path: '/settings', name: 'Settings' }
 ];
