@@ -1,0 +1,262 @@
+openapi: 3.1.0
+info:
+  title: BizCredit Builder API
+  description: |
+    A lightweight, read-only API to access vendor and readiness planning data for educational purposes.
+    Disclaimer: Readiness scoring is educational and does not guarantee approvals, funding, bureau reporting, tradelines, score changes, or lender outcomes. Vendor requirements and reporting behavior may change. Verify directly before applying or relying on reporting.
+  version: 1.0.0
+servers:
+  - url: https://your-production-url.vercel.app
+    description: Production server
+paths:
+  /api/health:
+    get:
+      operationId: getBizCreditApiHealth
+      summary: Health check endpoint
+      description: Returns the health status of the API service.
+      responses:
+        '200':
+          description: Successful health check response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  ok:
+                    type: boolean
+                  service:
+                    type: string
+                  version:
+                    type: string
+
+  /api/vendors:
+    get:
+      operationId: listBizCreditVendors
+      summary: List and filter vendors
+      description: Returns a filtered list of vendors for educational planning. Vendor requirements and reporting behavior may change. Verify directly before applying or relying on reporting.
+      parameters:
+        - name: tier
+          in: query
+          schema:
+            type: integer
+          description: Filter by vendor tier (e.g., 1, 2, 3)
+        - name: category
+          in: query
+          schema:
+            type: string
+          description: Filter by vendor category
+        - name: terms
+          in: query
+          schema:
+            type: string
+          description: Filter by credit terms (e.g., Net 30)
+        - name: reports_to
+          in: query
+          schema:
+            type: string
+          description: Filter by credit bureau the vendor reports to
+        - name: dnb_reporter
+          in: query
+          schema:
+            type: boolean
+          description: Filter vendors that report to Dun & Bradstreet
+        - name: requires_pg
+          in: query
+          schema:
+            type: boolean
+          description: Filter vendors requiring a personal guarantee
+        - name: ein_only
+          in: query
+          schema:
+            type: boolean
+          description: Filter vendors that only require an EIN
+        - name: min_time_in_business_months_lte
+          in: query
+          schema:
+            type: integer
+          description: Filter vendors by maximum required time in business (months)
+        - name: search
+          in: query
+          schema:
+            type: string
+          description: Search vendors by name or description
+        - name: limit
+          in: query
+          schema:
+            type: integer
+          description: Limit the number of returned vendors
+      responses:
+        '200':
+          description: Successful response with filtered vendor list
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VendorListResponse'
+
+  /api/vendor-by-id:
+    get:
+      operationId: getBizCreditVendorById
+      summary: Get a specific vendor by ID
+      description: Returns detailed information for a single vendor by ID. Verify terms directly before applying.
+      parameters:
+        - name: id
+          in: query
+          required: true
+          schema:
+            type: string
+          description: The ID of the vendor to retrieve
+      responses:
+        '200':
+          description: Successful response with vendor details
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/Vendor'
+                  disclaimer:
+                    type: string
+        '404':
+          description: Vendor not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+  /api/vendor-summary:
+    get:
+      operationId: getBizCreditVendorSummary
+      summary: Get summary statistics for vendors
+      description: Returns aggregated counts and statistics of available vendors for educational context.
+      responses:
+        '200':
+          description: Successful response with vendor summary data
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VendorSummaryResponse'
+
+  /api/readiness-rules:
+    get:
+      operationId: getBizCreditReadinessRules
+      summary: Get readiness scoring rules and setup tasks
+      description: Returns the criteria used for educational readiness scoring and the list of setup tasks. This does not guarantee credit approvals or funding.
+      responses:
+        '200':
+          description: Successful response with readiness rules and setup tasks
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ReadinessRulesResponse'
+
+components:
+  schemas:
+    Vendor:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        description:
+          type: string
+        tier:
+          type: integer
+        category:
+          type: string
+        terms:
+          type: string
+        requires_pg:
+          type: boolean
+        ein_only:
+          type: boolean
+        min_time_in_business_months:
+          type: integer
+        reports_to:
+          type: array
+          items:
+            type: string
+      required:
+        - id
+        - name
+
+    VendorListResponse:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Vendor'
+        meta:
+          type: object
+          properties:
+            total:
+              type: integer
+            returned:
+              type: integer
+            filters:
+              type: object
+        disclaimer:
+          type: string
+      required:
+        - data
+        - meta
+        - disclaimer
+
+    VendorSummaryResponse:
+      type: object
+      properties:
+        total_vendors:
+          type: integer
+        count_by_tier:
+          type: object
+          additionalProperties:
+            type: integer
+        count_by_category:
+          type: object
+          additionalProperties:
+            type: integer
+        count_by_terms:
+          type: object
+          additionalProperties:
+            type: integer
+        count_by_bureau:
+          type: object
+          additionalProperties:
+            type: integer
+        count_requiring_pg:
+          type: integer
+        count_ein_only:
+          type: integer
+        count_reporting_to_dnb:
+          type: integer
+        disclaimer:
+          type: string
+      required:
+        - total_vendors
+        - disclaimer
+
+    ReadinessRulesResponse:
+      type: object
+      properties:
+        setup_tasks:
+          type: array
+          items:
+            type: object
+        readiness_rules:
+          type: object
+        disclaimer:
+          type: string
+      required:
+        - setup_tasks
+        - readiness_rules
+        - disclaimer
+
+    ErrorResponse:
+      type: object
+      properties:
+        error:
+          type: string
+      required:
+        - error

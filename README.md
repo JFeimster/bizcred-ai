@@ -157,6 +157,17 @@ Use an Embed element. Carrd works best with a hosted iframe version.
 ></iframe>
 ```
 
+## Phase 2: GPT Actions & API Endpoints
+
+A set of read-only serverless API endpoints has been added to the `/api` directory to allow a Custom GPT to fetch live vendor data and readiness rules.
+
+- **Endpoints:** `/api/health`, `/api/vendors`, `/api/vendor-by-id`, `/api/vendor-summary`, and `/api/readiness-rules`.
+- **OpenAPI Schema:** Located at `actions/bizcredit-builder.openapi.yaml`.
+- **Usage:** The Custom GPT uses these endpoints through OpenAI Actions to answer user queries with up-to-date repository data.
+- **Architecture Rules:** The static browser frontend does **not** call the Custom GPT or expose OpenAI API keys. The communication flow is strictly: User -> ChatGPT -> Custom GPT Actions -> `/api` Endpoints.
+
+See `docs/GPT-ACTIONS-SETUP.md` for deployment and integration instructions.
+
 ## Compliance note
 
 This page intentionally avoids fake testimonials, approval guarantees, score-change promises, credit repair claims, and lender/funding guarantees. It positions BizCredit Builder as an educational planning assistant.
