@@ -1,0 +1,32 @@
+[
+  {
+    "id": "uline",
+    "slug": "uline",
+    "name": "Uline",
+    "category": "Office / Supplies",
+    "tier": 1,
+    "terms": "Net 30",
+    "reportsTo": ["D&B"],
+    "startupFriendly": true,
+    "requiresDuns": false,
+    "requiresBankAccount": true,
+    "hasFees": false,
+    "verificationStatus": "needs_review",
+    "cautionNote": "Verify requirements, fees, terms, and reporting directly before relying on this vendor."
+  },
+  {
+    "id": "quill",
+    "slug": "quill",
+    "name": "Quill",
+    "category": "Office / Supplies",
+    "tier": 1,
+    "terms": "Net 30",
+    "reportsTo": ["D&B"],
+    "startupFriendly": true,
+    "requiresDuns": false,
+    "requiresBankAccount": true,
+    "hasFees": false,
+    "verificationStatus": "needs_review",
+    "cautionNote": "Verify requirements, fees, terms, and reporting directly before relying on this vendor."
+  }
+]
