@@ -1,0 +1,12 @@
+[
+  {
+    "id": "bizcredit-builder-gpt",
+    "name": "BizCredit Builder GPT",
+    "url": "https://chatgpt.com/g/g-6836dda9d7e881918dd6018226121e03-credit-builder-gpt",
+    "category": "Business Credit Readiness",
+    "audience": ["Entrepreneurs", "LLC Owners", "Small Business Operators"],
+    "description": "Educational assistant for organizing business-credit setup, readiness gaps, and next-step prompts.",
+    "useCases": ["Readiness audit", "Vendor research prep", "Next-step checklist"],
+    "status": "published"
+  }
+]

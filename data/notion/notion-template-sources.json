@@ -1,0 +1,10 @@
+[
+  {
+    "id": "bizcredit-builder-gpt-page",
+    "name": "BizCredit Builder GPT",
+    "url": "https://feimster.notion.site/bizcredit-builder-gpt",
+    "objectType": "page",
+    "mappedRegistry": "custom-gpts",
+    "notes": "Source reference for page, file, action, and tool planning."
+  }
+]

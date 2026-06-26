@@ -1,0 +1,23 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://bizcred-ai.local/schemas/vendor-directory.schema.json",
+  "title": "VendorDirectoryEntry",
+  "type": "object",
+  "required": ["id", "slug", "name", "category", "tier", "reportsTo", "startupFriendly", "verificationStatus", "cautionNote"],
+  "properties": {
+    "id": { "type": "string" },
+    "slug": { "type": "string" },
+    "name": { "type": "string" },
+    "category": { "type": "string" },
+    "tier": { "type": "integer" },
+    "terms": { "type": "string" },
+    "reportsTo": { "type": "array", "items": { "type": "string" } },
+    "startupFriendly": { "type": "boolean" },
+    "requiresDuns": { "type": "boolean" },
+    "requiresBankAccount": { "type": "boolean" },
+    "hasFees": { "type": "boolean" },
+    "verificationStatus": { "enum": ["needs_review", "verified", "unverified"] },
+    "cautionNote": { "type": "string" }
+  },
+  "additionalProperties": false
+}

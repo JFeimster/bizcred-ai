@@ -5,3 +5,10 @@ export interface RoadmapStep {
   description: string;
   isComplete: boolean;
 }
+
+export interface Roadmap {
+  id: string;
+  items: RoadmapStep[];
+  createdAt?: string;
+  updatedAt?: string;
+}

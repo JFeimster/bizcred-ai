@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://bizcred-ai.local/schemas/passport.schema.json",
+  "title": "Passport",
+  "type": "object",
+  "required": ["id", "foundationScore", "vendorReadinessScore", "fundingReadinessScore", "milestones", "updatedAt"],
+  "properties": {
+    "id": { "type": "string" },
+    "businessProfileId": { "type": "string" },
+    "foundationScore": { "type": "number" },
+    "vendorReadinessScore": { "type": "number" },
+    "fundingReadinessScore": { "type": "number" },
+    "milestones": { "type": "array", "items": { "type": "object" } },
+    "updatedAt": { "type": "string" }
+  },
+  "additionalProperties": true
+}

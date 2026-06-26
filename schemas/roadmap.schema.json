@@ -1,0 +1,25 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://bizcred-ai.local/schemas/roadmap.schema.json",
+  "title": "Roadmap",
+  "type": "object",
+  "required": ["id", "items"],
+  "properties": {
+    "id": { "type": "string" },
+    "items": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "phase", "title", "description", "isComplete"],
+        "properties": {
+          "id": { "type": "string" },
+          "phase": { "type": "string" },
+          "title": { "type": "string" },
+          "description": { "type": "string" },
+          "isComplete": { "type": "boolean" }
+        }
+      }
+    }
+  },
+  "additionalProperties": true
+}

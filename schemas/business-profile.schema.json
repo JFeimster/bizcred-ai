@@ -1,0 +1,23 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://bizcred-ai.local/schemas/business-profile.schema.json",
+  "title": "BusinessProfile",
+  "type": "object",
+  "required": ["businessName", "entityType", "formationDate", "hasEin", "hasBusinessBankAccount"],
+  "properties": {
+    "businessName": { "type": "string" },
+    "entityType": { "type": "string" },
+    "formationDate": { "type": "string" },
+    "businessLicense": { "type": "boolean" },
+    "monthlyRevenueRange": { "type": "string" },
+    "primaryGoal": { "type": "string" },
+    "hasEin": { "type": "boolean" },
+    "hasBusinessBankAccount": { "type": "boolean" },
+    "hasBusinessAddress": { "type": "boolean" },
+    "hasBusinessPhone": { "type": "boolean" },
+    "hasWebsite": { "type": "boolean" },
+    "hasDomainEmail": { "type": "boolean" },
+    "hasDuns": { "type": "boolean" }
+  },
+  "additionalProperties": true
+}
