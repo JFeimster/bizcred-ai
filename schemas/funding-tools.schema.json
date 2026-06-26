@@ -1,0 +1,19 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://bizcred-ai.local/schemas/funding-tools.schema.json",
+  "title": "FundingToolRegistryEntry",
+  "type": "object",
+  "required": ["id", "name", "slug", "category", "description", "inputFields", "outputTypes", "authMode", "status"],
+  "properties": {
+    "id": { "type": "string" },
+    "name": { "type": "string" },
+    "slug": { "type": "string" },
+    "category": { "type": "string" },
+    "description": { "type": "string" },
+    "inputFields": { "type": "array", "items": { "type": "string" } },
+    "outputTypes": { "type": "array", "items": { "type": "string" } },
+    "authMode": { "enum": ["none", "api_key", "oauth"] },
+    "status": { "enum": ["planned", "active", "archived"] }
+  },
+  "additionalProperties": false
+}
