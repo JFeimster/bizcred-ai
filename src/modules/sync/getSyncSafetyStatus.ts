@@ -1,4 +1,4 @@
-import { DashboardSyncTarget, DashboardSyncSafetyStatus } from '../../types/dashboardSnapshot';
+import type { DashboardSyncTarget, DashboardSyncSafetyStatus } from '../../types/dashboardSnapshot';
 
 export function getSyncSafetyStatus(target: DashboardSyncTarget): DashboardSyncSafetyStatus {
   switch (target) {
