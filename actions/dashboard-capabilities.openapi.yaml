@@ -14,11 +14,11 @@ paths:
   /api/dashboard-capabilities:
     get:
       operationId: getBizCreditDashboardCapabilities
-      summary: Get the app's read-only capabilities catalog
+      summary: Get the app's read-only capabilities and action manifest catalog
       description: >
         Returns a read-only catalog of what the BizCredit OS app can do, active modules,
-        browser-only workflows, and future gated workflows. This endpoint does not read user data
-        and does not perform sync.
+        browser-only workflows, future gated workflows, and OpenAPI action manifest metadata.
+        This endpoint does not read user data and does not perform sync.
       responses:
         '200':
           description: Capabilities catalog successfully returned
@@ -29,25 +29,31 @@ paths:
         '405':
           description: Method not allowed
 
-  /api/action-manifest:
-    get:
-      operationId: getBizCreditActionManifest
-      summary: Get the list of OpenAPI action schemas
-      description: >
-        Returns a read-only list of available, secondary, legacy, and future OpenAPI action schemas.
-        This endpoint does not create, import, or sync schemas.
-      responses:
-        '200':
-          description: Action manifest successfully returned
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ActionManifestResponse'
-        '405':
-          description: Method not allowed
-
 components:
   schemas:
+    ActionManifestItem:
+      type: object
+      properties:
+        file:
+          type: string
+        status:
+          type: string
+          enum: [canonical, secondary, legacy_reference, future_do_not_create_yet]
+        safeForNoAuth:
+          type: boolean
+        endpointFamily:
+          type: string
+        importIntoGPT:
+          type: boolean
+        notes:
+          type: string
+      required:
+        - file
+        - status
+        - safeForNoAuth
+        - endpointFamily
+        - importIntoGPT
+
     DashboardCapabilitiesResponse:
       type: object
       properties:
@@ -69,6 +75,10 @@ components:
           type: array
           items:
             type: string
+        actionManifest:
+          type: array
+          items:
+            $ref: '#/components/schemas/ActionManifestItem'
         browserOnlyWorkflows:
           type: array
           items:
@@ -97,43 +107,8 @@ components:
         - mode
         - activePages
         - readOnlyApis
+        - actionManifest
         - browserOnlyWorkflows
         - futureGatedWorkflows
         - safety
-        - disclaimer
-
-    ActionManifestItem:
-      type: object
-      properties:
-        file:
-          type: string
-        status:
-          type: string
-          enum: [canonical, secondary, legacy_reference, future_do_not_create_yet]
-        safeForNoAuth:
-          type: boolean
-        endpointFamily:
-          type: string
-        importIntoGPT:
-          type: boolean
-        notes:
-          type: string
-      required:
-        - file
-        - status
-        - safeForNoAuth
-        - endpointFamily
-        - importIntoGPT
-
-    ActionManifestResponse:
-      type: object
-      properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/ActionManifestItem'
-        disclaimer:
-          type: string
-      required:
-        - data
         - disclaimer
