@@ -1,4 +1,4 @@
-import { DashboardSnapshot } from '../../types/dashboardSnapshot';
+import type { DashboardSnapshot } from '../../types/dashboardSnapshot';
 
 export interface DashboardSyncSummary {
   sectionCount: number;
@@ -17,7 +17,7 @@ export function generateDashboardSyncSummary(snapshot: DashboardSnapshot): Dashb
 
   for (const [key, value] of Object.entries(snapshot.sections)) {
     if (value !== null && value !== undefined) {
-      sectionCount++;
+      sectionCount += 1;
 
       if (key === 'tradelines' && Array.isArray(value)) {
         tradelineCount = value.length;
