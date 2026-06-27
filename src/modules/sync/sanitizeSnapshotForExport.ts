@@ -1,8 +1,9 @@
-import { DashboardSnapshot } from '../../types/dashboardSnapshot';
+import type { DashboardSnapshot } from '../../types/dashboardSnapshot';
 
 const SENSITIVE_KEY_PATTERNS = [
   /token/i,
   /apikey/i,
+  /api_key/i,
   /secret/i,
   /password/i,
   /authorization/i,
@@ -10,30 +11,35 @@ const SENSITIVE_KEY_PATTERNS = [
 ];
 
 function isSensitiveKey(key: string): boolean {
-  return SENSITIVE_KEY_PATTERNS.some(pattern => pattern.test(key));
+  return SENSITIVE_KEY_PATTERNS.some((pattern) => pattern.test(key));
 }
 
-function sanitizeObject(obj: any): any {
-  if (obj === null || typeof obj !== 'object') {
-    return obj;
+function isPlainRecord(value: unknown): value is Record<string, unknown> {
+  return value !== null && typeof value === 'object' && !Array.isArray(value);
+}
+
+function sanitizeObject(value: unknown): unknown {
+  if (Array.isArray(value)) {
+    return value.map((item) => sanitizeObject(item));
   }
 
-  if (Array.isArray(obj)) {
-    return obj.map(item => sanitizeObject(item));
+  if (!isPlainRecord(value)) {
+    return value;
   }
 
-  const sanitized: any = {};
-  for (const [key, value] of Object.entries(obj)) {
+  const sanitized: Record<string, unknown> = {};
+  for (const [key, nestedValue] of Object.entries(value)) {
     if (!isSensitiveKey(key)) {
-      sanitized[key] = sanitizeObject(value);
+      sanitized[key] = sanitizeObject(nestedValue);
     }
   }
+
   return sanitized;
 }
 
 export function sanitizeSnapshotForExport(snapshot: DashboardSnapshot): DashboardSnapshot {
   return {
     meta: snapshot.meta,
-    sections: sanitizeObject(snapshot.sections)
+    sections: sanitizeObject(snapshot.sections) as DashboardSnapshot['sections']
   };
 }
