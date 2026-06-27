@@ -1,6 +1,6 @@
 import { readLocal } from '../../storage/localStorageClient';
 import { STORAGE_KEYS } from '../../storage/storageKeys';
-import { DashboardSnapshot } from '../../types/dashboardSnapshot';
+import type { DashboardSnapshot } from '../../types/dashboardSnapshot';
 
 export function buildDashboardSnapshot(): DashboardSnapshot {
   const meta = {
@@ -19,13 +19,12 @@ export function buildDashboardSnapshot(): DashboardSnapshot {
     sections.alerts = readLocal(STORAGE_KEYS.alerts, null);
     sections.imports = readLocal(STORAGE_KEYS.importJobs, null);
 
-    // Defaulting other sections to null since they might not be fully wired up in STORAGE_KEYS yet
     sections.exports = readLocal('bizcredit.v1.exports', null);
     sections.fundingTools = readLocal('bizcredit.v1.fundingTools', null);
     sections.customGpts = readLocal('bizcredit.v1.customGpts', null);
     sections.notionTemplateSources = readLocal('bizcredit.v1.notionTemplateSources', null);
   } catch {
-    // Ensuring we never throw into the UI
+    // Keep snapshot generation safe if storage is unavailable.
   }
 
   return {
