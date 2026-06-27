@@ -103,7 +103,7 @@ const actionManifest = [
   }
 ];
 
-module.exports = async (req, res) => {
+export default async function handler(req, res) {
   setCorsHeaders(res);
 
   if (req.method === 'OPTIONS') {
@@ -183,4 +183,4 @@ module.exports = async (req, res) => {
     },
     disclaimer: 'Educational planning only. No guarantees for approval, funding, reporting, tradelines, score changes, or lender outcomes. Verify vendor terms directly before applying.'
   });
-};
+}
