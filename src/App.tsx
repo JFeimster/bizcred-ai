@@ -20,6 +20,7 @@ import ExportsPage from './pages/ExportsPage';
 import SchemasPage from './pages/SchemasPage';
 import FundingToolsPage from './pages/FundingToolsPage';
 import GptDirectoryPage from './pages/GptDirectoryPage';
+import NotionSyncPage from './pages/NotionSyncPage';
 
 function App() {
   const [currentPage, setCurrentPage] = useState('business-hq');
@@ -56,6 +57,8 @@ function App() {
         return <FundingToolsPage />;
       case 'gpt-directory':
         return <GptDirectoryPage />;
+      case 'notion-sync':
+        return <NotionSyncPage />;
       default:
         return <BusinessHqPage />;
     }
@@ -74,6 +77,7 @@ function App() {
           <button className={`sidebar-link ${currentPage === 'roadmap' ? 'active' : ''}`} onClick={() => setCurrentPage('roadmap')}>Roadmap</button>
           <button className={`sidebar-link ${currentPage === 'funding-tools' ? 'active' : ''}`} onClick={() => setCurrentPage('funding-tools')}>Funding Tools</button>
           <button className={`sidebar-link ${currentPage === 'gpt-directory' ? 'active' : ''}`} onClick={() => setCurrentPage('gpt-directory')}>GPT Directory</button>
+          <button className={`sidebar-link ${currentPage === 'notion-sync' ? 'active' : ''}`} onClick={() => setCurrentPage('notion-sync')}>Notion Bridge</button>
           <button className={`sidebar-link ${currentPage === 'imports' ? 'active' : ''}`} onClick={() => setCurrentPage('imports')}>Imports</button>
           <button className={`sidebar-link ${currentPage === 'exports' ? 'active' : ''}`} onClick={() => setCurrentPage('exports')}>Exports</button>
           <button className={`sidebar-link ${currentPage === 'schemas' ? 'active' : ''}`} onClick={() => setCurrentPage('schemas')}>Schemas</button>

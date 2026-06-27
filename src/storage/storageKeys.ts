@@ -5,7 +5,8 @@ export const STORAGE_KEYS = {
   roadmap: 'bizcredit.v1.roadmap',
   alerts: 'bizcredit.v1.alerts',
   importJobs: 'bizcredit.v1.importJobs',
-  settings: 'bizcredit.v1.settings'
+  settings: 'bizcredit.v1.settings',
+  notionTemplateSources: 'bizcredit.v1.notionTemplateSources'
 } as const;
 
 export type StorageKey = typeof STORAGE_KEYS[keyof typeof STORAGE_KEYS];
@@ -17,5 +18,6 @@ export const LEGACY_STORAGE_KEYS = {
   ROADMAP: STORAGE_KEYS.roadmap,
   ALERTS: STORAGE_KEYS.alerts,
   IMPORT_JOBS: STORAGE_KEYS.importJobs,
-  SETTINGS: STORAGE_KEYS.settings
+  SETTINGS: STORAGE_KEYS.settings,
+  NOTION_TEMPLATE_SOURCES: STORAGE_KEYS.notionTemplateSources
 } as const;

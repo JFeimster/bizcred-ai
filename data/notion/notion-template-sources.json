@@ -1,10 +1,32 @@
 [
   {
-    "id": "bizcredit-builder-gpt-page",
-    "name": "BizCredit Builder GPT",
+    "id": "notion-src-seed-1",
+    "name": "BizCredit Builder GPT Reference",
     "url": "https://feimster.notion.site/bizcredit-builder-gpt",
-    "objectType": "page",
-    "mappedRegistry": "custom-gpts",
-    "notes": "Source reference for page, file, action, and tool planning."
+    "sourceType": "other",
+    "accessMode": "public_copy_link",
+    "syncEnabled": false,
+    "notes": "Source reference for page, file, action, and tool planning.",
+    "createdAt": "2024-05-18T12:00:00.000Z"
+  },
+  {
+    "id": "notion-src-seed-2",
+    "name": "Business HQ Template",
+    "url": "https://notion.so/placeholder-business-hq",
+    "sourceType": "business_hq",
+    "accessMode": "public_copy_link",
+    "syncEnabled": false,
+    "notes": "A placeholder link to duplicate the Business HQ template.",
+    "createdAt": "2024-05-18T12:01:00.000Z"
+  },
+  {
+    "id": "notion-src-seed-3",
+    "name": "BizCredit Passport Export",
+    "url": "https://notion.so/placeholder-passport",
+    "sourceType": "bizcredit_passport",
+    "accessMode": "exported_markdown",
+    "syncEnabled": false,
+    "notes": "Export this periodically as Markdown and import to update Passport readiness.",
+    "createdAt": "2024-05-18T12:02:00.000Z"
   }
 ]

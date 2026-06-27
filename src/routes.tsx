@@ -16,5 +16,6 @@ export const routes = [
   { path: '/schemas', name: 'Schemas' },
   { path: '/funding-tools', name: 'Funding Tools' },
   { path: '/gpt-directory', name: 'GPT Directory' },
+  { path: '/notion-sync', name: 'Notion Bridge' },
   { path: '/settings', name: 'Settings' }
 ];
